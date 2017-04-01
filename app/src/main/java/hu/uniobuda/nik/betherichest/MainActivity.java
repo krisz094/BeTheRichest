@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     int money = 0;
     int burgerPrice = 5;
 
-    Game game = new Game();
+    Game game = Game.Get();
 
     TextView currentMoneyLabel;
     TextView burgerPriceLabel;

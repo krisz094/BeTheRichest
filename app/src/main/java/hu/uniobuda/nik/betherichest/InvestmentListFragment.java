@@ -35,7 +35,9 @@ public class InvestmentListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        List<Investment> investments = InvestmentFactory.CreateInvestments();
+
+        Game game = Game.Get();
+        List<Investment> investments = game.GetInvestments();
 
         final InvestmentAdapter adapter = new InvestmentAdapter(investments);
     }

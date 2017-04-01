@@ -10,22 +10,24 @@ import android.os.Parcelable;
  */
 
 
-public class Investment implements Parcelable {
+public class Investment {
     String name;
     int basePrice;
     double baseDpS;
     String description;
     int id;
     int[] relevantUpgradeIDs;
+    Game currentGame;
     final double coeff = 1.05;
 
-    public Investment(int id,String name, int basePrice, double baseDpS, String description, int[] relevantUpgradeIDs) {
+    public Investment(int id, String name, int basePrice, double baseDpS, String description, int[] relevantUpgradeIDs, Game currentGame) {
         this.id = id;
         this.name = name;
         this.basePrice = basePrice;
         this.baseDpS = baseDpS;
         this.description = description;
         this.relevantUpgradeIDs = relevantUpgradeIDs;
+        this.currentGame = currentGame;
     }
 
     public String getDescription() {
@@ -36,44 +38,37 @@ public class Investment implements Parcelable {
         return name;
     }
 
-
-    public int getPriceForRank(int rank) {
-
-        return (int)Math.round(basePrice * Math.pow(coeff,rank));
-    }
-    public double getMPSForRank(int rank) {
-        return baseDpS * rank;
-    }
-
-    public Investment(Parcel in) {
-        name = in.readString();
-        basePrice = Integer.parseInt(in.readString());
-        baseDpS = Double.parseDouble(in.readString());
-        description = in.readString();
+    /**
+     * Gets the current rank of this investment
+     *
+     * @return Current rank
+     */
+    public int GetRank() {
+        return currentGame.gameState.GetInvestmentRankById(id);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public int GetPrice() {
+        return (int) Math.round(basePrice * Math.pow(coeff, GetRank()));
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(String.valueOf(basePrice));
-        dest.writeString(String.valueOf(baseDpS));
-        dest.writeString(description);
-    }
-
-    public static final Creator<Investment> CREATOR = new Creator<Investment>() {
-        @Override
-        public Investment createFromParcel(Parcel in) {
-            return new Investment(in);
+    /**
+     * Gets money made by this investment per second, including the effect of upgrades
+     *
+     * @return Money Made Per Second
+     */
+    public Double GetMoneyPerSec() {
+        Double MPS = Double.valueOf(GetRank() * baseDpS);
+        for (Integer ID : relevantUpgradeIDs) {
+            if (currentGame.gameState.GetUpgradeBoughtById(ID)) {
+                MPS = currentGame.upgrades.get(ID).Execute(MPS);
+            }
         }
+        return MPS;
+    }
 
-        @Override
-        public Investment[] newArray(int size) {
-            return new Investment[size];
-        }
-    };
+    public boolean IsBuyable() {
+        return currentGame.gameState.currentMoney >= GetPrice();
+    }
+
+
 }

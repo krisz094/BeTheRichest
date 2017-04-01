@@ -12,7 +12,7 @@ import hu.uniobuda.nik.betherichest.Effects.DoublerEffect;
 
 public class UpgradeFactory {
 
-    public static HashMap<Integer,Upgrade> CreateUpgrades() {
+    public static HashMap<Integer,Upgrade> CreateUpgrades(Game currentGame) {
         HashMap<Integer,Upgrade> map = new HashMap<>();
 
         map.put(0,new Upgrade(
@@ -20,7 +20,8 @@ public class UpgradeFactory {
                 "something",            //NAME
                 "costs 100, has a doubling effect",  //DESCRIPTION
                 100,                    //PRICE
-                new DoublerEffect()     //EFFECT
+                new DoublerEffect(),     //EFFECT
+                currentGame
         ));
 
         map.put(1,new Upgrade(
@@ -28,7 +29,8 @@ public class UpgradeFactory {
                 "something2",
                 "costs 500 money, has a doubling effect",
                 500,
-                new DoublerEffect()
+                new DoublerEffect(),
+                currentGame
         ));
 
         map.put(2,new Upgrade(
@@ -36,7 +38,8 @@ public class UpgradeFactory {
                 "double click",
                 "costs 1000 money, has a doubling effect",
                 1000,
-                new DoublerEffect()
+                new DoublerEffect(),
+                currentGame
         ));
 
 

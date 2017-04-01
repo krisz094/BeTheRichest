@@ -25,15 +25,17 @@ class State {
     public Boolean GetUpgradeBoughtById(int id) {
         return UpgradeIdUnlocked.get(id);
     }
+
     public void SetUpgradeAsBought(int id) {
-        UpgradeIdUnlocked.put(id,true);
+        UpgradeIdUnlocked.put(id, true);
     }
 
     public int GetInvestmentRankById(int id) {
         return InvestmentIdRank.get(id);
     }
+
     public void SetInvestmentRankById(int id, int rank) {
-        InvestmentIdRank.put(id,rank);
+        InvestmentIdRank.put(id, rank);
     }
 
     public void SaveState() {
@@ -47,19 +49,28 @@ class State {
 
 public class Game {
 
+    private static Game instance;
+
+    public static Game Get() {
+        if (instance == null) {
+            instance = new Game();
+        }
+        return instance;
+    }
+
     protected State gameState;
     protected Double moneyPerSec;
     protected Double moneyPerClick;
-    protected HashMap<Integer,Upgrade> upgrades;
-    protected HashMap<Integer,Investment> investments;
-    protected final int[] clickRelevantUpgradeIDs = { 2 }; //upgrade IDs that affect clicking
+    protected HashMap<Integer, Upgrade> upgrades;
+    protected HashMap<Integer, Investment> investments;
+    protected final int[] clickRelevantUpgradeIDs = {2}; //upgrade IDs that affect clicking
 
-    public Game() {
+    private Game() {
         gameState = new State();
         moneyPerSec = 0d;
         moneyPerClick = 1d;
-        upgrades = UpgradeFactory.CreateUpgrades();
-        investments = InvestmentFactory.CreateInvestments();
+        upgrades = UpgradeFactory.CreateUpgrades(this);
+        investments = InvestmentFactory.CreateInvestments(this);
 
         gameState.LoadState();
         RecalcMoneyPerSec();
@@ -79,6 +90,7 @@ public class Game {
     public Double GetMoneyPerSec() {
         return moneyPerSec;
     }
+
     public Double GetMoneyPerClick() {
         return moneyPerClick;
     }
@@ -86,6 +98,7 @@ public class Game {
     public List<Investment> GetInvestments() {
         return new ArrayList<>(investments.values());
     }
+
     public List<Upgrade> GetUpgrades() {
         return new ArrayList<>(upgrades.values());
     }
@@ -97,6 +110,7 @@ public class Game {
         RecalcMoneyPerSec();
         RecalcMoneyPerClick();
     }
+
     public void BuyInvestment(Integer id, Integer howManyRanks) {
         Integer currRank = gameState.GetInvestmentRankById(id);
         currRank += howManyRanks;
@@ -107,6 +121,29 @@ public class Game {
         RecalcMoneyPerClick();
     }
 
+
+    protected void RecalcMoneyPerSec() {
+        Double money = 0d;
+        for (Investment inv : investments.values()) {
+            money += inv.GetMoneyPerSec();
+        }
+        moneyPerSec = money;
+    }
+
+    protected void RecalcMoneyPerClick() {
+        Double money = 1d;
+
+        for (Integer upgradeID : clickRelevantUpgradeIDs) {
+            if (gameState.GetUpgradeBoughtById(upgradeID)) {
+                money = upgrades.get(upgradeID).Execute(money);
+            }
+        }
+
+        moneyPerClick = money;
+    }
+
+    //OLD METHOD
+    /*
     protected double getInvestmentMoneyPerSec(Investment investment) {
         //first we have to get the MPS of the investment itself
         double MPS = investment.getMPSForRank(gameState.GetInvestmentRankById(investment.id));
@@ -121,6 +158,7 @@ public class Game {
         return MPS;
     }
 
+
     protected void RecalcMoneyPerSec() {
         Double money = 0d;
         for(Investment inv: investments.values()) {
@@ -128,17 +166,5 @@ public class Game {
         }
         moneyPerSec = money;
     }
-
-    protected void RecalcMoneyPerClick() {
-        Double money = 1d;
-
-        for(Integer upgradeID: clickRelevantUpgradeIDs) {
-            if (gameState.GetUpgradeBoughtById(upgradeID)) {
-                money = upgrades.get(upgradeID).Execute(money);
-            }
-        }
-
-        moneyPerClick = money;
-    }
-
+    */
 }

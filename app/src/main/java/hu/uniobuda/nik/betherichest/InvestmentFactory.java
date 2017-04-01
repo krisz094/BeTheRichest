@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class InvestmentFactory {
 
-    public static HashMap<Integer,Investment> CreateInvestments() {
+    public static HashMap<Integer,Investment> CreateInvestments(Game currentGame) {
         HashMap<Integer,Investment> map = new HashMap<>();
 
         map.put(0,new Investment(
@@ -20,7 +20,8 @@ public class InvestmentFactory {
                 15,     //BASE PRICE
                 0.1,    //BASE MONEY PER SECOND
                 "Put your money into the bank, for a small amount of interest.", //DESCRIPTION
-                new int[] {0}   //UPGRADES THAT AFFECT THIS INVESTMENT
+                new int[] {0},   //UPGRADES THAT AFFECT THIS INVESTMENT
+                currentGame
         ));
 
         map.put(1,new Investment(
@@ -29,7 +30,8 @@ public class InvestmentFactory {
                 15,
                 0.1,
                 "Make delicious hamburgers on the street, to get some money from hungry people.",
-                new int[] {1}
+                new int[] {1},
+                currentGame
         ));
 
         return map;
