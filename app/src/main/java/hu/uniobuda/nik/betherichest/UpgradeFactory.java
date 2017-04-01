@@ -1,6 +1,7 @@
 package hu.uniobuda.nik.betherichest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import hu.uniobuda.nik.betherichest.Effects.DoublerEffect;
@@ -10,9 +11,36 @@ import hu.uniobuda.nik.betherichest.Effects.DoublerEffect;
  */
 
 public class UpgradeFactory {
-    public static List<Upgrade> GetUpgrades() {
-        List<Upgrade> list = new ArrayList<>();
-        list.add(new Upgrade("valami","100ba kerül, 0 id-jű dolgot megduplázza", 100,0, new DoublerEffect()));
-        return list;
+
+    public static HashMap<Integer,Upgrade> CreateUpgrades() {
+        HashMap<Integer,Upgrade> map = new HashMap<>();
+
+        map.put(0,new Upgrade(
+                0,                      //ID
+                "something",            //NAME
+                "costs 100, has a doubling effect",  //DESCRIPTION
+                100,                    //PRICE
+                new DoublerEffect()     //EFFECT
+        ));
+
+        map.put(1,new Upgrade(
+                1,
+                "something2",
+                "costs 500 money, has a doubling effect",
+                500,
+                new DoublerEffect()
+        ));
+
+        map.put(2,new Upgrade(
+                2,
+                "double click",
+                "costs 1000 money, has a doubling effect",
+                1000,
+                new DoublerEffect()
+        ));
+
+
+        return map;
     }
+
 }

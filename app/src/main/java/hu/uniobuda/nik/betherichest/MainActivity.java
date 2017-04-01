@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     int money = 0;
     int burgerPrice = 5;
 
-    State state = State.Get();
+    Game game = new Game();
 
     TextView currentMoneyLabel;
     TextView burgerPriceLabel;
@@ -25,14 +25,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         InvestmentListFragment fragment = InvestmentListFragment.newInstance();
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
-
+*/
         currentMoneyLabel = (TextView) findViewById(R.id.dollars);
         currentMoneyLabel.setText(Integer.toString(money));
         burgerPriceLabel = (TextView) findViewById(R.id.burgerPrice);

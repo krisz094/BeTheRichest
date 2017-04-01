@@ -15,19 +15,17 @@ public class Investment implements Parcelable {
     int basePrice;
     double baseDpS;
     String description;
-    int rank;
+    int id;
+    int[] relevantUpgradeIDs;
     final double coeff = 1.05;
 
-    public Investment(String name, int basePrice, double baseDpS, String description) {
+    public Investment(int id,String name, int basePrice, double baseDpS, String description, int[] relevantUpgradeIDs) {
+        this.id = id;
         this.name = name;
         this.basePrice = basePrice;
         this.baseDpS = baseDpS;
         this.description = description;
-        rank = 0;
-    }
-
-    public void Buy() {
-        rank++;
+        this.relevantUpgradeIDs = relevantUpgradeIDs;
     }
 
     public String getDescription() {
@@ -38,11 +36,12 @@ public class Investment implements Parcelable {
         return name;
     }
 
-    public int getPrice() {
+
+    public int getPriceForRank(int rank) {
 
         return (int)Math.round(basePrice * Math.pow(coeff,rank));
     }
-    public double getDps() {
+    public double getMPSForRank(int rank) {
         return baseDpS * rank;
     }
 

@@ -7,28 +7,21 @@ package hu.uniobuda.nik.betherichest;
 public class Upgrade {
 
 
-    public Upgrade(String name, String description, int price, int affectedId, IEffectable effect) {
+    public Upgrade(int id,String name, String description, int price, IEffectable effect) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.affectedId = affectedId;
         this.effect = effect;
-        bought = false;
     }
-
-    public void Buy() {
-        bought = true;
-    }
-
-    public boolean isBought() {
-        return bought;
-    }
-
+    int id;
     String name;
     String description;
     int price;
-    int affectedId;
     IEffectable effect;
-    boolean bought;
+
+    public double Execute(double input) {
+        return effect.Effect(input);
+    }
 }
 

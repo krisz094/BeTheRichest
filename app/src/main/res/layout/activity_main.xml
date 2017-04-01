@@ -23,7 +23,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="160dp"
-        app:srcCompat="@drawable/dollar"
+
         android:onClick="counter"
         android:id="@+id/imageView"
         android:layout_marginTop="22dp"
@@ -35,7 +35,7 @@
         android:onClick="burgerCounter"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:srcCompat="@drawable/burger"
+
         android:id="@+id/imageView2"
         android:layout_marginBottom="75dp"
         android:layout_alignParentBottom="true"
