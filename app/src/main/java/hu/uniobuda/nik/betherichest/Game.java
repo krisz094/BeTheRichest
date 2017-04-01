@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by krisz on 2017. 04. 01..
@@ -23,6 +25,7 @@ class State {
     }
 
     public Boolean GetUpgradeBoughtById(int id) {
+        if (UpgradeIdUnlocked.get(id) == null) return false;
         return UpgradeIdUnlocked.get(id);
     }
 
@@ -31,6 +34,7 @@ class State {
     }
 
     public int GetInvestmentRankById(int id) {
+        if (InvestmentIdRank.get(id) == null) return 0;
         return InvestmentIdRank.get(id);
     }
 
@@ -64,8 +68,10 @@ public class Game {
     protected HashMap<Integer, Upgrade> upgrades;
     protected HashMap<Integer, Investment> investments;
     protected final int[] clickRelevantUpgradeIDs = {2, 3}; //upgrade IDs that affect clicking
+    protected Timer T;
 
     private Game() {
+        T = new Timer();
         gameState = new State();
         moneyPerSec = 0d;
         moneyPerClick = 1d;
@@ -75,9 +81,18 @@ public class Game {
         gameState.LoadState();
         RecalcMoneyPerSec();
         RecalcMoneyPerClick();
+        StartTimer();
         //TODO: start timer that increments current money with money per sec
     }
 
+    public void StartTimer() {
+        T.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                EarnMoney(GetMoneyPerSec() / 10);
+            }
+        }, 0, 1000 / 10);
+    }
 
     public void EarnMoney(Double money) {
         gameState.currentMoney += money;
@@ -90,10 +105,22 @@ public class Game {
     public Double GetMoneyPerSec() {
         return moneyPerSec;
     }
+    public String GetMoneyPerSecAsString()
+    {
+        return "Money/sec: " + moneyPerSec.toString();
+    }
 
     public Double GetMoneyPerClick() {
         return moneyPerClick;
     }
+    public String GetMoneyPerClickAsString(){
+        return "Money/tap: " + moneyPerClick.toString();
+    }
+
+    public String GetCurrentMoney() {
+        return String.valueOf(Math.round(gameState.currentMoney));
+    }
+
 
     public List<Investment> GetInvestments() {
         return new ArrayList<>(investments.values());

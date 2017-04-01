@@ -7,47 +7,48 @@
     tools:context="hu.uniobuda.nik.betherichest.MainActivity">
 
     <TextView
-        android:id="@+id/dollars"
-        android:layout_width="wrap_content"
+    android:id="@+id/currMoneyText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:typeface="serif"
+    android:textSize="24sp"
+    android:lineSpacingExtra="12sp"
+    android:textStyle="normal|bold"
+    android:textAlignment="center"
+    android:textAllCaps="false"
+    android:textColor="@android:color/holo_green_dark"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:text="Current Money"/>
+
+    <TextView
+        android:id="@+id/moneyPerSecText"
+        android:layout_below="@id/currMoneyText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:typeface="serif"
-        android:textSize="24sp"
+        android:textSize="12sp"
         android:lineSpacingExtra="12sp"
         android:textStyle="normal|bold"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_green_dark"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="160dp"
-
-        android:onClick="counter"
-        android:id="@+id/imageView"
-        android:layout_marginTop="22dp"
-        android:layout_below="@+id/dollars"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:onClick="burgerCounter"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-
-        android:id="@+id/imageView2"
-        android:layout_marginBottom="75dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
+        android:layout_centerHorizontal="true"
+        android:text="Money Per Sec"/>
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/moneyPerTapText"
+        android:layout_below="@id/moneyPerSecText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/burgerPrice"
-        android:layout_marginBottom="60dp"
-        android:layout_alignParentBottom="true" />
+        android:typeface="serif"
+        android:textSize="12sp"
+        android:lineSpacingExtra="12sp"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_centerHorizontal="true"
+        android:text="Money Per Tap"/>
 
 
 

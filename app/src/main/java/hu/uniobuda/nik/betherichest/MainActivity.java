@@ -7,66 +7,48 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    int money = 0;
-    int burgerPrice = 5;
-
     Game game = Game.Get();
 
-    TextView currentMoneyLabel;
-    TextView burgerPriceLabel;
-
+    TextView CurrMoneyText;
+    TextView MoneyPerSecText;
+    TextView MoneyPerTapText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        InvestmentListFragment fragment = InvestmentListFragment.newInstance();
 
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.commit();
-*/
-        currentMoneyLabel = (TextView) findViewById(R.id.dollars);
-        currentMoneyLabel.setText(Integer.toString(money));
-        burgerPriceLabel = (TextView) findViewById(R.id.burgerPrice);
-        burgerPriceLabel.setText(Integer.toString(burgerPrice));
+        CurrMoneyText = (TextView) findViewById(R.id.currMoneyText);
+        MoneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
+        MoneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
+
+        game.BuyInvestment(0,5); // 5 darabot vesz a 0 id-jű investmentből => 0.5money/sec
+        game.BuyUpgrade(0); //a 0-ás id-jű upgrade megkétszerezi a 0 indexű investment termelését => 1.0 money/sec
+
+        MoneyPerSecText.setText(game.GetMoneyPerSecAsString());
+        MoneyPerTapText.setText(game.GetMoneyPerClickAsString());
+
+        Timer T = new Timer();
+        T.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CurrMoneyText.setText(game.GetCurrentMoney());
+                    }
+                });
+            }
+        }, 0, 1000 / 10);
+
+
     }
 
-    public void counter(View view) {
-        /**
-         * //TODO
-         * state.Earn(MONEY PER SEC -> AMI HONNAN JÖN KI?)
-         */
-        money++;
-        currentMoneyLabel.setText(Integer.toString(money));
-    }
-
-    public void burgerCounter(View view) {
-        if (money >= burgerPrice) {
-            money -= burgerPrice;
-            burgerPrice *= 3;
-            burgerPriceLabel.setText(Integer.toString(burgerPrice));
-            Timer T = new Timer();
-
-            T.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            money += 3;
-                            currentMoneyLabel.setText(Integer.toString(money));
-                        }
-                    });
-                }
-            }, 1000, 1000);
-        }
-    }
 }
