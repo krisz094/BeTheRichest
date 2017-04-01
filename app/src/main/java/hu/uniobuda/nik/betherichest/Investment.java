@@ -16,6 +16,7 @@ public class Investment implements Parcelable {
     double baseDpS;
     String description;
     int rank;
+    final double coeff = 1.05;
 
     public Investment(String name, int basePrice, double baseDpS, String description) {
         this.name = name;
@@ -23,10 +24,6 @@ public class Investment implements Parcelable {
         this.baseDpS = baseDpS;
         this.description = description;
         rank = 0;
-    }
-
-    public Investment(String name, int basePrice, int baseDpS, String description) {
-
     }
 
     public void Buy() {
@@ -42,7 +39,11 @@ public class Investment implements Parcelable {
     }
 
     public int getPrice() {
-        return basePrice;
+
+        return (int)Math.round(basePrice * Math.pow(coeff,rank));
+    }
+    public double getDps() {
+        return baseDpS * rank;
     }
 
     public Investment(Parcel in) {
@@ -50,7 +51,6 @@ public class Investment implements Parcelable {
         basePrice = Integer.parseInt(in.readString());
         baseDpS = Double.parseDouble(in.readString());
         description = in.readString();
-
     }
 
     @Override

@@ -18,11 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     State state = State.Get();
 
-    /**
-     * Investments.GetAll() <--ROSSZ
-     *
-     */
-
     TextView currentMoneyLabel;
     TextView burgerPriceLabel;
 
@@ -45,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void counter(View view) {
+        /**
+         * //TODO
+         * state.Earn(MONEY PER SEC -> AMI HONNAN JÖN KI?)
+         */
         money++;
         currentMoneyLabel.setText(Integer.toString(money));
     }

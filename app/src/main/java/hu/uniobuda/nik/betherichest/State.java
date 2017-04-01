@@ -8,6 +8,7 @@ public class State {
     static State instance;
 
     double currentMoney;
+    double moneyPerSec;
     int[] ranks;
 
     public static State Get() {
@@ -19,6 +20,10 @@ public class State {
 
     private State() {
         currentMoney = 0;
+        moneyPerSec = 0;
         ranks = new int[]{0, 0, 0, 0};
+    }
+    public void Earn(double money) {
+        currentMoney += money;
     }
 }
