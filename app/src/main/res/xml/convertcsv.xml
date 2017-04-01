@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<people>
+    <person>
+        <Name>Bill Gates</Name>
+        <Money>86000000000</Money>
+    </person>
+    <person>
+        <Name>Jeff Bezos</Name>
+        <Money>72800000000</Money>
+    </person>
+    <person>
+        <Name>Amancio Ortega</Name>
+        <Money>71300000000</Money>
+    </person>
+    <person>
+        <Name>Mark Zuckerberg</Name>
+        <Money>56000000000</Money>
+    </person>
+    <person>
+        <Name>Carlos Slim Helu</Name>
+        <Money>54500000000</Money>
+    </person>
+    <person>
+        <Name>Larry Ellison</Name>
+        <Money>52200000000</Money>
+    </person>
+    <person>
+        <Name>Charles Koch</Name>
+        <Money>48300000000</Money>
+    </person>
+    <person>
+        <Name>David Koch</Name>
+        <Money>48300000000</Money>
+    </person>
+    <person>
+        <Name>Michael Bloomberg</Name>
+        <Money>47500000000</Money>
+    </person>
+    <person>
+        <Name>Bernard Arnault</Name>
+        <Money>41500000000</Money>
+    </person>
+    <person>
+        <Name>Larry Page</Name>
+        <Money>40700000000</Money>
+    </person>
+    <person>
+        <Name>Sergey Brin</Name>
+        <Money>39800000000</Money>
+    </person>
+    <person>
+        <Name>Liliane Bettencourt</Name>
+        <Money>39500000000</Money>
+    </person>
+    <person>
+        <Name>S. Robson Walton</Name>
+        <Money>34100000000</Money>
+    </person>
+    <person>
+        <Name>Jim Walton</Name>
+        <Money>34000000000</Money>
+    </person>
+    <person>
+        <Name>Alice Walton</Name>
+        <Money>33800000000</Money>
+    </person>
+    <person>
+        <Name>Wang Jianlin</Name>
+        <Money>31300000000</Money>
+    </person>
+    <person>
+        <Name>Li Ka-shing</Name>
+        <Money>31200000000</Money>
+    </person>
+    <person>
+        <Name>Sheldon Adelson</Name>
+        <Money>30400000000</Money>
+    </person>
+    <person>
+        <Name>Steve Ballmer</Name>
+        <Money>30000000000</Money>
+    </person>
+    <person>
+        <Name>Jorge Paulo Lemann</Name>
+        <Money>29200000000</Money>
+    </person>
+    <person>
+        <Name>Jack Ma</Name>
+        <Money>28300000000</Money>
+    </person>
+    <person>
+        <Name>Beate Heister &amp; Karl Albrecht Jr.</Name>
+        <Money>27200000000</Money>
+    </person>
+    <person>
+        <Name>David Thomson</Name>
+        <Money>27200000000</Money>
+    </person>
+    <person>
+        <Name>Jacqueline Mars</Name>
+        <Money>27000000000</Money>
+    </person>
+    <person>
+        <Name>John Mars</Name>
+        <Money>27000000000</Money>
+    </person>
+    <person>
+        <Name>Phil Knight</Name>
+        <Money>26200000000</Money>
+    </person>
+    <person>
+        <Name>Maria Franca Fissolo</Name>
+        <Money>25200000000</Money>
+    </person>
+    <person>
+        <Name>George Soros</Name>
+        <Money>25200000000</Money>
+    </person>
+    <person>
+        <Name>Ma Huateng</Name>
+        <Money>24900000000</Money>
+    </person>
+    <person>
+        <Name>Lee Shau Kee</Name>
+        <Money>24400000000</Money>
+    </person>
+    <person>
+        <Name>Mukesh Ambani</Name>
+        <Money>23200000000</Money>
+    </person>
+    <person>
+        <Name>Masayoshi Son</Name>
+        <Money>21200000000</Money>
+    </person>
+    <person>
+        <Name>Kjeld Kirk Kristiansen</Name>
+        <Money>21100000000</Money>
+    </person>
+    <person>
+        <Name>Georg Schaeffler</Name>
+        <Money>20700000000</Money>
+    </person>
+    <person>
+        <Name>Joseph Safra</Name>
+        <Money>20500000000</Money>
+    </person>
+    <person>
+        <Name>Michael Dell</Name>
+        <Money>20400000000</Money>
+    </person>
+    <person>
+        <Name>Susanne Klatten</Name>
+        <Money>20400000000</Money>
+    </person>
+    <person>
+        <Name>Len Blavatnik</Name>
+        <Money>20000000000</Money>
+    </person>
+    <person>
+        <Name>Laurene Powell Jobs</Name>
+        <Money>20000000000</Money>
+    </person>
+    <person>
+        <Name>Paul Allen</Name>
+        <Money>19900000000</Money>
+    </person>
+    <person>
+        <Name>Stefan Persson</Name>
+        <Money>19600000000</Money>
+    </person>
+    <person>
+        <Name>Theo Albrecht, Jr.</Name>
+        <Money>18800000000</Money>
+    </person>
+    <person>
+        <Name>Prince Alwaleed Bin Talal Alsaud</Name>
+        <Money>18700000000</Money>
+    </person>
+    <person>
+        <Name>Leonid Mikhelson</Name>
+        <Money>18400000000</Money>
+    </person>
+    <person>
+        <Name>Charles Ergen</Name>
+        <Money>18300000000</Money>
+    </person>
+    <person>
+        <Name>Stefan Quandt</Name>
+        <Money>18300000000</Money>
+    </person>
+    <person>
+        <Name>James Simons</Name>
+        <Money>18000000000</Money>
+    </person>
+    <person>
+        <Name>Leonardo Del Vecchio</Name>
+        <Money>17900000000</Money>
+    </person>
+    <person>
+        <Name>Alexey Mordashov</Name>
+        <Money>17500000000</Money>
+    </person>
+    <person>
+        <Name>William Ding</Name>
+        <Money>17300000000</Money>
+    </person>
+    <person>
+        <Name>Dieter Schwarz</Name>
+        <Money>17000000000</Money>
+    </person>
+    <person>
+        <Name>Ray Dalio</Name>
+        <Money>16800000000</Money>
+    </person>
+    <person>
+        <Name>Carl Icahn</Name>
+        <Money>16600000000</Money>
+    </person>
+    <person>
+        <Name>Lakshmi Mittal</Name>
+        <Money>16400000000</Money>
+    </person>
+    <person>
+        <Name>Serge Dassault</Name>
+        <Money>16100000000</Money>
+    </person>
+    <person>
+        <Name>Vladimir Lisin</Name>
+        <Money>16100000000</Money>
+    </person>
+    <person>
+        <Name>Gennady Timchenko</Name>
+        <Money>16000000000</Money>
+    </person>
+    <person>
+        <Name>Wang Wei</Name>
+        <Money>15900000000</Money>
+    </person>
+    <person>
+        <Name>Tadashi Yanai</Name>
+        <Money>15900000000</Money>
+    </person>
+    <person>
+        <Name>Charoen Sirivadhanabhakdi</Name>
+        <Money>15800000000</Money>
+    </person>
+    <person>
+        <Name>Francois Pinault</Name>
+        <Money>15700000000</Money>
+    </person>
+    <person>
+        <Name>Hinduja family</Name>
+        <Money>15400000000</Money>
+    </person>
+    <person>
+        <Name>David &amp; Simon Reuben</Name>
+        <Money>15300000000</Money>
+    </person>
+    <person>
+        <Name>Donald Bren</Name>
+        <Money>15200000000</Money>
+    </person>
+    <person>
+        <Name>Alisher Usmanov</Name>
+        <Money>15200000000</Money>
+    </person>
+    <person>
+        <Name>Lee Kun-Hee</Name>
+        <Money>15100000000</Money>
+    </person>
+    <person>
+        <Name>Thomas &amp; Raymond Kwok</Name>
+        <Money>15000000000</Money>
+    </person>
+    <person>
+        <Name>Joseph Lau</Name>
+        <Money>15000000000</Money>
+    </person>
+    <person>
+        <Name>Gina Rinehart</Name>
+        <Money>15000000000</Money>
+    </person>
+    <person>
+        <Name>Azim Premji</Name>
+        <Money>14900000000</Money>
+    </person>
+    <person>
+        <Name>Marcel Herrmann Telles</Name>
+        <Money>14800000000</Money>
+    </person>
+    <person>
+        <Name>Vagit Alekperov</Name>
+        <Money>14500000000</Money>
+    </person>
+    <person>
+        <Name>Mikhail Fridman</Name>
+        <Money>14400000000</Money>
+    </person>
+    <person>
+        <Name>Abigail Johnson</Name>
+        <Money>14400000000</Money>
+    </person>
+    <person>
+        <Name>Pallonji Mistry</Name>
+        <Money>14300000000</Money>
+    </person>
+    <person>
+        <Name>Vladimir Potanin</Name>
+        <Money>14300000000</Money>
+    </person>
+    <person>
+        <Name>Wang Wenyin</Name>
+        <Money>14000000000</Money>
+    </person>
+    <person>
+        <Name>Elon Musk</Name>
+        <Money>13900000000</Money>
+    </person>
+    <person>
+        <Name>Stefano Pessina</Name>
+        <Money>13900000000</Money>
+    </person>
+    <person>
+        <Name>German Larrea Mota Velasco</Name>
+        <Money>13800000000</Money>
+    </person>
+    <person>
+        <Name>Thomas Peterffy</Name>
+        <Money>13800000000</Money>
+    </person>
+    <person>
+        <Name>Iris Fontbona</Name>
+        <Money>13700000000</Money>
+    </person>
+    <person>
+        <Name>Dilip Shanghvi</Name>
+        <Money>13700000000</Money>
+    </person>
+    <person>
+        <Name>Dietrich Mateschitz</Name>
+        <Money>13400000000</Money>
+    </person>
+    <person>
+        <Name>Harold Hamm</Name>
+        <Money>13300000000</Money>
+    </person>
+    <person>
+        <Name>Robin Li</Name>
+        <Money>13300000000</Money>
+    </person>
+    <person>
+        <Name>Andrey Melnichenko</Name>
+        <Money>13200000000</Money>
+    </person>
+    <person>
+        <Name>Rupert Murdoch</Name>
+        <Money>13100000000</Money>
+    </person>
+    <person>
+        <Name>Heinz Hermann Thiele</Name>
+        <Money>13100000000</Money>
+    </person>
+    <person>
+        <Name>Steve Cohen</Name>
+        <Money>13000000000</Money>
+    </person>
+    <person>
+        <Name>Patrick Drahi</Name>
+        <Money>13000000000</Money>
+    </person>
+    <person>
+        <Name>Henry Sy</Name>
+        <Money>12700000000</Money>
+    </person>
+    <person>
+        <Name>Charlene de Carvalho-Heineken</Name>
+        <Money>12600000000</Money>
+    </person>
+    <person>
+        <Name>Philip Anschutz</Name>
+        <Money>12500000000</Money>
+    </person>
+    <person>
+        <Name>Ronald Perelman</Name>
+        <Money>12500000000</Money>
+    </person>
+    <person>
+        <Name>Hans Rausing</Name>
+        <Money>12500000000</Money>
+    </person>
+    <person>
+        <Name>Carlos Alberto Sicupira</Name>
+        <Money>12500000000</Money>
+    </person>
+    <person>
+        <Name>Klaus-Michael Kuehne</Name>
+        <Money>12400000000</Money>
+    </person>
+    <person>
+        <Name>Viktor Vekselberg</Name>
+        <Money>12400000000</Money>
+    </person>
+</people>
