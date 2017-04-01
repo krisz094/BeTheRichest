@@ -132,9 +132,9 @@ public class Game {
     protected void RecalcMoneyPerClick() {
         Double money = 1d;
 
-        for(Upgrade upgrade: upgrades.values()) {
-            if(gameState.GetUpgradeBoughtById(upgrade.id)) {
-                money = upgrade.Execute(money);
+        for(Integer upgradeID: clickRelevantUpgradeIDs) {
+            if (gameState.GetUpgradeBoughtById(upgradeID)) {
+                money = upgrades.get(upgradeID).Execute(money);
             }
         }
 
