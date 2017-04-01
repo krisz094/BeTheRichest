@@ -63,7 +63,7 @@ public class Game {
     protected Double moneyPerClick;
     protected HashMap<Integer, Upgrade> upgrades;
     protected HashMap<Integer, Investment> investments;
-    protected final int[] clickRelevantUpgradeIDs = {2}; //upgrade IDs that affect clicking
+    protected final int[] clickRelevantUpgradeIDs = {2, 3}; //upgrade IDs that affect clicking
 
     private Game() {
         gameState = new State();

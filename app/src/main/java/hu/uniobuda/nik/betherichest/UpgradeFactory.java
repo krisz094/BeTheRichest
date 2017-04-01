@@ -12,36 +12,52 @@ import hu.uniobuda.nik.betherichest.Effects.DoublerEffect;
 
 public class UpgradeFactory {
 
+    private static void AddToMap(Upgrade upgrade, HashMap<Integer,Upgrade> map) {
+        map.put(upgrade.id,upgrade);
+    }
+
     public static HashMap<Integer,Upgrade> CreateUpgrades(Game currentGame) {
         HashMap<Integer,Upgrade> map = new HashMap<>();
 
-        map.put(0,new Upgrade(
-                0,                      //ID
-                "something",            //NAME
+        AddToMap(new Upgrade(
+                0,                          //ID
+                "something",                //NAME
                 "costs 100, has a doubling effect",  //DESCRIPTION
-                100,                    //PRICE
-                new DoublerEffect(),     //EFFECT
-                currentGame
-        ));
+                100,                        //PRICE
+                new DoublerEffect(),        //EFFECT
+                new ConditionalProvider[]{},//CONDITIONS
+                currentGame                 //CURRENT GAME
+        ),map);
 
-        map.put(1,new Upgrade(
+        AddToMap(new Upgrade(
                 1,
                 "something2",
                 "costs 500 money, has a doubling effect",
                 500,
                 new DoublerEffect(),
+                new ConditionalProvider[]{},
                 currentGame
-        ));
+        ),map);
 
-        map.put(2,new Upgrade(
+        AddToMap(new Upgrade(
                 2,
                 "double click",
-                "costs 1000 money, has a doubling effect",
+                "costs 1000 money, has a doubling effect (on clicking)",
                 1000,
                 new DoublerEffect(),
+                new ConditionalProvider[]{ new RankOfIDNeeded(0,1) },
                 currentGame
-        ));
+        ),map);
 
+        AddToMap(new Upgrade(
+                3,
+                "double click 2",
+                "costs 2500 money, has a doubling effect (on clicking)",
+                2500,
+                new DoublerEffect(),
+                new ConditionalProvider[]{ new RankOfIDNeeded(0,10), new UpgradeWithIDUnlocked(2) },
+                currentGame
+        ),map);
 
         return map;
     }

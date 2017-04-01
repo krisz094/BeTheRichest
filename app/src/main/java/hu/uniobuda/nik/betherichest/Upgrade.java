@@ -1,5 +1,7 @@
 package hu.uniobuda.nik.betherichest;
 
+import java.lang.reflect.Array;
+
 /**
  * Created by krisz on 2017. 04. 01..
  */
@@ -11,15 +13,17 @@ public class Upgrade {
     int price;
     IEffectable effect;
     Game currentGame;
+    ConditionalProvider[] conditions;
 
     //TODO: egyedi feltételek alapján legyen csak elérhető bizonyos upgrade, pl: 10 hamburgeres megvásárlása után, etc
-    public Upgrade(int id, String name, String description, int price, IEffectable effect, Game currentGame) {
+    public Upgrade(int id, String name, String description, int price, IEffectable effect, ConditionalProvider[] conditions, Game currentGame) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.effect = effect;
         this.currentGame = currentGame;
+        this.conditions = conditions;
     }
 
     int id;
@@ -37,7 +41,17 @@ public class Upgrade {
     }
 
     public boolean IsBuyable() {
-        return currentGame.gameState.currentMoney >= price && !IsBought();
+        return !IsBought() && currentGame.gameState.currentMoney >= price && AreConditionsTrue();
+    }
+
+    private boolean AreConditionsTrue() {
+
+        for (ConditionalProvider condition : conditions) {
+            if (!condition.Evaluate(currentGame)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean IsBought() {
