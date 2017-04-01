@@ -43,7 +43,7 @@ public class InvestmentAdapter extends BaseAdapter {
                     null
             );
         Investment investment = (Investment) getItem(position);
-        textView.setText(investment.getName() + " " + investment.basePrice);
+        textView.setText(investment.getName() + " " + investment.getPrice());
         return textView;
 
     }

@@ -18,7 +18,7 @@ class RankOfIDNeeded extends ConditionalProvider {
 
     @Override
     public Boolean Evaluate(Game currentGame) {
-        return currentGame.gameState.GetInvestmentRankById(id) >= rank;
+        return currentGame.gameState.getInvestmentRankById(id) >= rank;
     }
 }
 
@@ -32,6 +32,6 @@ class UpgradeWithIDUnlocked extends  ConditionalProvider{
 
     @Override
     public Boolean Evaluate(Game currentGame) {
-        return currentGame.gameState.GetUpgradeBoughtById(id);
+        return currentGame.gameState.getUpgradeBoughtById(id);
     }
 }

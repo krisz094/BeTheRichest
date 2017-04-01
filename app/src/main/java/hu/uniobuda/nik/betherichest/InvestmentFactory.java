@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class InvestmentFactory {
 
-    public static HashMap<Integer,Investment> CreateInvestments(Game currentGame) {
+    public static HashMap<Integer,Investment> createInvestments(Game currentGame) {
         HashMap<Integer,Investment> map = new HashMap<>();
 
         map.put(0,new Investment(

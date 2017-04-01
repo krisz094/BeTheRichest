@@ -1,9 +1,14 @@
 package hu.uniobuda.nik.betherichest;
 
+import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,11 +17,11 @@ import java.util.TimerTask;
  */
 
 class State {
-    protected Double currentMoney;
+    public Double currentMoney;
     //upgradeBoughtById
-    protected HashMap<Integer, Boolean> UpgradeIdUnlocked;
+    private HashMap<Integer, Boolean> UpgradeIdUnlocked;
     //InvestmentRankById
-    protected HashMap<Integer, Integer> InvestmentIdRank;
+    private HashMap<Integer, Integer> InvestmentIdRank;
 
     public State() {
         currentMoney = 0d;
@@ -24,29 +29,29 @@ class State {
         InvestmentIdRank = new HashMap<>();
     }
 
-    public Boolean GetUpgradeBoughtById(int id) {
+    public Boolean getUpgradeBoughtById(int id) {
         if (UpgradeIdUnlocked.get(id) == null) return false;
         return UpgradeIdUnlocked.get(id);
     }
 
-    public void SetUpgradeAsBought(int id) {
+    public void setUpgradeAsBought(int id) {
         UpgradeIdUnlocked.put(id, true);
     }
 
-    public int GetInvestmentRankById(int id) {
+    public int getInvestmentRankById(int id) {
         if (InvestmentIdRank.get(id) == null) return 0;
         return InvestmentIdRank.get(id);
     }
 
-    public void SetInvestmentRankById(int id, int rank) {
+    public void setInvestmentRankById(int id, int rank) {
         InvestmentIdRank.put(id, rank);
     }
 
-    public void SaveState() {
+    public void saveState() {
         //TODO
     }
 
-    public void LoadState() {
+    public void loadState() {
         //TODO
     }
 }
@@ -62,136 +67,135 @@ public class Game {
         return instance;
     }
 
-    protected State gameState;
-    protected Double moneyPerSec;
-    protected Double moneyPerClick;
-    protected HashMap<Integer, Upgrade> upgrades;
-    protected HashMap<Integer, Investment> investments;
-    protected final int[] clickRelevantUpgradeIDs = {2, 3}; //upgrade IDs that affect clicking
-    protected Timer T;
+    public State gameState;
+    private Double moneyPerSec;
+    private Double moneyPerClick;
+    private HashMap<Integer, Upgrade> upgrades;
+    private HashMap<Integer, Investment> investments;
+    private final int[] clickRelevantUpgradeIDs = {2, 3}; //upgrade IDs that affect clicking
+    private Timer T;
+    private DecimalFormat df = new DecimalFormat("0.0");
 
     private Game() {
         T = new Timer();
         gameState = new State();
         moneyPerSec = 0d;
         moneyPerClick = 1d;
-        upgrades = UpgradeFactory.CreateUpgrades(this);
-        investments = InvestmentFactory.CreateInvestments(this);
+        upgrades = UpgradeFactory.createUpgrades(this);
+        investments = InvestmentFactory.createInvestments(this);
 
-        gameState.LoadState();
-        RecalcMoneyPerSec();
-        RecalcMoneyPerClick();
+        gameState.loadState();
+        recalcMoneyPerSec();
+        recalcMoneyPerClick();
         StartTimer();
         //TODO: start timer that increments current money with money per sec
     }
 
-    public void StartTimer() {
+    private void StartTimer() {
         T.schedule(new TimerTask() {
             @Override
             public void run() {
-                EarnMoney(GetMoneyPerSec() / 10);
+                earnMoney(getMoneyPerSec() / 10);
             }
         }, 0, 1000 / 10);
     }
 
-    public void EarnMoney(Double money) {
+    public void earnMoney(Double money) {
         gameState.currentMoney += money;
     }
 
-    public void Click() {
-        EarnMoney(moneyPerClick);
+    public void deduceMoney(Double money) {
+        gameState.currentMoney -= money;
     }
 
-    public Double GetMoneyPerSec() {
+    public void click() {
+        earnMoney(moneyPerClick);
+    }
+
+    public Double getMoneyPerSec() {
         return moneyPerSec;
     }
-    public String GetMoneyPerSecAsString()
-    {
-        return "Money/sec: " + moneyPerSec.toString();
+
+    public String getMoneyPerSecAsString() {
+        return "Money/sec: " + df.format(moneyPerSec);
     }
 
-    public Double GetMoneyPerClick() {
+    public Double getMoneyPerClick() {
         return moneyPerClick;
     }
-    public String GetMoneyPerClickAsString(){
-        return "Money/tap: " + moneyPerClick.toString();
+
+    public String getMoneyPerClickAsString() {
+
+        return "Money/tap: " + df.format(moneyPerClick);
     }
 
-    public String GetCurrentMoney() {
-        return String.valueOf(Math.round(gameState.currentMoney));
+    public Double getCurrentMoney() {
+        return gameState.currentMoney;
+    }
+
+    public String getCurrentMoneyAsString() {
+        return df.format(gameState.currentMoney);
     }
 
 
-    public List<Investment> GetInvestments() {
-        return new ArrayList<>(investments.values());
+    public List<Investment> getInvestments() {
+        ArrayList<Investment> list = new ArrayList<>(investments.values());
+        Collections.sort(list, new Comparator<Investment>() {
+            @Override
+            public int compare(Investment o1, Investment o2) {
+                return Integer.compare(o1.getId(),o2.getId());
+            }
+        });
+        return list;
     }
 
-    public List<Upgrade> GetUpgrades() {
-        return new ArrayList<>(upgrades.values());
+    public List<Upgrade> getUpgrades() {
+        ArrayList<Upgrade> list = new ArrayList<>(upgrades.values());
+        Collections.sort(list, new Comparator<Upgrade>() {
+            @Override
+            public int compare(Upgrade o1, Upgrade o2) {
+                return Integer.compare(o1.getId(), o2.getId());
+            }
+        });
+        return list;
     }
 
-    public void BuyUpgrade(Integer id) {
-        gameState.SetUpgradeAsBought(id);
-
+    public void buyUpgrade(Integer id) {
+        gameState.setUpgradeAsBought(id);
+        deduceMoney((double) upgrades.get(id).getPrice());
         //refresh current MPS because there was a change
-        RecalcMoneyPerSec();
-        RecalcMoneyPerClick();
+        recalcMoneyPerSec();
+        recalcMoneyPerClick();
     }
 
-    public void BuyInvestment(Integer id, Integer howManyRanks) {
-        Integer currRank = gameState.GetInvestmentRankById(id);
-        currRank += howManyRanks;
-        gameState.SetInvestmentRankById(id, currRank);
-
+    public void buyInvestment(Integer id) {
+        Integer currRank = gameState.getInvestmentRankById(id);
+        currRank += 1;
+        gameState.setInvestmentRankById(id, currRank);
+        deduceMoney((double) investments.get(id).getPrice());
         //refresh current MPS because there was a change
-        RecalcMoneyPerSec();
-        RecalcMoneyPerClick();
+        recalcMoneyPerSec();
+        recalcMoneyPerClick();
     }
 
-
-    protected void RecalcMoneyPerSec() {
+    private void recalcMoneyPerSec() {
         Double money = 0d;
         for (Investment inv : investments.values()) {
-            money += inv.GetMoneyPerSec();
+            money += inv.getMoneyPerSec();
         }
         moneyPerSec = money;
     }
 
-    protected void RecalcMoneyPerClick() {
+    private void recalcMoneyPerClick() {
         Double money = 1d;
 
         for (Integer upgradeID : clickRelevantUpgradeIDs) {
-            if (gameState.GetUpgradeBoughtById(upgradeID)) {
-                money = upgrades.get(upgradeID).Execute(money);
+            if (gameState.getUpgradeBoughtById(upgradeID)) {
+                money = upgrades.get(upgradeID).execute(money);
             }
         }
 
         moneyPerClick = money;
     }
 
-    //OLD METHOD
-    /*
-    protected double getInvestmentMoneyPerSec(Investment investment) {
-        //first we have to get the MPS of the investment itself
-        double MPS = investment.getMPSForRank(gameState.GetInvestmentRankById(investment.id));
-        //then we have to increase the MPS with the unlocked upgrades of the investment
-        for(Integer upgradeID: investment.relevantUpgradeIDs){
-            //statement below returns true, if upgrade with id is unlocked
-            if (gameState.GetUpgradeBoughtById(upgradeID)) {
-                // we modify the MPS with a function, eg. f(x) = 2x
-                MPS = upgrades.get(upgradeID).Execute(MPS);
-            }
-        }
-        return MPS;
-    }
-
-
-    protected void RecalcMoneyPerSec() {
-        Double money = 0d;
-        for(Investment inv: investments.values()) {
-            money += getInvestmentMoneyPerSec(inv);
-        }
-        moneyPerSec = money;
-    }
-    */
 }

@@ -8,12 +8,13 @@ import java.lang.reflect.Array;
 
 public class Upgrade {
 
-    String name;
-    String description;
-    int price;
-    IEffectable effect;
-    Game currentGame;
-    ConditionalProvider[] conditions;
+    private String name;
+    private String description;
+    private int price;
+    private IEffectable effect;
+    private Game currentGame;
+    private ConditionalProvider[] conditions;
+    private int id;
 
     //TODO: egyedi feltételek alapján legyen csak elérhető bizonyos upgrade, pl: 10 hamburgeres megvásárlása után, etc
     public Upgrade(int id, String name, String description, int price, IEffectable effect, ConditionalProvider[] conditions, Game currentGame) {
@@ -26,7 +27,10 @@ public class Upgrade {
         this.conditions = conditions;
     }
 
-    int id;
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -40,11 +44,11 @@ public class Upgrade {
         return price;
     }
 
-    public boolean IsBuyable() {
-        return !IsBought() && currentGame.gameState.currentMoney >= price && AreConditionsTrue();
+    public boolean isBuyable() {
+        return !isBought() && currentGame.gameState.currentMoney >= price && areConditionsTrue();
     }
 
-    private boolean AreConditionsTrue() {
+    private boolean areConditionsTrue() {
 
         for (ConditionalProvider condition : conditions) {
             if (!condition.Evaluate(currentGame)) {
@@ -54,12 +58,18 @@ public class Upgrade {
         return true;
     }
 
-    public boolean IsBought() {
-        return currentGame.gameState.GetUpgradeBoughtById(id);
+    public void buy() {
+        if (isBuyable()) {
+            currentGame.buyUpgrade(id);
+        }
     }
 
-    public double Execute(double input) {
-        return effect.Effect(input);
+    public boolean isBought() {
+        return currentGame.gameState.getUpgradeBoughtById(id);
+    }
+
+    public double execute(double input) {
+        return effect.effect(input);
     }
 }
 

@@ -7,49 +7,56 @@
     tools:context="hu.uniobuda.nik.betherichest.MainActivity">
 
     <TextView
-    android:id="@+id/currMoneyText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:typeface="serif"
-    android:textSize="24sp"
-    android:lineSpacingExtra="12sp"
-    android:textStyle="normal|bold"
-    android:textAlignment="center"
-    android:textAllCaps="false"
-    android:textColor="@android:color/holo_green_dark"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:text="Current Money"/>
+        android:id="@+id/currMoneyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:lineSpacingExtra="12sp"
+        android:text="Current Money"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:typeface="serif" />
 
     <TextView
         android:id="@+id/moneyPerSecText"
-        android:layout_below="@id/currMoneyText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:typeface="serif"
-        android:textSize="12sp"
+        android:layout_below="@id/currMoneyText"
+        android:layout_centerHorizontal="true"
         android:lineSpacingExtra="12sp"
-        android:textStyle="normal|bold"
+        android:text="Money Per Sec"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_green_dark"
-        android:layout_centerHorizontal="true"
-        android:text="Money Per Sec"/>
+        android:textSize="12sp"
+        android:textStyle="normal|bold"
+        android:typeface="serif" />
+
     <TextView
         android:id="@+id/moneyPerTapText"
-        android:layout_below="@id/moneyPerSecText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:typeface="serif"
-        android:textSize="12sp"
+        android:layout_below="@id/moneyPerSecText"
+        android:layout_centerHorizontal="true"
         android:lineSpacingExtra="12sp"
-        android:textStyle="normal|bold"
+        android:text="Money Per Tap"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_green_dark"
+        android:textSize="12sp"
+        android:textStyle="normal|bold"
+        android:typeface="serif" />
+    <Button
+        android:id="@+id/clickbtn"
+        android:layout_width="40pt"
+        android:layout_height="40pt"
         android:layout_centerHorizontal="true"
-        android:text="Money Per Tap"/>
+        android:layout_below="@id/moneyPerTapText"
 
-
+        />
 
 </RelativeLayout>

@@ -11,14 +11,14 @@ import android.os.Parcelable;
 
 
 public class Investment {
-    String name;
-    int basePrice;
-    double baseDpS;
-    String description;
-    int id;
-    int[] relevantUpgradeIDs;
-    Game currentGame;
-    final double coeff = 1.05;
+    private String name;
+    private int basePrice;
+    private double baseDpS;
+    private String description;
+    private int id;
+    private int[] relevantUpgradeIDs;
+    private Game currentGame;
+    private final double coeff = 1.05;
 
     public Investment(int id, String name, int basePrice, double baseDpS, String description, int[] relevantUpgradeIDs, Game currentGame) {
         this.id = id;
@@ -28,6 +28,10 @@ public class Investment {
         this.description = description;
         this.relevantUpgradeIDs = relevantUpgradeIDs;
         this.currentGame = currentGame;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getDescription() {
@@ -43,12 +47,12 @@ public class Investment {
      *
      * @return Current rank
      */
-    public int GetRank() {
-        return currentGame.gameState.GetInvestmentRankById(id);
+    public int getRank() {
+        return currentGame.gameState.getInvestmentRankById(id);
     }
 
-    public int GetPrice() {
-        return (int) Math.round(basePrice * Math.pow(coeff, GetRank()));
+    public int getPrice() {
+        return (int) Math.round(basePrice * Math.pow(coeff, getRank()));
     }
 
     /**
@@ -56,18 +60,24 @@ public class Investment {
      *
      * @return Money Made Per Second
      */
-    public Double GetMoneyPerSec() {
-        Double MPS = Double.valueOf(GetRank() * baseDpS);
+    public Double getMoneyPerSec() {
+        Double MPS = getRank() * baseDpS;
         for (Integer ID : relevantUpgradeIDs) {
-            if (currentGame.gameState.GetUpgradeBoughtById(ID)) {
-                MPS = currentGame.upgrades.get(ID).Execute(MPS);
+            if (currentGame.gameState.getUpgradeBoughtById(ID)) {
+                MPS = currentGame.getUpgrades().get(ID).execute(MPS);
             }
         }
         return MPS;
     }
 
-    public boolean IsBuyable() {
-        return currentGame.gameState.currentMoney >= GetPrice();
+    public void buy() {
+        if (isBuyable()) {
+            currentGame.buyInvestment(id);
+        }
+    }
+
+    public boolean isBuyable() {
+        return currentGame.getCurrentMoney() >= getPrice();
     }
 
 

@@ -37,7 +37,7 @@ public class InvestmentListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         Game game = Game.Get();
-        List<Investment> investments = game.GetInvestments();
+        List<Investment> investments = game.getInvestments();
 
         final InvestmentAdapter adapter = new InvestmentAdapter(investments);
     }

@@ -5,5 +5,5 @@ package hu.uniobuda.nik.betherichest;
  */
 
 public interface IEffectable {
-    public double Effect(double input);
+    public double effect(double input);
 }

@@ -14,7 +14,7 @@ import hu.uniobuda.nik.betherichest.Effects.DoublerEffect;
 public class UpgradeFactory {
 
     private static void AddToMap(Upgrade upgrade, HashMap<Integer, Upgrade> map) {
-        map.put(upgrade.id, upgrade);
+        map.put(upgrade.getId(), upgrade);
     }
 /*
     private static Upgrade Create(int id, String name,String desc, int price, String effect, String conditions, Game currentGame) {
@@ -39,7 +39,7 @@ public class UpgradeFactory {
         return new Upgrade(id,name,desc, price, Effect,,currentGame);
     }*/
 
-    public static HashMap<Integer, Upgrade> CreateUpgrades(Game currentGame) {
+    public static HashMap<Integer, Upgrade> createUpgrades(Game currentGame) {
         HashMap<Integer, Upgrade> map = new HashMap<>();
 
         AddToMap(new Upgrade(

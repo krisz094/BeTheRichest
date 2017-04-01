@@ -8,7 +8,7 @@ import hu.uniobuda.nik.betherichest.IEffectable;
 
 public class DoublerEffect implements IEffectable {
     @Override
-    public double Effect(double input) {
+    public double effect(double input) {
         return input * 2;
     }
 }
