@@ -11,20 +11,24 @@ import java.util.List;
  */
 public class InvestmentFactory {
 
+    private static void AddToMap(Investment investment, HashMap<Integer, Investment> map) {
+        map.put(investment.getId(),investment);
+    }
+
     public static HashMap<Integer,Investment> createInvestments(Game currentGame) {
         HashMap<Integer,Investment> map = new HashMap<>();
 
-        map.put(0,new Investment(
-                0,      //ID
-                "ASD",  //NAME
-                15,     //BASE PRICE
-                0.1,    //BASE MONEY PER SECOND
+        AddToMap(new Investment(
+                0,                  //ID
+                "ASD",              //NAME
+                15,                 //BASE PRICE
+                0.1,                //BASE MONEY PER SECOND
                 "Put your money into the bank, for a small amount of interest.", //DESCRIPTION
-                new int[] {0},   //UPGRADES THAT AFFECT THIS INVESTMENT
+                new int[] {0},      //UPGRADES THAT AFFECT THIS INVESTMENT
                 currentGame
-        ));
+        ),map);
 
-        map.put(1,new Investment(
+        AddToMap(new Investment(
                 1,
                 "Hamburger Stand",
                 15,
@@ -32,7 +36,7 @@ public class InvestmentFactory {
                 "Make delicious hamburgers on the street, to get some money from hungry people.",
                 new int[] {1},
                 currentGame
-        ));
+        ),map);
 
         return map;
     }
