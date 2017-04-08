@@ -1,5 +1,8 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -141,6 +144,7 @@ public class Game {
     public List<Investment> getInvestments() {
         ArrayList<Investment> list = new ArrayList<>(investments.values());
         Collections.sort(list, new Comparator<Investment>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public int compare(Investment o1, Investment o2) {
                 return Integer.compare(o1.getId(),o2.getId());
@@ -152,6 +156,7 @@ public class Game {
     public List<Upgrade> getUpgrades() {
         ArrayList<Upgrade> list = new ArrayList<>(upgrades.values());
         Collections.sort(list, new Comparator<Upgrade>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public int compare(Upgrade o1, Upgrade o2) {
                 return Integer.compare(o1.getId(), o2.getId());
