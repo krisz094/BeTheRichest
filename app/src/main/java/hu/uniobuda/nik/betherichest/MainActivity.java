@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     TextView CurrMoneyText;
     TextView MoneyPerSecText;
     TextView MoneyPerTapText;
-    Button TapBtn;
+    ImageView TapBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         CurrMoneyText = (TextView) findViewById(R.id.currMoneyText);
         MoneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
         MoneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
-        TapBtn = (Button) findViewById(R.id.clickbtn);
+        TapBtn = (ImageView) findViewById(R.id.clickbtn);
 
         game.earnMoney(4000d);
 
