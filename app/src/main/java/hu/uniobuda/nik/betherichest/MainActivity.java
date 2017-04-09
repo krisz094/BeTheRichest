@@ -87,24 +87,24 @@ public class MainActivity extends AppCompatActivity {
 
 
         //5 másodperc múlva megvesz pár cuccot automatikusan, csak a demózás gyanánt
-        Timer T2 = new Timer();
-
-        T2.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        game.buyInvestment(0);
-                        game.buyInvestment(1);
-                        game.buyUpgrade(3);
-                        refreshView(); //VÁSÁRLÁS UTÁN FRISSÍTENI KELL A NÉZETET!!
-                    }
-                });
-            }
-        }, 5000);
-
-        //TESZT VÉGE
+//        Timer T2 = new Timer();
+//
+//        T2.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        game.buyInvestment(0);
+//                        game.buyInvestment(1);
+//                        game.buyUpgrade(3);
+//                        refreshView(); //VÁSÁRLÁS UTÁN FRISSÍTENI KELL A NÉZETET!!
+//                    }
+//                });
+//            }
+//        }, 5000);
+//
+//        //TESZT VÉGE
 
         TapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
