@@ -62,6 +62,15 @@
         android:layout_marginTop="37dp"
         app:srcCompat="@drawable/dollar" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="proba"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:layout_below="@id/clickbtn"
+        />
+
     <ImageView
         android:id="@+id/investments"
         android:layout_width="90dp"
