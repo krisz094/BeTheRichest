@@ -16,7 +16,6 @@ public class Upgrade {
     private ConditionalProvider[] conditions;
     private int id;
 
-    //TODO: egyedi feltételek alapján legyen csak elérhető bizonyos upgrade, pl: 10 hamburgeres megvásárlása után, etc
     public Upgrade(int id, String name, String description, int price, IEffectable effect, ConditionalProvider[] conditions, Game currentGame) {
         this.id = id;
         this.name = name;
@@ -26,7 +25,6 @@ public class Upgrade {
         this.currentGame = currentGame;
         this.conditions = conditions;
     }
-
 
     public int getId() {
         return id;
