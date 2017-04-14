@@ -19,7 +19,7 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_light"
-        android:textSize="24sp"
+        android:textSize="30dp"
         android:textStyle="normal|bold"
         android:typeface="serif" />
 
@@ -29,12 +29,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/currMoneyText"
         android:layout_centerHorizontal="true"
-        android:lineSpacingExtra="12sp"
+        android:lineSpacingExtra="12dp"
         android:text="Money Per Sec"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_light"
-        android:textSize="12sp"
+        android:textSize="15dp"
         android:textStyle="normal|bold"
         android:typeface="serif" />
 
@@ -49,7 +49,7 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_light"
-        android:textSize="12sp"
+        android:textSize="15dp"
         android:textStyle="normal|bold"
         android:typeface="serif" />
 
