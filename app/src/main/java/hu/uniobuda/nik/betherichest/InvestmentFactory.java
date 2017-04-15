@@ -25,7 +25,8 @@ public class InvestmentFactory {
                 0.1,                //BASE MONEY PER SECOND
                 "Put your money into the bank, for a small amount of interest.", //DESCRIPTION
                 new int[] {0},      //UPGRADES THAT AFFECT THIS INVESTMENT
-                currentGame
+                currentGame,
+                3
         ),map);
 
         AddToMap(new Investment(
@@ -35,7 +36,8 @@ public class InvestmentFactory {
                 0.1,
                 "Make delicious hamburgers on the street, to get some money from hungry people.",
                 new int[] {1},
-                currentGame
+                currentGame,
+                3
         ),map);
 
         return map;

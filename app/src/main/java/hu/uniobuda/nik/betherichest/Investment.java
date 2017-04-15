@@ -1,10 +1,5 @@
 package hu.uniobuda.nik.betherichest;
 
-import android.graphics.Picture;
-import android.hardware.camera2.params.StreamConfigurationMap;
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by Szabi on 2017.03.31..
  */
@@ -19,8 +14,10 @@ public class Investment {
     private int[] relevantUpgradeIDs;
     private Game currentGame;
     private final double coeff = 1.05;
+    private int imageResource;
 
-    public Investment(int id, String name, int basePrice, double baseDpS, String description, int[] relevantUpgradeIDs, Game currentGame) {
+
+    public Investment(int id, String name, int basePrice, double baseDpS, String description, int[] relevantUpgradeIDs, Game currentGame, int imageResource) {
         this.id = id;
         this.name = name;
         this.basePrice = basePrice;
@@ -28,6 +25,7 @@ public class Investment {
         this.description = description;
         this.relevantUpgradeIDs = relevantUpgradeIDs;
         this.currentGame = currentGame;
+        this.imageResource = imageResource;
     }
 
     public int getId() {
@@ -74,6 +72,10 @@ public class Investment {
         if (isBuyable()) {
             currentGame.buyInvestment(id);
         }
+    }
+
+    public int getImageResource() {
+        return imageResource;
     }
 
     public boolean isBuyable() {

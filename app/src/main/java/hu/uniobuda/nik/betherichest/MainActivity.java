@@ -1,5 +1,6 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -7,12 +8,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     TextView MoneyPerSecText;
     TextView MoneyPerTapText;
     ImageView TapBtn;
+    List<Investment> investments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +41,7 @@ public class MainActivity extends AppCompatActivity {
         MoneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
         TapBtn = (ImageView) findViewById(R.id.clickbtn);
 
-       // game.earnMoney(4000d);
-
-        //!!!TESZT!!!
-        List<Investment> investments = game.getInvestments();
+        investments = game.getInvestments();
         List<Upgrade> upgrades = game.getUpgrades();
 
         //FONTOS!!!! hogy az investments.get(0) NEM!!! feltétlenül a 0ás ID-jű investmentet adja vissza
@@ -51,17 +53,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Investmentek vásárlására két lehetőség van:
         //1. a game classból id alapján vásárolni
-       // game.buyInvestment(0); // vesz a 0 id-jű investmentből -> 0.1m/sec
+        // game.buyInvestment(0); // vesz a 0 id-jű investmentből -> 0.1m/sec
 
         //2. egy investment buy() metódussal vásárolni
-       // inv0.buy(); // vesz a 0 id-jű investmentből -> 0.2m/sec
+        // inv0.buy(); // vesz a 0 id-jű investmentből -> 0.2m/sec
 
         // Upgrade-ekre ugyanez igaz:
         //1. game classból id alapján vásárlás
-       // game.buyUpgrade(2); //megveszi a 2-es idjű upgrade-et (klikk duplázás) -> 2.0m/click
+        // game.buyUpgrade(2); //megveszi a 2-es idjű upgrade-et (klikk duplázás) -> 2.0m/click
 
         //2. upgrade buy() metódusával megvásárolni az adott upgrade-et
-       // upg0.buy();
+        // upg0.buy();
         //a 0-ás id-jű upgrade megkétszerezi a 0 indexű investment termelését -> 0.4m/sec
         // !!!NEM FELTÉTLENÜL AZ AZONOS ID-JŰT DUPLÁZZA EGY UPGRADE, CSAK EBBEN AZ ESETBEN LETT PONT ÍGY MEGHATÁROZVA!!!
 
@@ -120,6 +122,21 @@ public class MainActivity extends AppCompatActivity {
         MoneyPerTapText.setText(game.getMoneyPerClickAsString());
     }
 
+    public void InvestmentsClick(View view) {
+        Toast.makeText(
+                MainActivity.this,
+                "Investments",
+                Toast.LENGTH_LONG
+        ).show();
+
+        setContentView(R.layout.activity_details);
+        InvestmentListFragment fragment = InvestmentListFragment.newInstance();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
+    }
+
     public void UpgradesClick(View view) {
         Toast.makeText(
                 MainActivity.this,
@@ -132,14 +149,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(
                 MainActivity.this,
                 "Gambling",
-                Toast.LENGTH_LONG
-        ).show();
-    }
-
-    public void InvestmentsClick(View view) {
-        Toast.makeText(
-                MainActivity.this,
-                "Investments",
                 Toast.LENGTH_LONG
         ).show();
     }
