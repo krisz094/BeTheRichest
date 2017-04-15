@@ -120,7 +120,7 @@ public class Game {
     }
 
     public String getMoneyPerSecAsString() {
-        return "Money/sec: " + df.format(moneyPerSec);
+        return df.format(moneyPerSec) + " dollars per sec";
     }
 
     public Double getMoneyPerClick() {
@@ -129,7 +129,7 @@ public class Game {
 
     public String getMoneyPerClickAsString() {
 
-        return "Money/tap: " + df.format(moneyPerClick);
+        return  df.format(moneyPerClick)+ " dollars per tap";
     }
 
     public Double getCurrentMoney() {
@@ -137,7 +137,7 @@ public class Game {
     }
 
     public String getCurrentMoneyAsString() {
-        return df.format(gameState.currentMoney);
+        return df.format(gameState.currentMoney) + " dollars";
     }
 
 
@@ -147,7 +147,7 @@ public class Game {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public int compare(Investment o1, Investment o2) {
-                return Integer.compare(o1.getId(),o2.getId());
+                return Integer.compare(o1.getId(), o2.getId());
             }
         });
         return list;

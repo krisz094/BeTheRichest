@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         MoneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
         TapBtn = (ImageView) findViewById(R.id.clickbtn);
 
-        game.earnMoney(4000d);
+       // game.earnMoney(4000d);
 
         //!!!TESZT!!!
         List<Investment> investments = game.getInvestments();
@@ -50,17 +51,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Investmentek vásárlására két lehetőség van:
         //1. a game classból id alapján vásárolni
-        game.buyInvestment(0); // vesz a 0 id-jű investmentből -> 0.1m/sec
+       // game.buyInvestment(0); // vesz a 0 id-jű investmentből -> 0.1m/sec
 
         //2. egy investment buy() metódussal vásárolni
-        inv0.buy(); // vesz a 0 id-jű investmentből -> 0.2m/sec
+       // inv0.buy(); // vesz a 0 id-jű investmentből -> 0.2m/sec
 
         // Upgrade-ekre ugyanez igaz:
         //1. game classból id alapján vásárlás
-        game.buyUpgrade(2); //megveszi a 2-es idjű upgrade-et (klikk duplázás) -> 2.0m/click
+       // game.buyUpgrade(2); //megveszi a 2-es idjű upgrade-et (klikk duplázás) -> 2.0m/click
 
         //2. upgrade buy() metódusával megvásárolni az adott upgrade-et
-        upg0.buy();
+       // upg0.buy();
         //a 0-ás id-jű upgrade megkétszerezi a 0 indexű investment termelését -> 0.4m/sec
         // !!!NEM FELTÉTLENÜL AZ AZONOS ID-JŰT DUPLÁZZA EGY UPGRADE, CSAK EBBEN AZ ESETBEN LETT PONT ÍGY MEGHATÁROZVA!!!
 
@@ -117,5 +118,37 @@ public class MainActivity extends AppCompatActivity {
     private void refreshView() {
         MoneyPerSecText.setText(game.getMoneyPerSecAsString());
         MoneyPerTapText.setText(game.getMoneyPerClickAsString());
+    }
+
+    public void UpgradesClick(View view) {
+        Toast.makeText(
+                MainActivity.this,
+                "Upgrades",
+                Toast.LENGTH_LONG
+        ).show();
+    }
+
+    public void GamblingClick(View view) {
+        Toast.makeText(
+                MainActivity.this,
+                "Gambling",
+                Toast.LENGTH_LONG
+        ).show();
+    }
+
+    public void InvestmentsClick(View view) {
+        Toast.makeText(
+                MainActivity.this,
+                "Investments",
+                Toast.LENGTH_LONG
+        ).show();
+    }
+
+    public void LeaderboardClick(View view) {
+        Toast.makeText(
+                MainActivity.this,
+                "Leaderboard",
+                Toast.LENGTH_LONG
+        ).show();
     }
 }
