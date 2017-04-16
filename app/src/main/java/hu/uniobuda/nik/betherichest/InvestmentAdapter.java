@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 
 /**
@@ -17,6 +18,7 @@ import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 public class InvestmentAdapter extends BaseAdapter {
 
     private List<Investment> items;
+    Game game;
 
     public InvestmentAdapter(List<Investment> items) {
         this.items = items;
@@ -45,14 +47,16 @@ public class InvestmentAdapter extends BaseAdapter {
         }
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.name);
         TextView priceTextView = (TextView) listItemView.findViewById(R.id.price);
+        TextView dpsTextView = (TextView) listItemView.findViewById(R.id.dps);
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
 
         Investment investment = items.get(position);
 
-
         nameTextView.setText(investment.getName());
-        priceTextView.setText(investment.getPriceAsString());
+        priceTextView.setText(String.valueOf(investment.getPrice()) + " $");
         imageView.setBackgroundResource(investment.getImageResource());
+        dpsTextView.setText(String.valueOf(investment.getMoneyPerSec())+ " $/sec");
+
 
         return listItemView;
     }

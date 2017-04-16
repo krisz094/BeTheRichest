@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         MoneyPerSecText.setText(game.getMoneyPerSecAsString());
         MoneyPerTapText.setText(game.getMoneyPerClickAsString());
 
-        //game.buyInvestment(5); // megveszem a legkomolyabbat h jojjon a penz. hehe.
         //refreshView(); // ezt a fgv-t be kene epiteni a game osztalyba, de ahhoz tarolni kene benne a viewre egy referenciat..
 
         Timer T = new Timer();
@@ -101,5 +100,8 @@ public class MainActivity extends AppCompatActivity {
         ).show();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

@@ -76,7 +76,7 @@ public class Game {
     }
 
     public String getMoneyPerSecAsString() {
-        return df.format(moneyPerSec) + " dollars per sec";
+        return df.format(moneyPerSec) + " $ per sec";
     }
 
     public Double getMoneyPerClick() {
@@ -85,7 +85,7 @@ public class Game {
 
     public String getMoneyPerClickAsString() {
 
-        return  df.format(moneyPerClick)+ " dollars per tap";
+        return  df.format(moneyPerClick)+ " $ per tap";
     }
 
     public Double getCurrentMoney() {
@@ -93,7 +93,7 @@ public class Game {
     }
 
     public String getCurrentMoneyAsString() {
-        return df.format(gameState.currentMoney) + " dollars";
+        return df.format(gameState.currentMoney) + " $";
     }
 
 

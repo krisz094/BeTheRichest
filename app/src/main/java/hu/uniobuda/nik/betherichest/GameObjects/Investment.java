@@ -1,5 +1,7 @@
 package hu.uniobuda.nik.betherichest.GameObjects;
 
+import hu.uniobuda.nik.betherichest.Factories.UpgradeFactory;
+
 /**
  * Created by Szabi on 2017.03.31..
  */
@@ -52,17 +54,13 @@ public class Investment {
     public int getPrice() {
         return (int) Math.round(basePrice * Math.pow(coeff, getRank()));
     }
-    public String getPriceAsString() {
-        return String.valueOf(getPrice());
-    }
-
 
     /**
      * Gets money made by this investment per second, including the effect of upgrades
      *
      * @return Money Made Per Second
      */
-    public Double getMoneyPerSec() {
+    public Double getMoneyPerSecForInvestment() {
         Double MPS = getRank() * baseDpS;
         for (Integer ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {
@@ -72,7 +70,7 @@ public class Investment {
         return MPS;
     }
 
-    public Double getMPSPerRank() {
+    public Double getMoneyPerSec() {
         Double MPS = baseDpS;
         for (Integer ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {
