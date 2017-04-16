@@ -18,22 +18,11 @@ public class InvestmentFactory {
     public static HashMap<Integer, Investment> createInvestments(Game currentGame) {
         HashMap<Integer, Investment> map = new HashMap<>();
 
-        /*
-        List<Investment> items = new ArrayList<>();
-        items.add(new Investment(1, "Pizza", 10, 30, "Finom", null, null, R.drawable.pizza));
-        items.add(new Investment(2, "Ice Cream Shop", 15, 35, "Finom", null, null, R.drawable.icecream));
-        items.add(new Investment(3, "Apartmann", 150, 100, "Finom", null, null, R.drawable.apartment));
-        items.add(new Investment(4, "Bank", 800, 300, "Finom", null, null, R.drawable.bank));
-        items.add(new Investment(4, "Hotel Chain", 1500, 360, "Finom", null, null, R.drawable.hotel_chain));
-        items.add(new Investment(4, "Oil Rig", 15000, 3000, "Finom", null, null, R.drawable.oilrig));
-        */
-
-
         AddToMap(new Investment(
                 0,                  //ID
                 "Pizza",              //NAME
                 10,                 //BASE PRICE
-                30,                //BASE MONEY PER SECOND
+                0.1,                //BASE MONEY PER SECOND
                 "Make delicious pizza on the street, to get some money from hungry people.", //DESCRIPTION
                 new int[]{},      //UPGRADES THAT AFFECT THIS INVESTMENT
                 currentGame,
@@ -43,8 +32,8 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 1,
                 "Ice Cream Shop",
-                15,
-                35,
+                100,
+                0.5,
                 "Make delicious ice creams on the street, to get some money from hungry people.",
                 new int[]{},
                 currentGame,
