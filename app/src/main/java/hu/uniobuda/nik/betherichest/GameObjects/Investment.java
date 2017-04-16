@@ -60,7 +60,7 @@ public class Investment {
      *
      * @return Money Made Per Second
      */
-    public Double getMoneyPerSecForInvestment() {
+    public Double getMoneyPerSec() {
         Double MPS = getRank() * baseDpS;
         for (Integer ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {
@@ -70,7 +70,7 @@ public class Investment {
         return MPS;
     }
 
-    public Double getMoneyPerSec() {
+    public Double getMoneyPerSecPerRank() {
         Double MPS = baseDpS;
         for (Integer ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {

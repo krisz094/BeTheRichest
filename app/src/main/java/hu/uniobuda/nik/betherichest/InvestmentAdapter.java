@@ -47,7 +47,9 @@ public class InvestmentAdapter extends BaseAdapter {
         }
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.name);
         TextView priceTextView = (TextView) listItemView.findViewById(R.id.price);
-        TextView dpsTextView = (TextView) listItemView.findViewById(R.id.dps);
+        TextView dpsPerRankTextView = (TextView) listItemView.findViewById(R.id.dpsPerRank);
+        TextView currentDpsTextView = (TextView) listItemView.findViewById(R.id.currDps);
+
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
 
         Investment investment = items.get(position);
@@ -55,7 +57,8 @@ public class InvestmentAdapter extends BaseAdapter {
         nameTextView.setText(investment.getName());
         priceTextView.setText(String.valueOf(investment.getPrice()) + " $");
         imageView.setBackgroundResource(investment.getImageResource());
-        dpsTextView.setText(String.valueOf(investment.getMoneyPerSec())+ " $/sec");
+        dpsPerRankTextView.setText("Per rank: " + String.valueOf(investment.getMoneyPerSecPerRank())+ " $/sec");
+        currentDpsTextView.setText("Total: " + String.valueOf(investment.getMoneyPerSec())+ " $/sec");
 
 
         return listItemView;

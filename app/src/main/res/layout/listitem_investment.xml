@@ -38,7 +38,15 @@
             android:text="Price" />
 
         <TextView
-            android:id="@+id/dps"
+            android:id="@+id/dpsPerRank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/price"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/image"
+            android:text="DPS" />
+        <TextView
+            android:id="@+id/currDps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/price"
