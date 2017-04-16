@@ -72,6 +72,16 @@ public class Investment {
         return MPS;
     }
 
+    public Double getMPSPerRank() {
+        Double MPS = baseDpS;
+        for (Integer ID : relevantUpgradeIDs) {
+            if (currentGame.gameState.getUpgradeBoughtById(ID)) {
+                MPS = currentGame.getUpgrades().get(ID).execute(MPS);
+            }
+        }
+        return MPS;
+    }
+
     public void buy() {
         if (isBuyable()) {
             currentGame.buyInvestment(id);
