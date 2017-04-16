@@ -1,6 +1,6 @@
 package hu.uniobuda.nik.betherichest.Effects;
 
-import hu.uniobuda.nik.betherichest.IEffectable;
+import hu.uniobuda.nik.betherichest.Interfaces.IEffectable;
 
 /**
  * Created by krisz on 2017. 04. 01..

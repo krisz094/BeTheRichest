@@ -1,10 +1,10 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Factories;
 
-import android.content.Context;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import hu.uniobuda.nik.betherichest.GameObjects.Game;
+import hu.uniobuda.nik.betherichest.GameObjects.Investment;
+import hu.uniobuda.nik.betherichest.R;
 
 /**
  * Created by Szabi on 2017.03.31..

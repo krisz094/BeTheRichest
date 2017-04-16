@@ -1,11 +1,10 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Factories;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import hu.uniobuda.nik.betherichest.Effects.DoublerEffect;
+import hu.uniobuda.nik.betherichest.GameObjects.Game;
+import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
 
 /**
  * Created by krisz on 2017. 04. 01..

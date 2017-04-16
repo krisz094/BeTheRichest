@@ -1,6 +1,7 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.GameObjects;
 
-import java.lang.reflect.Array;
+import hu.uniobuda.nik.betherichest.Factories.ConditionalProvider;
+import hu.uniobuda.nik.betherichest.Interfaces.IEffectable;
 
 /**
  * Created by krisz on 2017. 04. 01..

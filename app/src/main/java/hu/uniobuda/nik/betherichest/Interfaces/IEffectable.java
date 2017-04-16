@@ -1,4 +1,4 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Interfaces;
 
 /**
  * Created by krisz on 2017. 04. 01..

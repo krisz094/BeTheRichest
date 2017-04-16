@@ -1,4 +1,6 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Factories;
+
+import hu.uniobuda.nik.betherichest.GameObjects.Game;
 
 /**
  * Created by krisz on 2017. 04. 01..

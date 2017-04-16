@@ -1,4 +1,4 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.GameObjects;
 
 /**
  * Created by Szabi on 2017.03.31..

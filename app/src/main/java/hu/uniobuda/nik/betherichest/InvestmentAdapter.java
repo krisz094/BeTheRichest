@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import hu.uniobuda.nik.betherichest.GameObjects.Investment;
+
 /**
  * Created by Szabi on 2017.04.15..
  */
