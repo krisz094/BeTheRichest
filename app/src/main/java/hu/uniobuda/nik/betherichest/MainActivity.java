@@ -9,13 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
-import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,14 +36,8 @@ public class MainActivity extends AppCompatActivity {
         MoneyPerSecText.setText(game.getMoneyPerSecAsString());
         MoneyPerTapText.setText(game.getMoneyPerClickAsString());
 
-
-        game.buyInvestment(5); // megveszem a legkomolyabbat h jojjon a penz. hehe.
-        refreshView(); // ezt a fgv-t be kene epiteni a game osztalyba, de ahhoz tarolni kene benne a viewre egy referenciat..
-
-        List<Investment> invs = game.getInvestments();
-
-        Double elso = invs.get(0).getMoneyPerSec();
-        Double masodik = invs.get(0).getMPSPerRank();
+        //game.buyInvestment(5); // megveszem a legkomolyabbat h jojjon a penz. hehe.
+        //refreshView(); // ezt a fgv-t be kene epiteni a game osztalyba, de ahhoz tarolni kene benne a viewre egy referenciat..
 
         Timer T = new Timer();
         T.schedule(new TimerTask() {
@@ -75,17 +66,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void InvestmentsClick(View view) {
-        Toast.makeText(
-                MainActivity.this,
-                "Investments",
-                Toast.LENGTH_LONG
-        ).show();
 
         setContentView(R.layout.activity_details);
         InvestmentListFragment fragment = InvestmentListFragment.newInstance();
         FragmentManager manager = getSupportFragmentManager();
+
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
+        transaction.add(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -112,4 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG
         ).show();
     }
+
+
 }
