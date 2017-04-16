@@ -63,8 +63,8 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 3,
                 "Bank",
-                15,
-                35,
+                800,
+                300,
                 "Take people's money, and invest it better than they can.",
                 new int[]{},
                 currentGame,
@@ -73,8 +73,8 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 4,
                 "Hotel Chain",
-                15,
-                35,
+                1500,
+                360,
                 "Buy hotels that you rent(nem biztos h ez a jo angol szo) to tourists.",
                 new int[]{},
                 currentGame,
@@ -83,8 +83,8 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 5,
                 "Oil Rig",
-                15,
-                35,
+                15000,
+                3000,
                 "Dig deep enough in your garden, and find a valuable material, called oil.",
                 new int[]{},
                 currentGame,

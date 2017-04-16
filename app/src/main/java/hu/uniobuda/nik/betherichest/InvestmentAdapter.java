@@ -42,12 +42,14 @@ public class InvestmentAdapter extends BaseAdapter {
             listItemView = View.inflate(parent.getContext(), R.layout.listitem_investment, null);
         }
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.name);
-//        TextView priceTextView = (TextView) listItemView.findViewById(R.id.price);
+        TextView priceTextView = (TextView) listItemView.findViewById(R.id.price);
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
 
         Investment investment = items.get(position);
 
+
         nameTextView.setText(investment.getName());
+        priceTextView.setText(investment.getPriceAsString());
         imageView.setBackgroundResource(investment.getImageResource());
 
         return listItemView;

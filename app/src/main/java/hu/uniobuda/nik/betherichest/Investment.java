@@ -52,6 +52,10 @@ public class Investment {
     public int getPrice() {
         return (int) Math.round(basePrice * Math.pow(coeff, getRank()));
     }
+    public String getPriceAsString() {
+        return String.valueOf(getPrice());
+    }
+
 
     /**
      * Gets money made by this investment per second, including the effect of upgrades
