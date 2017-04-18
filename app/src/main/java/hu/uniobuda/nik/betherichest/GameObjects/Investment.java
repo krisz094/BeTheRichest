@@ -1,6 +1,9 @@
 package hu.uniobuda.nik.betherichest.GameObjects;
 
+import android.widget.Toast;
+
 import hu.uniobuda.nik.betherichest.Factories.UpgradeFactory;
+import hu.uniobuda.nik.betherichest.MainActivity;
 
 /**
  * Created by Szabi on 2017.03.31..
@@ -15,7 +18,7 @@ public class Investment {
     private int id;
     private int[] relevantUpgradeIDs;
     private Game currentGame;
-    private final double coeff = 1.05;
+    private final double coeff = 1.15;
     private int imageResource;
 
 

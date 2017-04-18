@@ -85,7 +85,7 @@ public class Game {
 
     public String getMoneyPerClickAsString() {
 
-        return  df.format(moneyPerClick)+ " $ per tap";
+        return df.format(moneyPerClick) + " $ per tap";
     }
 
     public Double getCurrentMoney() {
@@ -130,14 +130,16 @@ public class Game {
     }
 
     public void buyInvestment(Integer id) {
+
+        deduceMoney((double) investments.get(id).getPrice());
         Integer currRank = gameState.getInvestmentRankById(id);
         currRank += 1;
         gameState.setInvestmentRankById(id, currRank);
-        deduceMoney((double) investments.get(id).getPrice());
         //refresh current MPS because there was a change
         recalcMoneyPerSec();
         recalcMoneyPerClick();
     }
+
 
     private void recalcMoneyPerSec() {
         Double money = 0d;

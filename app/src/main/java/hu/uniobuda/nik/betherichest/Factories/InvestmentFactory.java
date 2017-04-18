@@ -37,7 +37,7 @@ public class InvestmentFactory {
                 "Make delicious ice creams on the street, to get some money from hungry people.",
                 new int[]{},
                 currentGame,
-                R.drawable.icecream
+                R.drawable.icecream2
         ), map);
         AddToMap(new Investment(
                 2,

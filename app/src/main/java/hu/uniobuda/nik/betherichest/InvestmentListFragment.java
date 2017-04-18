@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.telecom.Call;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,11 +68,18 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
 
         final InvestmentAdapter adapter = new InvestmentAdapter(items);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.investment_listview);
+        final ListView listView = (ListView) rootView.findViewById(R.id.investment_listview);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Investment selectedInvestment = adapter.getItem(position);
+                selectedInvestment.buy();
+                //game.buyInvestment(selectedInvestment.getId());
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
-
-
 }
