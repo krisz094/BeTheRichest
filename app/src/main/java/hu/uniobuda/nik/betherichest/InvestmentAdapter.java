@@ -1,10 +1,15 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.nfc.Tag;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -24,6 +29,7 @@ public class InvestmentAdapter extends BaseAdapter {
     TextView dpsPerRankTextView;
     TextView rankTextView;
     ImageView imageView;
+
 
     public InvestmentAdapter(List<Investment> items) {
         this.items = items;
@@ -60,10 +66,9 @@ public class InvestmentAdapter extends BaseAdapter {
 
         nameTextView.setText(investment.getName());
         priceTextView.setText(String.valueOf(investment.getPrice()));
-        imageView.setBackgroundResource(investment.getImageResource());
         dpsPerRankTextView.setText("DPS: " + String.valueOf(investment.getMoneyPerSecPerRank()));
         rankTextView.setText("Rank: "+ String.valueOf(investment.getRank()));
-
+        imageView.setBackgroundResource(investment.getImageResource());
 
         return listItemView;
     }

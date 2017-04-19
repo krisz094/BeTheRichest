@@ -1,10 +1,11 @@
 package hu.uniobuda.nik.betherichest;
 
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,11 +23,13 @@ public class MainActivity extends AppCompatActivity {
     TextView MoneyPerSecText;
     TextView MoneyPerTapText;
     ImageView TapBtn;
+    Animation shake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         CurrMoneyText = (TextView) findViewById(R.id.currMoneyText);
         MoneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         MoneyPerSecText.setText(game.getMoneyPerSecAsString());
         MoneyPerTapText.setText(game.getMoneyPerClickAsString());
+
+        shake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink);
 
         //refreshView(); // ezt a fgv-t be kene epiteni a game osztalyba, de ahhoz tarolni kene benne a viewre egy referenciat..
 
@@ -51,12 +56,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 0, 1000 / 10);
 
-        TapBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                game.click();
-            }
-        });
     }
 
     private void refreshView() {
@@ -69,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
         InvestmentListFragment fragment = InvestmentListFragment.newInstance();
         FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_container, fragment)
+                .commit();
 
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment_container, fragment);
-        transaction.commit();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        transaction.add(R.id.fragment_container, fragment);
+//        transaction.commit();
     }
 
     public void UpgradesClick(View view) {
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     public void LeaderboardClick(View view) {
         Toast.makeText(
                 MainActivity.this,
-                "Leaderboard",
+                "Back button\nSlow animation\nBitmap scaling",
                 Toast.LENGTH_LONG
         ).show();
     }
@@ -102,5 +103,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void DollarClick(View view) {
+        game.click();
+        TapBtn.startAnimation(shake);
     }
 }

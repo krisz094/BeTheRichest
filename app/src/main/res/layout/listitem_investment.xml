@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/invIcon"
@@ -27,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/invIcon"
             android:text="Name"
-            android:textSize="16sp"
+            android:textSize="19sp"
             android:textStyle="bold" />
 
 
@@ -41,7 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/dollarIcon"
@@ -59,9 +61,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+
         android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
         android:layout_marginEnd="10dp"
         android:orientation="horizontal">
 
@@ -69,17 +70,19 @@
             android:id="@+id/rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:text="Rank: 12"
-            android:textAlignment="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/dpsPerRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_below="@+id/rank"
             android:text="DPS: +500"
-            android:textAlignment="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>
