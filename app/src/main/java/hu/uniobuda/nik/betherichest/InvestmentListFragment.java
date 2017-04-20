@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -65,7 +66,6 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        Glide.with(getContext()).load().into(rootView);
         game = Game.Get();
 
         List<Investment> items = game.getInvestments();
@@ -74,6 +74,9 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
 
         final ListView listView = (ListView) rootView.findViewById(R.id.investment_listview);
         listView.setAdapter(adapter);
+
+        TextView currentMoneytext = (TextView) rootView.findViewById(R.id.currentMoneyText);
+        currentMoneytext.setText(game.getCurrentMoneyAsString());
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

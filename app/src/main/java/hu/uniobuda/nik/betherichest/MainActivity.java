@@ -3,9 +3,12 @@ package hu.uniobuda.nik.betherichest;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -115,6 +118,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void DollarClick(View view) {
         game.click();
+        shake.setInterpolator(new Interpolator() {
+            @Override
+            public float getInterpolation(float input) {
+                Log.d("HE", "HEHEHHE: " + input);
+                return input;
+            }
+        });
         TapBtn.startAnimation(shake);
     }
 }

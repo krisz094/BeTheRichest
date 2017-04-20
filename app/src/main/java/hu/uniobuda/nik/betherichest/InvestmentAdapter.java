@@ -67,6 +67,15 @@ public class InvestmentAdapter extends BaseAdapter {
         imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
 
         Investment investment = items.get(position);
+        Glide
+                .with(parent.getContext())
+                .load(investment.getImageResource())
+                .asBitmap()
+                .dontAnimate()
+                .dontTransform()
+                //.centerCrop()
+                //.crossFade()
+                .into(imageView);
 
 
         nameTextView.setText(investment.getName());
