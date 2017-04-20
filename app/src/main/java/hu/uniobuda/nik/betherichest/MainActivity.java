@@ -24,27 +24,22 @@ public class MainActivity extends AppCompatActivity {
     TextView MoneyPerTapText;
     ImageView TapBtn;
     Animation shake;
+    Timer timer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        InitializeUIElements();
 
-        CurrMoneyText = (TextView) findViewById(R.id.currMoneyText);
-        MoneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
-        MoneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
-        TapBtn = (ImageView) findViewById(R.id.clickbtn);
+        InitializeTimer();
+    }
 
-        MoneyPerSecText.setText(game.getMoneyPerSecAsString());
-        MoneyPerTapText.setText(game.getMoneyPerClickAsString());
-
-        shake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink);
-
-        //refreshView(); // ezt a fgv-t be kene epiteni a game osztalyba, de ahhoz tarolni kene benne a viewre egy referenciat..
-
-        Timer T = new Timer();
-        T.schedule(new TimerTask() {
+    private void InitializeTimer() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
@@ -55,7 +50,18 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }, 0, 1000 / 10);
+    }
 
+    private void InitializeUIElements() {
+        CurrMoneyText = (TextView) findViewById(R.id.currMoneyText);
+        MoneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
+        MoneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
+        TapBtn = (ImageView) findViewById(R.id.clickbtn);
+
+        MoneyPerSecText.setText(game.getMoneyPerSecAsString());
+        MoneyPerTapText.setText(game.getMoneyPerClickAsString());
+
+        shake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink);
     }
 
     private void refreshView() {
@@ -103,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        timer.cancel();
+        timer.purge();
     }
 
     public void DollarClick(View view) {

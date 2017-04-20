@@ -23,7 +23,6 @@ import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 public class InvestmentAdapter extends BaseAdapter {
 
     private List<Investment> items;
-    Game game;
     TextView nameTextView;
     TextView priceTextView;
     TextView dpsPerRankTextView;
@@ -53,9 +52,14 @@ public class InvestmentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         View listItemView = view;
+
         if (listItemView == null) {
             listItemView = View.inflate(parent.getContext(), R.layout.listitem_investment, null);
         }
+        else {
+            listItemView = view;
+        }
+
         nameTextView = (TextView) listItemView.findViewById(R.id.name);
         priceTextView = (TextView) listItemView.findViewById(R.id.price);
         dpsPerRankTextView = (TextView) listItemView.findViewById(R.id.dpsPerRank);
@@ -63,6 +67,7 @@ public class InvestmentAdapter extends BaseAdapter {
         imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
 
         Investment investment = items.get(position);
+
 
         nameTextView.setText(investment.getName());
         priceTextView.setText(String.valueOf(investment.getPrice()));

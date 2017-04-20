@@ -83,10 +83,12 @@ public class Investment {
         return MPS;
     }
 
-    public void buy() {
+    public boolean buy() {
         if (isBuyable()) {
             currentGame.buyInvestment(id);
+            return true;
         }
+        return false;
     }
 
     public int getImageResource() {

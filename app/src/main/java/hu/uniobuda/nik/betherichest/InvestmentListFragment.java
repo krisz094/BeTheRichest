@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +65,7 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        Glide.with(getContext()).load().into(rootView);
         game = Game.Get();
 
         List<Investment> items = game.getInvestments();
@@ -76,9 +80,18 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Investment selectedInvestment = adapter.getItem(position);
-                selectedInvestment.buy();
-                //game.buyInvestment(selectedInvestment.getId());
-                adapter.notifyDataSetChanged();
+                if (selectedInvestment.buy()) {
+                    //game.buyInvestment(selectedInvestment.getId());
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(
+                            getContext(),
+                            "You don't have enough money",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+
             }
         });
     }
