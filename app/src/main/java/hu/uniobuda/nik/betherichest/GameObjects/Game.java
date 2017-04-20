@@ -1,6 +1,8 @@
 package hu.uniobuda.nik.betherichest.GameObjects;
 
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.RequiresApi;
 
 import java.text.DecimalFormat;
@@ -19,6 +21,8 @@ public class Game {
 
     private static Game instance;
 
+    public static Integer FPS = 25;
+
     public static Game Get() {
         if (instance == null) {
             instance = new Game();
@@ -27,12 +31,15 @@ public class Game {
     }
 
     public State gameState;
+    public MoneyChangedListener onMoneyChanged;
+    public Handler handler;
     private Double moneyPerSec;
     private Double moneyPerClick;
     private HashMap<Integer, Upgrade> upgrades;
     private HashMap<Integer, Investment> investments;
     private final int[] clickRelevantUpgradeIDs = {2, 3}; //upgrade IDs that affect clicking
     private Timer T;
+
     private DecimalFormat df = new DecimalFormat("0.0");
 
     private Game() {
@@ -42,6 +49,8 @@ public class Game {
         moneyPerClick = 1d;
         upgrades = UpgradeFactory.createUpgrades(this);
         investments = InvestmentFactory.createInvestments(this);
+
+        this.handler = new Handler(Looper.getMainLooper());
 
         gameState.loadState();
         recalcMoneyPerSec();
@@ -54,9 +63,10 @@ public class Game {
         T.schedule(new TimerTask() {
             @Override
             public void run() {
-                earnMoney(getMoneyPerSec() / 10);
+                earnMoney(getMoneyPerSec() / FPS);
+                postMoneyChanged(getCurrentMoneyAsString());
             }
-        }, 0, 1000 / 10);
+        }, 0, 1000 / FPS);
     }
 
     public void earnMoney(Double money) {
@@ -147,6 +157,9 @@ public class Game {
             money += inv.getMoneyPerSec();
         }
         moneyPerSec = money;
+        if(onMoneyChanged != null) {
+            onMoneyChanged.onMoneyPerSecChanged(getMoneyPerSecAsString());
+        }
     }
 
     private void recalcMoneyPerClick() {
@@ -159,6 +172,30 @@ public class Game {
         }
 
         moneyPerClick = money;
+        if(onMoneyChanged != null) {
+            onMoneyChanged.onMoneyPerTapChanged(getMoneyPerClickAsString());
+        }
     }
 
+
+    public void postMoneyChanged(final String totalMoney) {
+        this.handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if(onMoneyChanged != null) {
+                    onMoneyChanged.onTotalMoneyChanged(getCurrentMoneyAsString());
+                }
+            }
+        });
+    }
+
+    public void setOnMoneyChanged(MoneyChangedListener onMoneyChanged) {
+        this.onMoneyChanged = onMoneyChanged;
+    }
+
+    public interface MoneyChangedListener {
+        void onTotalMoneyChanged(String totalMoney);
+        void onMoneyPerTapChanged(String moneyPerTap);
+        void onMoneyPerSecChanged(String moneyPerSec);
+    }
 }

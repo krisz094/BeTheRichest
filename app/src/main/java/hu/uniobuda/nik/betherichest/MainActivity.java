@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         InitializeUIElements();
 
-        InitializeTimer();
+
+
+        //InitializeTimer();
     }
 
     private void InitializeTimer() {
@@ -65,6 +67,23 @@ public class MainActivity extends AppCompatActivity {
         MoneyPerTapText.setText(game.getMoneyPerClickAsString());
 
         shake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink);
+
+        game.setOnMoneyChanged(new Game.MoneyChangedListener() {
+            @Override
+            public void onTotalMoneyChanged(String totalMoney) {
+                CurrMoneyText.setText(totalMoney);
+            }
+
+            @Override
+            public void onMoneyPerTapChanged(String moneyPerTap) {
+                MoneyPerTapText.setText(moneyPerTap);
+            }
+
+            @Override
+            public void onMoneyPerSecChanged(String moneyPerSec) {
+                MoneyPerSecText.setText(moneyPerSec);
+            }
+        });
     }
 
     private void refreshView() {
@@ -112,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        timer.cancel();
-        timer.purge();
+        //timer.cancel();
+        //timer.purge();
     }
 
     public void DollarClick(View view) {

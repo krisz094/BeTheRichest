@@ -75,8 +75,25 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
         final ListView listView = (ListView) rootView.findViewById(R.id.investment_listview);
         listView.setAdapter(adapter);
 
-        TextView currentMoneytext = (TextView) rootView.findViewById(R.id.currentMoneyText);
-        currentMoneytext.setText(game.getCurrentMoneyAsString());
+        final TextView CurrMoneyText = (TextView) rootView.findViewById(R.id.currentMoneyText);
+        //currentMoneytext.setText(game.getCurrentMoneyAsString());
+
+        game.setOnMoneyChanged(new Game.MoneyChangedListener() {
+            @Override
+            public void onTotalMoneyChanged(String totalMoney) {
+                CurrMoneyText.setText(totalMoney);
+            }
+
+            @Override
+            public void onMoneyPerTapChanged(String moneyPerTap) {
+
+            }
+
+            @Override
+            public void onMoneyPerSecChanged(String moneyPerSec) {
+
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
