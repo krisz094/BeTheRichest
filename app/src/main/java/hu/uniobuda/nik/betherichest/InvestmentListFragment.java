@@ -20,6 +20,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Investment;
@@ -31,6 +33,7 @@ import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 public class InvestmentListFragment extends android.support.v4.app.Fragment {
     View rootView;
     Game game;
+    Timer timer;
 
     public static InvestmentListFragment newInstance() {
 
@@ -53,11 +56,6 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
     }
@@ -75,27 +73,12 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
         final ListView listView = (ListView) rootView.findViewById(R.id.investment_listview);
         listView.setAdapter(adapter);
 
-        /*
-        final TextView CurrMoneyText = (TextView) rootView.findViewById(R.id.currentMoneyText);
-        //currentMoneytext.setText(game.getCurrentMoneyAsString());
-
-
-        game.setOnMoneyChanged(new Game.MoneyChangedListener() {
+        game.setOnMoneyChanged2(new Game.MoneyChangedListener2() {
             @Override
-            public void onTotalMoneyChanged(String totalMoney) {
-                CurrMoneyText.setText(totalMoney);
+            public void onTotalMoneychanged2() {
+                adapter.notifyDataSetChanged();
             }
-
-            @Override
-            public void onMoneyPerTapChanged(String moneyPerTap) {
-
-            }
-
-            @Override
-            public void onMoneyPerSecChanged(String moneyPerSec) {
-
-            }
-        });*/
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

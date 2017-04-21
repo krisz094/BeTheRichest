@@ -32,6 +32,7 @@ public class Game {
 
     public State gameState;
     public MoneyChangedListener onMoneyChanged;
+    public MoneyChangedListener2 onMoneyChanged2;
     public Handler handler;
     private Double moneyPerSec;
     private Double moneyPerClick;
@@ -64,8 +65,17 @@ public class Game {
             public void run() {
                 earnMoney(getMoneyPerSec() / FPS);
                 postMoneyChanged(getCurrentMoneyAsString());
+
             }
         }, 0, 1000 / FPS);
+
+
+        T.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                postMoneyChanged2();
+            }
+        }, 0, 2000 );
     }
 
     public void earnMoney(Double money) {
@@ -197,4 +207,24 @@ public class Game {
         void onMoneyPerTapChanged(String moneyPerTap);
         void onMoneyPerSecChanged(String moneyPerSec);
     }
+
+    public void setOnMoneyChanged2(MoneyChangedListener2 onMoneyChanged2) {
+        this.onMoneyChanged2 = onMoneyChanged2;
+    }
+
+    public void postMoneyChanged2() {
+        this.handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if(onMoneyChanged2 != null) {
+                    onMoneyChanged2.onTotalMoneychanged2();
+                }
+            }
+        });
+    }
+
+    public interface MoneyChangedListener2 {
+        void onTotalMoneychanged2();
+    }
+
 }

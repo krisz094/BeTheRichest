@@ -2,7 +2,9 @@ package hu.uniobuda.nik.betherichest;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.nfc.Tag;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -79,6 +81,13 @@ public class InvestmentAdapter extends BaseAdapter {
 
 
         nameTextView.setText(investment.getName());
+
+        if(investment.isBuyable()) {
+            nameTextView.setTextColor(Color.GREEN);
+        } else {
+            nameTextView.setTextColor(Color.RED);
+        }
+
         priceTextView.setText(String.valueOf(investment.getPrice()));
         dpsPerRankTextView.setText("DPS: " + String.valueOf(investment.getMoneyPerSecPerRank()));
         rankTextView.setText("Rank: "+ String.valueOf(investment.getRank()));
