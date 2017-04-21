@@ -21,7 +21,7 @@ public class Game {
 
     private static Game instance;
 
-    public static Integer FPS = 25;
+    public static Integer FPS = 20;
 
     public static Game Get() {
         if (instance == null) {
@@ -56,7 +56,6 @@ public class Game {
         recalcMoneyPerSec();
         recalcMoneyPerClick();
         StartTimer();
-        //TODO: start timer that increments current money with money per sec
     }
 
     private void StartTimer() {
