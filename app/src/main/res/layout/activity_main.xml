@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wood2"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     tools:context="hu.uniobuda.nik.betherichest.MainActivity">
 
@@ -144,5 +145,14 @@
             android:textAlignment="center"
             android:textSize="15sp" />
     </android.support.v7.widget.LinearLayoutCompat>
+
+    <FrameLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/fragment_container2"
+        android:layout_width="match_parent"
+        android:layout_below="@id/clickbtn"
+        android:layout_height="400dp"
+
+        />
 
 </RelativeLayout>

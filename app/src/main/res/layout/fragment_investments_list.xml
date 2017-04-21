@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     tools:context=".MainActivity">
-
+<!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,14 +16,14 @@
         android:textColor="@android:color/white"
         android:background="#804405"
         android:textAlignment="center"
-        android:id="@+id/currentMoneyText"/>
+        android:id="@+id/currentMoneyText"/>-->
 
     <ListView
         android:id="@+id/investment_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/currentMoneyText"
-
+        android:background="#FFFFFF"
         android:dividerHeight="8dp" />
 
 </RelativeLayout>

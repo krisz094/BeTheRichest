@@ -1,10 +1,13 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
@@ -32,14 +35,40 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
         InitializeUIElements();
 
-
-
         //InitializeTimer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        InitializeEventListeners();
+    }
+
+    private void InitializeEventListeners() {
+        game.setOnMoneyChanged(new Game.MoneyChangedListener() {
+            @Override
+            public void onTotalMoneyChanged(String totalMoney) {
+                CurrMoneyText.setText(totalMoney);
+            }
+
+            @Override
+            public void onMoneyPerTapChanged(String moneyPerTap) {
+                MoneyPerTapText.setText(moneyPerTap);
+            }
+
+            @Override
+            public void onMoneyPerSecChanged(String moneyPerSec) {
+                MoneyPerSecText.setText(moneyPerSec);
+            }
+        });
     }
 
     private void InitializeTimer() {
@@ -68,22 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
         shake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink);
 
-        game.setOnMoneyChanged(new Game.MoneyChangedListener() {
-            @Override
-            public void onTotalMoneyChanged(String totalMoney) {
-                CurrMoneyText.setText(totalMoney);
-            }
-
-            @Override
-            public void onMoneyPerTapChanged(String moneyPerTap) {
-                MoneyPerTapText.setText(moneyPerTap);
-            }
-
-            @Override
-            public void onMoneyPerSecChanged(String moneyPerSec) {
-                MoneyPerSecText.setText(moneyPerSec);
-            }
-        });
     }
 
     private void refreshView() {
@@ -92,16 +105,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void InvestmentsClick(View view) {
-
+/*
         setContentView(R.layout.activity_details);
         InvestmentListFragment fragment = InvestmentListFragment.newInstance();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_container, fragment)
-                .commit();
+                .commit();*/
 
 //        FragmentTransaction transaction = manager.beginTransaction();
 //        transaction.add(R.id.fragment_container, fragment);
 //        transaction.commit();
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+        ft.addToBackStack(InvestmentListFragment.class.getName());
+        ft.replace(R.id.fragment_container2, new InvestmentListFragment());
+        ft.commit();
     }
 
     public void UpgradesClick(View view) {
@@ -137,13 +158,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void DollarClick(View view) {
         game.click();
-        shake.setInterpolator(new Interpolator() {
-            @Override
-            public float getInterpolation(float input) {
-                Log.d("HE", "HEHEHHE: " + input);
-                return input;
-            }
-        });
         TapBtn.startAnimation(shake);
     }
 }
