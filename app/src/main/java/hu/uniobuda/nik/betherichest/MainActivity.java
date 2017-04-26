@@ -1,10 +1,17 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,24 +29,51 @@ public class MainActivity extends AppCompatActivity {
     TextView MoneyPerSecText;
     TextView MoneyPerTapText;
     ImageView TapBtn;
+    Animation shake;
+    Timer timer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        CurrMoneyText = (TextView) findViewById(R.id.currMoneyText);
-        MoneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
-        MoneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
-        TapBtn = (ImageView) findViewById(R.id.clickbtn);
+        InitializeUIElements();
 
-        MoneyPerSecText.setText(game.getMoneyPerSecAsString());
-        MoneyPerTapText.setText(game.getMoneyPerClickAsString());
+        //InitializeTimer();
+    }
 
-        //refreshView(); // ezt a fgv-t be kene epiteni a game osztalyba, de ahhoz tarolni kene benne a viewre egy referenciat..
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        Timer T = new Timer();
-        T.schedule(new TimerTask() {
+        InitializeEventListeners();
+    }
+
+    private void InitializeEventListeners() {
+        game.setOnMoneyChanged(new Game.MoneyChangedListener() {
+            @Override
+            public void onTotalMoneyChanged(String totalMoney) {
+                CurrMoneyText.setText(totalMoney);
+            }
+
+            @Override
+            public void onMoneyPerTapChanged(String moneyPerTap) {
+                MoneyPerTapText.setText(moneyPerTap);
+            }
+
+            @Override
+            public void onMoneyPerSecChanged(String moneyPerSec) {
+                MoneyPerSecText.setText(moneyPerSec);
+            }
+        });
+    }
+
+    private void InitializeTimer() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
@@ -50,13 +84,19 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }, 0, 1000 / 10);
+    }
 
-        TapBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                game.click();
-            }
-        });
+    private void InitializeUIElements() {
+        CurrMoneyText = (TextView) findViewById(R.id.currMoneyText);
+        MoneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
+        MoneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
+        TapBtn = (ImageView) findViewById(R.id.clickbtn);
+
+        MoneyPerSecText.setText(game.getMoneyPerSecAsString());
+        MoneyPerTapText.setText(game.getMoneyPerClickAsString());
+
+        shake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink);
+
     }
 
     private void refreshView() {
@@ -65,15 +105,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void InvestmentsClick(View view) {
-
+/*
         setContentView(R.layout.activity_details);
         InvestmentListFragment fragment = InvestmentListFragment.newInstance();
         FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_container, fragment)
+                .commit();*/
 
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        transaction.add(R.id.fragment_container, fragment);
+//        transaction.commit();
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+        ft.addToBackStack(InvestmentListFragment.class.getName());
+        ft.replace(R.id.fragment_container2, new InvestmentListFragment());
+        ft.commit();
     }
 
     public void UpgradesClick(View view) {
@@ -95,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     public void LeaderboardClick(View view) {
         Toast.makeText(
                 MainActivity.this,
-                "Leaderboard",
+                "Back button\nSlow animation\nBitmap scaling",
                 Toast.LENGTH_LONG
         ).show();
     }
@@ -103,5 +152,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //timer.cancel();
+        //timer.purge();
+    }
+
+    public void DollarClick(View view) {
+        game.click();
+        TapBtn.startAnimation(shake);
     }
 }

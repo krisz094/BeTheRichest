@@ -1,10 +1,17 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.nfc.Tag;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -18,7 +25,12 @@ import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 public class InvestmentAdapter extends BaseAdapter {
 
     private List<Investment> items;
-    Game game;
+    TextView nameTextView;
+    TextView priceTextView;
+    TextView dpsPerRankTextView;
+    TextView rankTextView;
+    ImageView imageView;
+
 
     public InvestmentAdapter(List<Investment> items) {
         this.items = items;
@@ -30,7 +42,7 @@ public class InvestmentAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Investment getItem(int position) {
         return items == null ? null : items.get(position);
     }
 
@@ -42,25 +54,50 @@ public class InvestmentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         View listItemView = view;
+
         if (listItemView == null) {
             listItemView = View.inflate(parent.getContext(), R.layout.listitem_investment, null);
         }
-        TextView nameTextView = (TextView) listItemView.findViewById(R.id.name);
-        TextView priceTextView = (TextView) listItemView.findViewById(R.id.price);
-        TextView dpsPerRankTextView = (TextView) listItemView.findViewById(R.id.dpsPerRank);
-        TextView currentDpsTextView = (TextView) listItemView.findViewById(R.id.currDps);
+        else {
+            listItemView = view;
+        }
 
-        ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
+        nameTextView = (TextView) listItemView.findViewById(R.id.name);
+        priceTextView = (TextView) listItemView.findViewById(R.id.price);
+        dpsPerRankTextView = (TextView) listItemView.findViewById(R.id.dpsPerRank);
+        rankTextView = (TextView) listItemView.findViewById(R.id.rank);
+        imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
 
         Investment investment = items.get(position);
+        Glide
+                .with(parent.getContext())
+                .load(investment.getImageResource())
+                .asBitmap()
+                .dontAnimate()
+                .dontTransform()
+                //.centerCrop()
+                //.crossFade()
+                .into(imageView);
+
 
         nameTextView.setText(investment.getName());
-        priceTextView.setText(String.valueOf(investment.getPrice()) + " $");
-        imageView.setBackgroundResource(investment.getImageResource());
-        dpsPerRankTextView.setText("Per rank: " + String.valueOf(investment.getMoneyPerSecPerRank())+ " $/sec");
-        currentDpsTextView.setText("Total: " + String.valueOf(investment.getMoneyPerSec())+ " $/sec");
 
+        if(investment.isBuyable()) {
+            nameTextView.setTextColor(Color.GREEN);
+        } else {
+            nameTextView.setTextColor(Color.RED);
+        }
+
+        priceTextView.setText(String.valueOf(investment.getPrice()));
+        dpsPerRankTextView.setText("DPS: " + String.valueOf(investment.getMoneyPerSecPerRank()));
+        rankTextView.setText("Rank: "+ String.valueOf(investment.getRank()));
+        imageView.setBackgroundResource(investment.getImageResource());
 
         return listItemView;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 }

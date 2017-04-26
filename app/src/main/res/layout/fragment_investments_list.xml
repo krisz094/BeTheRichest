@@ -2,21 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
->
+
+    tools:context=".MainActivity">
+<!--
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Money"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="#804405"
+        android:textAlignment="center"
+        android:id="@+id/currentMoneyText"/>-->
 
     <ListView
         android:id="@+id/investment_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/button"
-        android:background="#eaeaea"
-        />
+        android:layout_below="@+id/currentMoneyText"
+        android:background="@drawable/paper"
+        android:dividerHeight="8dp" />
 
 </RelativeLayout>

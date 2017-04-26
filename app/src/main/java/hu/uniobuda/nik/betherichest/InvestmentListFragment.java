@@ -5,15 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.telecom.Call;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Investment;
@@ -25,6 +33,7 @@ import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 public class InvestmentListFragment extends android.support.v4.app.Fragment {
     View rootView;
     Game game;
+    Timer timer;
 
     public static InvestmentListFragment newInstance() {
 
@@ -47,11 +56,6 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
     }
@@ -66,11 +70,34 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
 
         final InvestmentAdapter adapter = new InvestmentAdapter(items);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.investment_listview);
+        final ListView listView = (ListView) rootView.findViewById(R.id.investment_listview);
         listView.setAdapter(adapter);
 
+        game.setOnMoneyChanged2(new Game.MoneyChangedListener2() {
+            @Override
+            public void onTotalMoneychanged2() {
+                adapter.notifyDataSetChanged();
+            }
+        });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Investment selectedInvestment = adapter.getItem(position);
+                if (selectedInvestment.buy()) {
+                    //game.buyInvestment(selectedInvestment.getId());
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(
+                            getContext(),
+                            "You don't have enough money",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+
+            }
+        });
     }
-
-
 }

@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:lineSpacingExtra="12sp"
         android:text="Current Money"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -29,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/currMoneyText"
         android:layout_centerHorizontal="true"
-        android:lineSpacingExtra="12dp"
         android:text="Money Per Sec"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -44,7 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/moneyPerSecText"
         android:layout_centerHorizontal="true"
-        android:lineSpacingExtra="12sp"
         android:text="Money Per Tap"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -57,8 +54,9 @@
         android:id="@+id/clickbtn"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_above="@+id/icons"
+        android:onClick="DollarClick"
         app:srcCompat="@drawable/dollar"
+        android:layout_marginTop="48dp"
         android:layout_below="@+id/moneyPerTapText"
         android:layout_alignParentStart="true" />
 
@@ -95,7 +93,6 @@
             android:layout_height="70dp"
             android:layout_weight="0.26"
             android:onClick="GamblingClick"
-
             app:srcCompat="@drawable/clover" />
 
         <ImageView
@@ -148,5 +145,14 @@
             android:textAlignment="center"
             android:textSize="15sp" />
     </android.support.v7.widget.LinearLayoutCompat>
+
+    <FrameLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/fragment_container2"
+        android:layout_width="match_parent"
+        android:layout_below="@id/clickbtn"
+        android:layout_height="400dp"
+
+        />
 
 </RelativeLayout>

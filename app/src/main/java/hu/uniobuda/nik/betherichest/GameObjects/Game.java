@@ -1,6 +1,8 @@
 package hu.uniobuda.nik.betherichest.GameObjects;
 
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.RequiresApi;
 
 import java.text.DecimalFormat;
@@ -19,6 +21,8 @@ public class Game {
 
     private static Game instance;
 
+    public static Integer FPS = 20;
+
     public static Game Get() {
         if (instance == null) {
             instance = new Game();
@@ -27,12 +31,16 @@ public class Game {
     }
 
     public State gameState;
+    public MoneyChangedListener onMoneyChanged;
+    public MoneyChangedListener2 onMoneyChanged2;
+    public Handler handler;
     private Double moneyPerSec;
     private Double moneyPerClick;
     private HashMap<Integer, Upgrade> upgrades;
     private HashMap<Integer, Investment> investments;
     private final int[] clickRelevantUpgradeIDs = {2, 3}; //upgrade IDs that affect clicking
     private Timer T;
+
     private DecimalFormat df = new DecimalFormat("0.0");
 
     private Game() {
@@ -43,20 +51,31 @@ public class Game {
         upgrades = UpgradeFactory.createUpgrades(this);
         investments = InvestmentFactory.createInvestments(this);
 
+        this.handler = new Handler(Looper.getMainLooper());
+
         gameState.loadState();
         recalcMoneyPerSec();
         recalcMoneyPerClick();
         StartTimer();
-        //TODO: start timer that increments current money with money per sec
     }
 
     private void StartTimer() {
         T.schedule(new TimerTask() {
             @Override
             public void run() {
-                earnMoney(getMoneyPerSec() / 10);
+                earnMoney(getMoneyPerSec() / FPS);
+                postMoneyChanged(getCurrentMoneyAsString());
+
             }
-        }, 0, 1000 / 10);
+        }, 0, 1000 / FPS);
+
+
+        T.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                postMoneyChanged2();
+            }
+        }, 0, 2000 );
     }
 
     public void earnMoney(Double money) {
@@ -85,7 +104,7 @@ public class Game {
 
     public String getMoneyPerClickAsString() {
 
-        return  df.format(moneyPerClick)+ " $ per tap";
+        return df.format(moneyPerClick) + " $ per tap";
     }
 
     public Double getCurrentMoney() {
@@ -130,14 +149,16 @@ public class Game {
     }
 
     public void buyInvestment(Integer id) {
+
+        deduceMoney((double) investments.get(id).getPrice());
         Integer currRank = gameState.getInvestmentRankById(id);
         currRank += 1;
         gameState.setInvestmentRankById(id, currRank);
-        deduceMoney((double) investments.get(id).getPrice());
         //refresh current MPS because there was a change
         recalcMoneyPerSec();
         recalcMoneyPerClick();
     }
+
 
     private void recalcMoneyPerSec() {
         Double money = 0d;
@@ -145,6 +166,9 @@ public class Game {
             money += inv.getMoneyPerSec();
         }
         moneyPerSec = money;
+        if(onMoneyChanged != null) {
+            onMoneyChanged.onMoneyPerSecChanged(getMoneyPerSecAsString());
+        }
     }
 
     private void recalcMoneyPerClick() {
@@ -157,6 +181,50 @@ public class Game {
         }
 
         moneyPerClick = money;
+        if(onMoneyChanged != null) {
+            onMoneyChanged.onMoneyPerTapChanged(getMoneyPerClickAsString());
+        }
+    }
+
+
+    public void postMoneyChanged(final String totalMoney) {
+        this.handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if(onMoneyChanged != null) {
+                    onMoneyChanged.onTotalMoneyChanged(getCurrentMoneyAsString());
+                }
+            }
+        });
+    }
+
+    public void setOnMoneyChanged(MoneyChangedListener onMoneyChanged) {
+        this.onMoneyChanged = onMoneyChanged;
+    }
+
+    public interface MoneyChangedListener {
+        void onTotalMoneyChanged(String totalMoney);
+        void onMoneyPerTapChanged(String moneyPerTap);
+        void onMoneyPerSecChanged(String moneyPerSec);
+    }
+
+    public void setOnMoneyChanged2(MoneyChangedListener2 onMoneyChanged2) {
+        this.onMoneyChanged2 = onMoneyChanged2;
+    }
+
+    public void postMoneyChanged2() {
+        this.handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if(onMoneyChanged2 != null) {
+                    onMoneyChanged2.onTotalMoneychanged2();
+                }
+            }
+        });
+    }
+
+    public interface MoneyChangedListener2 {
+        void onTotalMoneychanged2();
     }
 
 }
