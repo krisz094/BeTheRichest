@@ -30,10 +30,10 @@ public class LeadersFactory {
 
 
 
-    public static List<Leaders> getLeaders() {
+    public static List<Leaders> getLeaders()  {
 
 
-        /*XmlPullParserFactory   xmlFactoryObject = XmlPullParserFactory.newInstance();
+        /*XmlPullParserFactory  xmlFactoryObject = XmlPullParserFactory.newInstance();
         XmlPullParser myparser = xmlFactoryObject.newPullParser();
         myparser.setInput(new FileInputStream(String.valueOf(R.xml.convertcsv)),"utf-8");
 
@@ -43,7 +43,7 @@ public class LeadersFactory {
             switch (eventType){
                 case XmlPullParser.START_TAG:
                     String name = myparser.getAttributeValue(0);
-                    int money =  Integer.valueOf(myparser.getAttributeValue(1));
+                    long money =  Long.valueOf(myparser.getAttributeValue(1));
                     leaders.add(new Leaders(name,money));
 
             }
