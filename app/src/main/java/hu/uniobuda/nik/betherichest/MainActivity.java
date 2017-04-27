@@ -1,5 +1,8 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.database.Cursor;
+import android.os.Debug;
+import android.os.Handler;
 import android.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,14 +19,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Console;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
+import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
 
 public class MainActivity extends AppCompatActivity {
 
     Game game = Game.Get();
+    DatabaseHandler DBHandler;
 
     TextView CurrMoneyText;
     TextView MoneyPerSecText;
@@ -32,13 +40,23 @@ public class MainActivity extends AppCompatActivity {
     Animation shake;
     Timer timer;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+
+        DBHandler=new DatabaseHandler(this);
+
+        //game.gameState.currentMoney=DBHandler.loadMoney();
+        //if(game.gameState.InvestmentIdRank.size()==0) {
+            //game.buyInvestment(1);
+        //}
+        game.loadGame(DBHandler);
+
+        //DBHandler.loadInvestments(game.gameState.InvestmentIdRank);
 
         InitializeUIElements();
 
@@ -159,5 +177,15 @@ public class MainActivity extends AppCompatActivity {
     public void DollarClick(View view) {
         game.click();
         TapBtn.startAnimation(shake);
+        Log.i("test", "OnDestroy is called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //DBHandler.saveMoney(game.getCurrentMoney());
+        game.saveGame(DBHandler);
+
+
     }
 }

@@ -1,5 +1,6 @@
 package hu.uniobuda.nik.betherichest.GameObjects;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +17,7 @@ import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.Factories.InvestmentFactory;
 import hu.uniobuda.nik.betherichest.Factories.UpgradeFactory;
+import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
 
 public class Game {
 
@@ -53,10 +55,12 @@ public class Game {
 
         this.handler = new Handler(Looper.getMainLooper());
 
-        gameState.loadState();
+
+        //gameState.loadState();
         recalcMoneyPerSec();
         recalcMoneyPerClick();
         StartTimer();
+        //TODO: start timer that increments current money with money per sec
     }
 
     private void StartTimer() {
@@ -144,8 +148,7 @@ public class Game {
         gameState.setUpgradeAsBought(id);
         deduceMoney((double) upgrades.get(id).getPrice());
         //refresh current MPS because there was a change
-        recalcMoneyPerSec();
-        recalcMoneyPerClick();
+        recalcAll();
     }
 
     public void buyInvestment(Integer id) {
@@ -154,7 +157,22 @@ public class Game {
         Integer currRank = gameState.getInvestmentRankById(id);
         currRank += 1;
         gameState.setInvestmentRankById(id, currRank);
+        //deduceMoney((double) investments.get(id).getPrice());
         //refresh current MPS because there was a change
+        recalcAll();
+    }
+
+
+    public void saveGame(DatabaseHandler Handler) {
+        gameState.saveState(Handler);
+    }
+
+
+    public void loadGame(DatabaseHandler Handler) {
+        gameState.loadState(Handler);
+        recalcAll();
+    }
+    public void recalcAll() {
         recalcMoneyPerSec();
         recalcMoneyPerClick();
     }

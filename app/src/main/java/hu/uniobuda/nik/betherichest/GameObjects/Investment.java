@@ -98,6 +98,4 @@ public class Investment {
     public boolean isBuyable() {
         return currentGame.getCurrentMoney() >= getPrice();
     }
-
-
 }
