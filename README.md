@@ -16,3 +16,8 @@
 * Different layout for 6+ " screeens
 * Gambling (?)
 * Leaderboard with images, and the players rank displayed on it
+
+
+DEMO:
+-Timer currentmoney settext akkor is frissíti a textet, ha nem történt változás -> ERŐFORRÁSPAZARLÁS!
+
