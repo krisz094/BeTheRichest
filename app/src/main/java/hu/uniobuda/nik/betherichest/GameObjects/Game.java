@@ -43,7 +43,7 @@ public class Game {
     private HashMap<Integer, Upgrade> upgrades;
     private HashMap<Integer, Investment> investments;
     private List<Leaders> leaders;
-    private final int[] clickRelevantUpgradeIDs = {2, 3}; //upgrade IDs that affect clicking
+    private final int[] clickRelevantUpgradeIDs = {3, 4, 5}; //upgrade IDs that affect clicking
     private Timer T;
 
     private DecimalFormat df = new DecimalFormat("0.0");
@@ -80,7 +80,7 @@ public class Game {
             public void run() {
                 postMoneyChanged2();
             }
-        }, 0, 2000 );
+        }, 0, 300);
     }
 
     public void earnMoney(Double money) {
@@ -132,6 +132,7 @@ public class Game {
         });
         return list;
     }
+
     public List<Leaders> getLeaders() throws IOException, XmlPullParserException {
         return LeadersFactory.getLeaders();
     }
@@ -157,7 +158,6 @@ public class Game {
     }
 
     public void buyInvestment(Integer id) {
-
         deduceMoney((double) investments.get(id).getPrice());
         Integer currRank = gameState.getInvestmentRankById(id);
         currRank += 1;
@@ -174,7 +174,7 @@ public class Game {
             money += inv.getMoneyPerSec();
         }
         moneyPerSec = money;
-        if(onMoneyChanged != null) {
+        if (onMoneyChanged != null) {
             onMoneyChanged.onMoneyPerSecChanged(getMoneyPerSecAsString());
         }
     }
@@ -189,7 +189,7 @@ public class Game {
         }
 
         moneyPerClick = money;
-        if(onMoneyChanged != null) {
+        if (onMoneyChanged != null) {
             onMoneyChanged.onMoneyPerTapChanged(getMoneyPerClickAsString());
         }
     }
@@ -199,7 +199,7 @@ public class Game {
         this.handler.post(new Runnable() {
             @Override
             public void run() {
-                if(onMoneyChanged != null) {
+                if (onMoneyChanged != null) {
                     onMoneyChanged.onTotalMoneyChanged(getCurrentMoneyAsString());
                 }
             }
@@ -212,7 +212,9 @@ public class Game {
 
     public interface MoneyChangedListener {
         void onTotalMoneyChanged(String totalMoney);
+
         void onMoneyPerTapChanged(String moneyPerTap);
+
         void onMoneyPerSecChanged(String moneyPerSec);
     }
 
@@ -224,7 +226,7 @@ public class Game {
         this.handler.post(new Runnable() {
             @Override
             public void run() {
-                if(onMoneyChanged2 != null) {
+                if (onMoneyChanged2 != null) {
                     onMoneyChanged2.onTotalMoneychanged2();
                 }
             }

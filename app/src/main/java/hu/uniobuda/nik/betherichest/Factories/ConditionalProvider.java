@@ -37,3 +37,17 @@ class UpgradeWithIDUnlocked extends  ConditionalProvider{
         return currentGame.gameState.getUpgradeBoughtById(id);
     }
 }
+
+class HaveMoreMoneyThan extends  ConditionalProvider{
+
+    Double money;
+
+    public HaveMoreMoneyThan(Double money) {
+        this.money = money;
+    }
+
+    @Override
+    public Boolean Evaluate(Game currentGame) {
+        return currentGame.getCurrentMoney() > money;
+    }
+}

@@ -16,8 +16,9 @@ public class Upgrade {
     private Game currentGame;
     private ConditionalProvider[] conditions;
     private int id;
+    private int imageResource;
 
-    public Upgrade(int id, String name, String description, int price, IEffectable effect, ConditionalProvider[] conditions, Game currentGame) {
+    public Upgrade(int id, String name, String description, int price, IEffectable effect, ConditionalProvider[] conditions, Game currentGame, int imageResource) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -25,6 +26,7 @@ public class Upgrade {
         this.effect = effect;
         this.currentGame = currentGame;
         this.conditions = conditions;
+        this.imageResource = imageResource;
     }
 
     public int getId() {
@@ -69,6 +71,10 @@ public class Upgrade {
 
     public double execute(double input) {
         return effect.effect(input);
+    }
+
+    public int getImageResource() {
+        return imageResource;
     }
 }
 
