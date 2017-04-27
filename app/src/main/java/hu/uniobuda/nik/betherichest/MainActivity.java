@@ -1,17 +1,15 @@
 package hu.uniobuda.nik.betherichest;
 
-import android.app.Fragment;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.Interpolator;
-import android.view.animation.LinearInterpolator;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -121,7 +119,17 @@ public class MainActivity extends AppCompatActivity {
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
         ft.addToBackStack(InvestmentListFragment.class.getName());
-        ft.replace(R.id.fragment_container2, new InvestmentListFragment());
+        ft.replace(R.id.investment_list_container, new InvestmentListFragment());
+        ft.commit();
+    }
+
+    public void GamblingClick(View view) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+//        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//        ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+        ft.addToBackStack(GamblingFragment.class.getName());
+        ft.replace(R.id.gambling_container, new GamblingFragment());
         ft.commit();
     }
 
@@ -133,14 +141,6 @@ public class MainActivity extends AppCompatActivity {
         ).show();
     }
 
-    public void GamblingClick(View view) {
-        Toast.makeText(
-                MainActivity.this,
-                "Gambling",
-                Toast.LENGTH_LONG
-        ).show();
-    }
-
     public void LeaderboardClick(View view) {
 
         setContentView(R.layout.leaderboard_container);
@@ -148,8 +148,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.leaderboard_fragment_container, fragment)
                 .commit();
-
-
     }
 
     @Override

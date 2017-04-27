@@ -54,11 +54,11 @@
         android:id="@+id/clickbtn"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:onClick="DollarClick"
-        app:srcCompat="@drawable/dollar"
-        android:layout_marginTop="48dp"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/moneyPerTapText"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="40dp"
+        android:onClick="DollarClick"
+        app:srcCompat="@drawable/dollar" />
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/icons"
@@ -147,12 +147,18 @@
     </android.support.v7.widget.LinearLayoutCompat>
 
     <FrameLayout
-        android:layout_alignParentBottom="true"
-        android:id="@+id/fragment_container2"
+        android:id="@+id/investment_list_container"
         android:layout_width="match_parent"
-        android:layout_below="@id/clickbtn"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/clickbtn"
+        />
 
+    <FrameLayout
+        android:id="@+id/gambling_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         />
 
 </RelativeLayout>

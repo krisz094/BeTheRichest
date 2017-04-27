@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +47,14 @@ public class LeadersboardListFragment extends android.support.v4.app.Fragment {
         super.onActivityCreated(savedInstanceState);
         game = Game.Get();
 
-        List<Leaders> leaders = game.getLeaders();
+        List<Leaders> leaders = null;
+        try {
+            leaders = game.getLeaders();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
         final LeadersAdapter adapter = new LeadersAdapter(leaders);
         ListView listView = (ListView) rootView.findViewById(R.id.leaderboard_listview);
         listView.setAdapter(adapter);
