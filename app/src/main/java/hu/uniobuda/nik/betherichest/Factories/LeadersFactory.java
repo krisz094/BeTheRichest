@@ -55,6 +55,7 @@ public class LeadersFactory {
 
 
         leaders.add(new Leaders("Bill Gates",500000000));
+        leaders.add(new Leaders("Bill Gates",500000000));
         leaders.add(new Leaders("Jeff Bezos",40000000));
         leaders.add(new Leaders("Amancio Ortega",300000000));
         leaders.add(new Leaders("Mark Zuckerberg",300000000));
