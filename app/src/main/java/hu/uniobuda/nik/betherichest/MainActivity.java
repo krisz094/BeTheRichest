@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
 //        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 //        ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
-        ft.addToBackStack(GamblingFragment.class.getName());
         ft.replace(R.id.gambling_container, new GamblingFragment());
+        ft.addToBackStack(GamblingFragment.class.getName());
         ft.commit();
     }
 
