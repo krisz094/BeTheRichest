@@ -142,11 +142,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void LeaderboardClick(View view) {
-        Toast.makeText(
-                MainActivity.this,
-                "Back button\nSlow animation\nBitmap scaling",
-                Toast.LENGTH_LONG
-        ).show();
+
+        setContentView(R.layout.leaderboard_container);
+        LeadersboardListFragment fragment = LeadersboardListFragment.newInstance();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.leaderboard_fragment_container, fragment)
+                .commit();
+
+
     }
 
     @Override

@@ -15,6 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.Factories.InvestmentFactory;
+import hu.uniobuda.nik.betherichest.Factories.LeadersFactory;
 import hu.uniobuda.nik.betherichest.Factories.UpgradeFactory;
 
 public class Game {
@@ -38,6 +39,7 @@ public class Game {
     private Double moneyPerClick;
     private HashMap<Integer, Upgrade> upgrades;
     private HashMap<Integer, Investment> investments;
+    private List<Leaders> leaders;
     private final int[] clickRelevantUpgradeIDs = {2, 3}; //upgrade IDs that affect clicking
     private Timer T;
 
@@ -126,6 +128,9 @@ public class Game {
             }
         });
         return list;
+    }
+    public List<Leaders> getLeaders(){
+        return LeadersFactory.getLeaders();
     }
 
     public List<Upgrade> getUpgrades() {
