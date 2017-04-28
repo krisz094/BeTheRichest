@@ -24,7 +24,7 @@ public class InvestmentFactory {
                 10,                 //BASE PRICE
                 0.1,                //BASE MONEY PER SECOND
                 "Make delicious pizza on the street, to get some money from hungry people.", //DESCRIPTION
-                new int[]{},      //UPGRADES THAT AFFECT THIS INVESTMENT
+                new int[]{0, 1, 2},      //UPGRADES THAT AFFECT THIS INVESTMENT
                 currentGame,
                 R.drawable.pizza
         ), map);
@@ -35,7 +35,7 @@ public class InvestmentFactory {
                 100,
                 0.5,
                 "Make delicious ice creams on the street, to get some money from hungry people.",
-                new int[]{},
+                new int[]{6, 7, 8},
                 currentGame,
                 R.drawable.icecream
         ), map);
@@ -45,7 +45,7 @@ public class InvestmentFactory {
                 150,
                 100,
                 "Buy homes that you sell to people.",
-                new int[]{},
+                new int[]{9, 10, 11},
                 currentGame,
                 R.drawable.apartment
         ), map);
@@ -55,7 +55,7 @@ public class InvestmentFactory {
                 800,
                 300,
                 "Take people's money, and invest it better than they can.",
-                new int[]{},
+                new int[]{12, 13, 14},
                 currentGame,
                 R.drawable.bank
         ), map);
@@ -64,8 +64,8 @@ public class InvestmentFactory {
                 "Hotel Chain",
                 1500,
                 360,
-                "Buy hotels that you rent(nem biztos h ez a jo angol szo) to tourists.",
-                new int[]{},
+                "Buy hotels that you rent to tourists.",
+                new int[]{15, 16, 17},
                 currentGame,
                 R.drawable.hotel_chain
         ), map);
@@ -75,7 +75,7 @@ public class InvestmentFactory {
                 15000,
                 3000,
                 "Dig deep enough in your garden, and find a valuable material, called oil.",
-                new int[]{},
+                new int[]{18, 19, 20},
                 currentGame,
                 R.drawable.oilrig
         ), map);
