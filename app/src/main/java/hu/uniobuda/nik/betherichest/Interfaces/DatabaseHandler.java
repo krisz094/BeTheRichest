@@ -116,10 +116,11 @@ public class DatabaseHandler {
         Cursor result = db.query(TABLE_INVESTMENTS, null, null, null, null, null, null);
         result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
         db.close();
-        while (result.moveToNext()) {
-            Integer id =result.getColumnIndex("_id");
-            Integer rank = result.getColumnIndex("rank");
+        while (!result.isAfterLast()) {
+            Integer id = result.getInt(result.getColumnIndex("_id"));
+            Integer rank = result.getInt(result.getColumnIndex("rank"));
             investmentIdRank.put(id, rank);
+            result.moveToNext();
         }
         return result;
     }
@@ -130,9 +131,9 @@ public class DatabaseHandler {
         result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
         db.close();
         while (result.moveToNext()) {
-            Integer id = result.getColumnIndex("_id");
+            Integer id = result.getInt(result.getColumnIndex("_id"));
             Boolean rank;
-            if (result.getColumnIndex("rank") == 1) {
+            if (result.getInt(result.getColumnIndex("rank")) == 1) {
                 rank = true;
             } else {
                 rank = false;
