@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/wood"
+    android:id="@+id/mainRelativeLayout"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     tools:context="hu.uniobuda.nik.betherichest.MainActivity">
 
@@ -58,7 +59,17 @@
         android:layout_below="@+id/moneyPerTapText"
         android:layout_marginTop="40dp"
         android:onClick="DollarClick"
+
         app:srcCompat="@drawable/dollar" />
+
+    <TextView
+        android:id="@+id/tapMoneyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/icons"
@@ -151,14 +162,12 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/clickbtn"
-        />
+        android:layout_below="@+id/clickbtn" />
 
     <FrameLayout
         android:id="@+id/gambling_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

@@ -1,26 +1,24 @@
 package hu.uniobuda.nik.betherichest;
 
-import android.database.Cursor;
-import android.os.Debug;
-import android.os.Handler;
-import android.app.Fragment;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,11 +30,18 @@ public class MainActivity extends AppCompatActivity {
     Game game = Game.Get();
     DatabaseHandler DBHandler;
 
-    TextView CurrMoneyText;
-    TextView MoneyPerSecText;
-    TextView MoneyPerTapText;
-    ImageView TapBtn;
+    TextView currMoneyText;
+    TextView moneyPerSecText;
+    TextView moneyPerTapText;
+    TextView tapMoneyText;
+    ImageView tapBtn;
+
+    RelativeLayout mainRelativeLayout;
+
     Animation shrink;
+    Animation growAndFade;
+
+
     Timer timer;
 
 
@@ -48,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        DBHandler=new DatabaseHandler(this);
+        DBHandler = new DatabaseHandler(this);
 
         //game.gameState.currentMoney=DBHandler.loadMoney();
         //if(game.gameState.InvestmentIdRank.size()==0) {
-            //game.buyInvestment(1);
+        //game.buyInvestment(1);
         //}
         game.loadGame(DBHandler);
 
@@ -74,19 +79,64 @@ public class MainActivity extends AppCompatActivity {
         game.setOnMoneyChanged(new Game.MoneyChangedListener() {
             @Override
             public void onTotalMoneyChanged(String totalMoney) {
-                CurrMoneyText.setText(totalMoney);
+                currMoneyText.setText(totalMoney);
             }
 
             @Override
             public void onMoneyPerTapChanged(String moneyPerTap) {
-                MoneyPerTapText.setText(moneyPerTap);
+                moneyPerTapText.setText(moneyPerTap);
             }
 
             @Override
             public void onMoneyPerSecChanged(String moneyPerSec) {
-                MoneyPerSecText.setText(moneyPerSec);
+                moneyPerSecText.setText(moneyPerSec);
             }
         });
+
+        tapBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dollarOnTouch(event);
+                return false;
+            }
+        });
+    }
+
+    private void dollarOnTouch(MotionEvent event) {
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                    TextView tapText = new TextView(MainActivity.this);
+//
+//                    tapText.setTextSize(35);
+//                    tapText.setTextColor(Color.parseColor("#e5ba0a"));
+//                    tapText.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
+//                    tapText.setText("+" + String.valueOf(game.getMoneyPerClick() + "$"));
+//                    params.setMargins((int) (event.getX() - tapText.getWidth() / 2), (int) (event.getY() + tapText.getTextSize()), 0, 0);
+//                    tapText.setLayoutParams(params);
+//                    mainRelativeLayout.addView(tapText);
+//                    TextGrowthAnimationListener listener = new TextGrowthAnimationListener(tapText, mainRelativeLayout);
+//                    growth.setAnimationListener(listener);
+//                    tapText.startAnimation(growth);
+
+            params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+            int marginLeft = (int) (event.getX() - tapMoneyText.getWidth() / 2);
+            int marginTop = (int) (event.getY() + tapMoneyText.getTextSize());
+
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+
+            if (event.getX() > size.x - tapMoneyText.getWidth()) {
+                marginLeft -= tapMoneyText.getWidth()/2;
+            }
+            if (marginLeft<0){
+                marginLeft = 0;
+            }
+            params.setMargins(marginLeft, marginTop, 0, 0);
+            tapMoneyText.setText("+" + String.valueOf(game.getMoneyPerClick() + "$"));
+            tapMoneyText.setLayoutParams(params);
+        }
     }
 
     private void InitializeTimer() {
@@ -97,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        CurrMoneyText.setText(game.getCurrentMoneyAsString());
+                        currMoneyText.setText(game.getCurrentMoneyAsString());
                     }
                 });
             }
@@ -105,21 +155,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void InitializeUIElements() {
-        CurrMoneyText = (TextView) findViewById(R.id.currMoneyText);
-        MoneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
-        MoneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
-        TapBtn = (ImageView) findViewById(R.id.clickbtn);
+        currMoneyText = (TextView) findViewById(R.id.currMoneyText);
+        moneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
+        moneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
+        tapMoneyText = (TextView) findViewById(R.id.tapMoneyText);
+        tapBtn = (ImageView) findViewById(R.id.clickbtn);
 
-        MoneyPerSecText.setText(game.getMoneyPerSecAsString());
-        MoneyPerTapText.setText(game.getMoneyPerClickAsString());
+        moneyPerSecText.setText(game.getMoneyPerSecAsString());
+        moneyPerTapText.setText(game.getMoneyPerClickAsString());
 
         shrink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink);
+        growAndFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.grow_and_fade);
 
+        mainRelativeLayout = (RelativeLayout) findViewById(R.id.mainRelativeLayout);
     }
 
     private void refreshView() {
-        MoneyPerSecText.setText(game.getMoneyPerSecAsString());
-        MoneyPerTapText.setText(game.getMoneyPerClickAsString());
+        moneyPerSecText.setText(game.getMoneyPerSecAsString());
+        moneyPerTapText.setText(game.getMoneyPerClickAsString());
     }
 
     public void InvestmentsClick(View view) {
@@ -146,8 +199,6 @@ public class MainActivity extends AppCompatActivity {
     public void GamblingClick(View view) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-//        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//        ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
         ft.replace(R.id.gambling_container, new GamblingFragment());
         ft.addToBackStack(GamblingFragment.class.getName());
         ft.commit();
@@ -176,9 +227,12 @@ public class MainActivity extends AppCompatActivity {
         //timer.purge();
     }
 
+    RelativeLayout.LayoutParams params;
+
     public void DollarClick(View view) {
         game.click();
-        TapBtn.startAnimation(shrink);
+        tapBtn.startAnimation(shrink);
+        tapMoneyText.startAnimation(growAndFade);
     }
 
     @Override
