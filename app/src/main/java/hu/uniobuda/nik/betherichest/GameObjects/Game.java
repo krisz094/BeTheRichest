@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import hu.uniobuda.nik.betherichest.Factories.GamblingFactory;
 import hu.uniobuda.nik.betherichest.Factories.InvestmentFactory;
 import hu.uniobuda.nik.betherichest.Factories.LeadersFactory;
 import hu.uniobuda.nik.betherichest.Factories.UpgradeFactory;
@@ -44,6 +45,7 @@ public class Game {
     private Double moneyPerClick;
     private HashMap<Integer, Upgrade> upgrades;
     private HashMap<Integer, Investment> investments;
+    private HashMap<Integer, Gambling> gamblings;
     private List<Leaders> leaders;
     private final int[] clickRelevantUpgradeIDs = {3, 4, 5}; //upgrade IDs that affect clicking
     private Timer T;
@@ -57,6 +59,7 @@ public class Game {
         moneyPerClick = 1d;
         upgrades = UpgradeFactory.createUpgrades(this);
         investments = InvestmentFactory.createInvestments(this);
+        gamblings = GamblingFactory.createGamblings(this);
 
         this.handler = new Handler(Looper.getMainLooper());
 
@@ -131,6 +134,18 @@ public class Game {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public int compare(Investment o1, Investment o2) {
+                return Integer.compare(o1.getId(), o2.getId());
+            }
+        });
+        return list;
+    }
+
+    public List<Gambling> getGamblings() {
+        ArrayList<Gambling> list = new ArrayList<>(gamblings.values());
+        Collections.sort(list, new Comparator<Gambling>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public int compare(Gambling o1, Gambling o2) {
                 return Integer.compare(o1.getId(), o2.getId());
             }
         });

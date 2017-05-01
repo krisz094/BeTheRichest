@@ -52,7 +52,7 @@
         android:typeface="serif" />
 
     <ImageView
-        android:id="@+id/clickbtn"
+        android:id="@+id/dollar"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_alignParentStart="true"
@@ -158,14 +158,14 @@
     <FrameLayout
         android:id="@+id/investment_list_container"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/clickbtn" />
+        android:layout_below="@+id/dollar" />
 
     <FrameLayout
         android:id="@+id/gambling_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

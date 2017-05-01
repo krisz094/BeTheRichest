@@ -1,8 +1,6 @@
 package hu.uniobuda.nik.betherichest;
 
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Typeface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +12,6 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -168,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         moneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
         moneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
         tapMoneyText = (TextView) findViewById(R.id.tapMoneyText);
-        tapBtn = (ImageView) findViewById(R.id.clickbtn);
+        tapBtn = (ImageView) findViewById(R.id.dollar);
 
         moneyPerSecText.setText(game.getMoneyPerSecAsString());
         moneyPerTapText.setText(game.getMoneyPerClickAsString());
@@ -208,8 +205,9 @@ public class MainActivity extends AppCompatActivity {
     public void GamblingClick(View view) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.gambling_container, new GamblingFragment());
-        ft.addToBackStack(GamblingFragment.class.getName());
+        ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+        ft.replace(R.id.gambling_container, new GamblingListFragment());
+        ft.addToBackStack(GamblingListFragment.class.getName());
         ft.commit();
     }
 

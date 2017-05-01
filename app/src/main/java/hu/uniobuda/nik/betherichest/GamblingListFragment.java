@@ -6,26 +6,33 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.List;
+
+import hu.uniobuda.nik.betherichest.GameObjects.Gambling;
+import hu.uniobuda.nik.betherichest.GameObjects.Game;
+import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 
 /**
  * Created by Szabi on 2017-04-27.
  */
 
-public class GamblingFragment extends Fragment {
+public class GamblingListFragment extends Fragment {
     View rootView;
 
-    public static GamblingFragment newInstance() {
+    public static GamblingListFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        GamblingFragment fragment = new GamblingFragment();
+        GamblingListFragment fragment = new GamblingListFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_gambling, container, false);
+        rootView = inflater.inflate(R.layout.gambling_list, container, false);
         return rootView;
     }
 
@@ -41,5 +48,11 @@ public class GamblingFragment extends Fragment {
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        List<Gambling> items= Game.Get().getGamblings();
+
+        final GamblingAdapter adapter = new GamblingAdapter(items);
+
+        final ListView listView = (ListView) rootView.findViewById(R.id.gamling_listview);
+        listView.setAdapter(adapter);
     }
 }

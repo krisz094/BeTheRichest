@@ -11,11 +11,11 @@ import hu.uniobuda.nik.betherichest.MainActivity;
 
 
 public class Investment {
+    private int id;
     private String name;
     private double basePrice;
     private double baseDpS;
     private String description;
-    private int id;
     private int[] relevantUpgradeIDs;
     private Game currentGame;
     private final double coeff = 1.15;
