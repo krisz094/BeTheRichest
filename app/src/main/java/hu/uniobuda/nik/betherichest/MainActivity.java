@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     TextView MoneyPerSecText;
     TextView MoneyPerTapText;
     ImageView TapBtn;
-    Animation shake;
+    Animation shrink;
     Timer timer;
 
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         MoneyPerSecText.setText(game.getMoneyPerSecAsString());
         MoneyPerTapText.setText(game.getMoneyPerClickAsString());
 
-        shake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink);
+        shrink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink);
 
     }
 
@@ -162,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void LeaderboardClick(View view) {
-
         setContentView(R.layout.leaderboard_container);
         LeadersboardListFragment fragment = LeadersboardListFragment.newInstance();
         FragmentManager manager = getSupportFragmentManager();
@@ -179,8 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void DollarClick(View view) {
         game.click();
-        TapBtn.startAnimation(shake);
-        Log.i("test", "OnDestroy is called");
+        TapBtn.startAnimation(shrink);
     }
 
     @Override

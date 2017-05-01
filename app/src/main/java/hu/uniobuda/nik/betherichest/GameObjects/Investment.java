@@ -12,7 +12,7 @@ import hu.uniobuda.nik.betherichest.MainActivity;
 
 public class Investment {
     private String name;
-    private int basePrice;
+    private double basePrice;
     private double baseDpS;
     private String description;
     private int id;
@@ -22,7 +22,7 @@ public class Investment {
     private int imageResource;
 
 
-    public Investment(int id, String name, int basePrice, double baseDpS, String description, int[] relevantUpgradeIDs, Game currentGame, int imageResource) {
+    public Investment(int id, String name, double basePrice, double baseDpS, String description, int[] relevantUpgradeIDs, Game currentGame, int imageResource) {
         this.id = id;
         this.name = name;
         this.basePrice = basePrice;
@@ -54,8 +54,8 @@ public class Investment {
         return currentGame.gameState.getInvestmentRankById(id);
     }
 
-    public int getPrice() {
-        return (int) Math.round(basePrice * Math.pow(coeff, getRank()));
+    public double getPrice() {
+        return (double) Math.round(basePrice * Math.pow(coeff, getRank()));
     }
 
     /**

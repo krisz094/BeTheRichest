@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.data.StreamAssetPathFetcher;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class InvestmentAdapter extends BaseAdapter {
     TextView priceTextView;
     TextView dpsPerRankTextView;
     TextView rankTextView;
+    TextView descriptionTextView;
     ImageView imageView;
 
 
@@ -57,8 +59,7 @@ public class InvestmentAdapter extends BaseAdapter {
 
         if (listItemView == null) {
             listItemView = View.inflate(parent.getContext(), R.layout.listitem_investment, null);
-        }
-        else {
+        } else {
             listItemView = view;
         }
 
@@ -66,6 +67,7 @@ public class InvestmentAdapter extends BaseAdapter {
         priceTextView = (TextView) listItemView.findViewById(R.id.price);
         dpsPerRankTextView = (TextView) listItemView.findViewById(R.id.dpsPerRank);
         rankTextView = (TextView) listItemView.findViewById(R.id.rank);
+        descriptionTextView = (TextView) listItemView.findViewById(R.id.description);
         imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
 
         Investment investment = items.get(position);
@@ -75,22 +77,21 @@ public class InvestmentAdapter extends BaseAdapter {
                 .asBitmap()
                 .dontAnimate()
                 .dontTransform()
-                //.centerCrop()
-                //.crossFade()
                 .into(imageView);
 
 
         nameTextView.setText(investment.getName());
 
-        if(investment.isBuyable()) {
-            nameTextView.setTextColor(Color.GREEN);
+        if (investment.isBuyable()) {
+            nameTextView.setTextColor(Color.parseColor("#0c6f04"));
         } else {
-            nameTextView.setTextColor(Color.RED);
+            nameTextView.setTextColor(Color.parseColor("#760c07"));
         }
 
         priceTextView.setText(String.valueOf(investment.getPrice()));
         dpsPerRankTextView.setText("DPS: " + String.valueOf(investment.getMoneyPerSecPerRank()));
-        rankTextView.setText("Rank: "+ String.valueOf(investment.getRank()));
+        rankTextView.setText("Rank: " + String.valueOf(investment.getRank()));
+        descriptionTextView.setText(investment.getDescription());
         imageView.setBackgroundResource(investment.getImageResource());
 
         return listItemView;

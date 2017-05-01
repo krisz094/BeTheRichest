@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/invIcon"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:scaleType="centerCrop"
+        android:layout_alignBottom="@+id/linearLayout"
+        android:layout_centerInParent="true"
+        android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -28,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/invIcon"
             android:text="Name"
-            android:textSize="19sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
 
@@ -42,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -56,13 +58,17 @@
                 app:srcCompat="@drawable/dollar" />
 
         </RelativeLayout>
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:text="Description"/>
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_centerInParent="true"
         android:layout_marginEnd="10dp"
         android:orientation="horizontal">
 
@@ -72,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:text="Rank: 12"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
@@ -82,7 +88,7 @@
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/rank"
             android:text="DPS: +500"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>
