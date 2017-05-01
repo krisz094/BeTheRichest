@@ -41,9 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Animation shrink;
     Animation growAndFade;
 
-
     Timer timer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     private void dollarOnTouch(MotionEvent event) {
@@ -118,25 +117,35 @@ public class MainActivity extends AppCompatActivity {
 //                    growth.setAnimationListener(listener);
 //                    tapText.startAnimation(growth);
 
+            game.click();
+            tapBtn.startAnimation(shrink);
+            tapMoneyText.startAnimation(growAndFade);
+
             params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
             int marginLeft = (int) (event.getX() - tapMoneyText.getWidth() / 2);
             int marginTop = (int) (event.getY() + tapMoneyText.getTextSize());
 
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
+            marginLeft = getMarginLeft(event, marginLeft);
 
-            if (event.getX() > size.x - tapMoneyText.getWidth()) {
-                marginLeft -= tapMoneyText.getWidth()/2;
-            }
-            if (marginLeft<0){
-                marginLeft = 0;
-            }
             params.setMargins(marginLeft, marginTop, 0, 0);
             tapMoneyText.setText("+" + String.valueOf(game.getMoneyPerClick() + "$"));
             tapMoneyText.setLayoutParams(params);
         }
+    }
+
+    private int getMarginLeft(MotionEvent event, int marginLeft) {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        if (event.getX() > size.x - tapMoneyText.getWidth()) {
+            marginLeft -= tapMoneyText.getWidth()/2;
+        }
+        if (marginLeft<0){
+            marginLeft = 0;
+        }
+        return marginLeft;
     }
 
     private void InitializeTimer() {
@@ -228,12 +237,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     RelativeLayout.LayoutParams params;
-
-    public void DollarClick(View view) {
-        game.click();
-        tapBtn.startAnimation(shrink);
-        tapMoneyText.startAnimation(growAndFade);
-    }
 
     @Override
     protected void onStop() {
