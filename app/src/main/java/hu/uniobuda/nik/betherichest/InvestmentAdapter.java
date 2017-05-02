@@ -88,8 +88,8 @@ public class InvestmentAdapter extends BaseAdapter {
             nameTextView.setTextColor(Color.parseColor("#760c07"));
         }
 
-        priceTextView.setText(String.valueOf((int)investment.getPrice()));
-        dpsPerRankTextView.setText("DPS: " + String.valueOf(investment.getMoneyPerSecPerRank()));
+        priceTextView.setText(String.format("%,d", (int) investment.getPrice()));
+        dpsPerRankTextView.setText("DPS: " +  String.valueOf(investment.getMoneyPerSecPerRank()));
         rankTextView.setText("Rank: " + String.valueOf(investment.getRank()));
         descriptionTextView.setText(investment.getDescription());
         imageView.setBackgroundResource(investment.getImageResource());

@@ -48,7 +48,7 @@ public class State {
 
 
     public void saveState(DatabaseHandler Handler) {
-        //TODO
+
         Handler.deleteInvestments();
         Handler.deleteUpgrade();
         Handler.saveMoney(currentMoney);

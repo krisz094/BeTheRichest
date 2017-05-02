@@ -5,7 +5,7 @@
     android:id="@+id/mainRelativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wood"
+    android:background="@drawable/wood1"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     tools:context="hu.uniobuda.nik.betherichest.MainActivity">
 
@@ -14,14 +14,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/currMoneyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10000"
-            android:textColor="@android:color/holo_orange_light"
+            android:textColor="@color/mainTextColor"
             android:textSize="31sp"
             android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
         android:text="Money Per Sec"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@android:color/holo_orange_light"
+        android:textColor="@color/mainTextColor"
         android:textSize="16sp"
         android:textStyle="normal|bold" />
 
@@ -58,7 +58,7 @@
         android:text="Money Per Tap"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@android:color/holo_orange_light"
+        android:textColor="@color/mainTextColor"
         android:textSize="16sp"
         android:textStyle="normal|bold" />
 
@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/moneyPerTapText"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:adjustViewBounds="true"
         app:srcCompat="@drawable/dollar" />
 

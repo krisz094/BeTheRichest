@@ -1,10 +1,14 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.app.ActionBar;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     Animation growAndFade;
 
     Timer timer;
+
+    RelativeLayout.LayoutParams params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +195,26 @@ public class MainActivity extends AppCompatActivity {
         ft.addToBackStack(InvestmentListFragment.class.getName());
         ft.replace(R.id.investment_list_container, new InvestmentListFragment());
         ft.commit();
+
+        setDollarMargin(0);
+
+    }
+
+    private void setDollarMargin(int marginTop) {
+        params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.BELOW, R.id.moneyPerTapText);
+        params.setMargins(0, marginTop, 0, 0);
+        tapBtn.setLayoutParams(params);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        setDollarMargin((int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                50,
+                getResources().getDisplayMetrics()));
     }
 
     public void GamblingClick(View view) {
@@ -222,8 +248,6 @@ public class MainActivity extends AppCompatActivity {
         //timer.cancel();
         //timer.purge();
     }
-
-    RelativeLayout.LayoutParams params;
 
     @Override
     protected void onStop() {

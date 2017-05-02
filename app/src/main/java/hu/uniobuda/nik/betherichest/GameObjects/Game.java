@@ -27,6 +27,8 @@ import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
 public class Game {
 
     private static Game instance;
+    private static final double START_MONEY_PER_CLICK = 1d;
+    private static final double START_MONEY = 0d;
 
     public static Integer FPS = 20;
 
@@ -123,7 +125,8 @@ public class Game {
     }
 
     public String getCurrentMoneyAsString() {
-        return String.valueOf(gameState.currentMoney.intValue());
+        //TODO formázni kell a double számot, úgy hogy ott legyenek az ezres elválasztó vesszők, az int csak ~2 miliárdig megy föl
+        return String.valueOf(String.format("%,d", gameState.currentMoney.intValue()));
     }
 
 
@@ -175,7 +178,7 @@ public class Game {
     }
 
     public void buyInvestment(Integer id) {
-        deduceMoney((double) investments.get(id).getPrice());
+        deduceMoney(investments.get(id).getPrice());
         Integer currRank = gameState.getInvestmentRankById(id);
         currRank += 1;
         gameState.setInvestmentRankById(id, currRank);
@@ -194,6 +197,7 @@ public class Game {
         gameState.loadState(Handler);
         recalcAll();
     }
+
     public void recalcAll() {
         recalcMoneyPerSec();
         recalcMoneyPerClick();
@@ -201,7 +205,7 @@ public class Game {
 
 
     private void recalcMoneyPerSec() {
-        Double money = 0d;
+        Double money = START_MONEY;
         for (Investment inv : investments.values()) {
             money += inv.getMoneyPerSec();
         }
@@ -212,7 +216,7 @@ public class Game {
     }
 
     private void recalcMoneyPerClick() {
-        Double money = 1d;
+        Double money = START_MONEY_PER_CLICK;
 
         for (Integer upgradeID : clickRelevantUpgradeIDs) {
             if (gameState.getUpgradeBoughtById(upgradeID)) {
