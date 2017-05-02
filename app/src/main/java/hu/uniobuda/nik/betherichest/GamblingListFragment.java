@@ -12,7 +12,6 @@ import java.util.List;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Gambling;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
-import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 
 /**
  * Created by Szabi on 2017-04-27.
@@ -52,7 +51,7 @@ public class GamblingListFragment extends Fragment {
 
         final GamblingAdapter adapter = new GamblingAdapter(items);
 
-        final ListView listView = (ListView) rootView.findViewById(R.id.gamling_listview);
+        final ListView listView = (ListView) rootView.findViewById(R.id.gambling_listview);
         listView.setAdapter(adapter);
     }
 }

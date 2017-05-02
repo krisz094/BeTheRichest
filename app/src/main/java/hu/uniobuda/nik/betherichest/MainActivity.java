@@ -121,12 +121,12 @@ public class MainActivity extends AppCompatActivity {
             params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
             int marginLeft = (int) (event.getX() - tapMoneyText.getWidth() / 2);
-            int marginTop = (int) (event.getY() + tapMoneyText.getTextSize());
+            int marginTop = (int) (event.getY() + tapMoneyText.getTextSize() * 2);
 
             marginLeft = getMarginLeft(event, marginLeft);
 
             params.setMargins(marginLeft, marginTop, 0, 0);
-            tapMoneyText.setText("+" + String.valueOf(game.getMoneyPerClick() + "$"));
+            tapMoneyText.setText("+" + String.valueOf((game.getMoneyPerClick().intValue() + "$")));
             tapMoneyText.setLayoutParams(params);
         }
     }
@@ -137,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
         display.getSize(size);
 
         if (event.getX() > size.x - tapMoneyText.getWidth()) {
-            marginLeft -= tapMoneyText.getWidth()/2;
+            marginLeft -= tapMoneyText.getWidth() / 2;
         }
-        if (marginLeft<0){
+        if (marginLeft < 0) {
             marginLeft = 0;
         }
         return marginLeft;
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        currMoneyText.setText(game.getCurrentMoneyAsString());
+                        currMoneyText.setText(String.valueOf(game.getCurrentMoney()));
                     }
                 });
             }
@@ -182,17 +182,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void InvestmentsClick(View view) {
-/*
-        setContentView(R.layout.activity_details);
-        InvestmentListFragment fragment = InvestmentListFragment.newInstance();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_container, fragment)
-                .commit();*/
-
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        transaction.add(R.id.fragment_container, fragment);
-//        transaction.commit();
-
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

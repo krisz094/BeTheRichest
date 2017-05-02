@@ -2,40 +2,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainRelativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/wood"
-    android:id="@+id/mainRelativeLayout"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     tools:context="hu.uniobuda.nik.betherichest.MainActivity">
 
-    <TextView
-        android:id="@+id/currMoneyText"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/currMoneyLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Current Money"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="30sp"
-        android:textStyle="normal|bold"
-        android:typeface="serif" />
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/currMoneyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10000"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="31sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="22dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/currMoneyText"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/dollarsmall" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/moneyPerSecText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/currMoneyText"
+        android:layout_below="@id/currMoneyLayout"
         android:layout_centerHorizontal="true"
         android:text="Money Per Sec"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_light"
-        android:textSize="15sp"
-        android:textStyle="normal|bold"
-        android:typeface="serif" />
+        android:textSize="16sp"
+        android:textStyle="normal|bold" />
 
     <TextView
         android:id="@+id/moneyPerTapText"
@@ -47,113 +59,128 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_light"
-        android:textSize="15sp"
-        android:textStyle="normal|bold"
-        android:typeface="serif" />
+        android:textSize="16sp"
+        android:textStyle="normal|bold" />
 
     <ImageView
         android:id="@+id/dollar"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentStart="true"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/moneyPerTapText"
         android:layout_marginTop="40dp"
+        android:adjustViewBounds="true"
         app:srcCompat="@drawable/dollar" />
 
     <TextView
         android:id="@+id/tapMoneyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:shadowColor="@android:color/black"
+        android:shadowRadius="3"
+        android:shadowDx="3"
+        android:shadowDy="3"
         android:fontFamily="sans-serif-condensed"
         android:textColor="@android:color/holo_orange_light"
         android:textSize="35sp"
         android:textStyle="bold" />
 
-    <android.support.v7.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/icons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="70dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginBottom="30dp">
 
-
-        <ImageView
-            android:id="@+id/investments"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_weight="0.29"
-            android:onClick="InvestmentsClick"
-            app:srcCompat="@drawable/investments" />
-
-        <ImageView
-            android:id="@+id/upgrades"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_weight="0.26"
-            android:onClick="UpgradesClick"
-            app:srcCompat="@drawable/upgrade" />
-
-        <ImageView
-            android:id="@+id/clover"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_weight="0.26"
-            android:onClick="GamblingClick"
-            app:srcCompat="@drawable/clover" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_weight="0.27"
-            android:onClick="LeaderboardClick"
-            app:srcCompat="@drawable/top100" />
-    </android.support.v7.widget.LinearLayoutCompat>
-
-    <android.support.v7.widget.LinearLayoutCompat
-        android:id="@+id/sign"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
-
-        <TextView
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="Investments"
-            android:textAlignment="center"
-            android:textSize="15sp" />
+            android:layout_weight="1">
 
-        <TextView
+            <ImageView
+                android:id="@+id/investments"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:onClick="InvestmentsClick"
+                app:srcCompat="@drawable/investments" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/investments"
+                android:layout_centerHorizontal="true"
+                android:text="Investments"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="Upgrades"
-            android:textAlignment="center"
-            android:textSize="15sp" />
+            android:layout_weight="1">
 
-        <TextView
+            <ImageView
+                android:id="@+id/upgrades"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:onClick="UpgradesClick"
+                app:srcCompat="@drawable/upgrade" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/upgrades"
+                android:layout_centerHorizontal="true"
+                android:text="Upgrades"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="Gambling"
-            android:textAlignment="center"
-            android:textSize="15sp" />
+            android:layout_weight="1">
 
-        <TextView
+            <ImageView
+                android:id="@+id/clover"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:onClick="GamblingClick"
+                app:srcCompat="@drawable/clover" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/clover"
+                android:layout_centerHorizontal="true"
+                android:text="Gambling"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="Leaderboard"
-            android:textAlignment="center"
-            android:textSize="15sp" />
-    </android.support.v7.widget.LinearLayoutCompat>
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/leaderboard"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:onClick="LeaderboardClick"
+                app:srcCompat="@drawable/top100" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/leaderboard"
+                android:layout_centerHorizontal="true"
+                android:text="Leaderboard"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/investment_list_container"

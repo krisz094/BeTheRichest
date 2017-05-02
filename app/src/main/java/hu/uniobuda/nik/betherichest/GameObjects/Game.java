@@ -106,17 +106,16 @@ public class Game {
         return moneyPerSec;
     }
 
-    public String getMoneyPerSecAsString() {
-        return df.format(moneyPerSec) + " $ per sec";
-    }
-
     public Double getMoneyPerClick() {
         return moneyPerClick;
     }
 
-    public String getMoneyPerClickAsString() {
+    public String getMoneyPerSecAsString() {
+        return df.format(moneyPerSec) + " $ per sec";
+    }
 
-        return df.format(moneyPerClick) + " $ per tap";
+    public String getMoneyPerClickAsString() {
+        return moneyPerClick.intValue() + " $ per tap";
     }
 
     public Double getCurrentMoney() {
@@ -124,7 +123,7 @@ public class Game {
     }
 
     public String getCurrentMoneyAsString() {
-        return df.format(gameState.currentMoney) + " $";
+        return String.valueOf(gameState.currentMoney.intValue());
     }
 
 

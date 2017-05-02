@@ -54,7 +54,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_toEndOf="@+id/price"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/dollar" />
+                app:srcCompat="@drawable/dollarsmall" />
 
         </RelativeLayout>
         <TextView

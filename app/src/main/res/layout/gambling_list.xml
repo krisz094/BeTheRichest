@@ -7,10 +7,10 @@
     tools:context=".MainActivity">
 
     <ListView
-        android:id="@+id/gamling_listview"
+        android:id="@+id/gambling_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/t"
+        android:background="@drawable/greentexture"
         android:dividerHeight="8dp" />
 
 </RelativeLayout>
