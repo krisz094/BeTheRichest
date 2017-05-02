@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.data.StreamAssetPathFetcher;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
@@ -31,6 +32,7 @@ public class InvestmentAdapter extends BaseAdapter {
     TextView dpsPerRankTextView;
     TextView rankTextView;
     TextView descriptionTextView;
+    TextView totalDPSTextView;
     ImageView imageView;
 
 
@@ -67,7 +69,8 @@ public class InvestmentAdapter extends BaseAdapter {
         priceTextView = (TextView) listItemView.findViewById(R.id.price);
         dpsPerRankTextView = (TextView) listItemView.findViewById(R.id.dpsPerRank);
         rankTextView = (TextView) listItemView.findViewById(R.id.rank);
-        descriptionTextView = (TextView) listItemView.findViewById(R.id.description);
+        //  descriptionTextView = (TextView) listItemView.findViewById(R.id.description);
+        totalDPSTextView = (TextView) listItemView.findViewById(R.id.total);
         imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
 
         Investment investment = items.get(position);
@@ -89,9 +92,12 @@ public class InvestmentAdapter extends BaseAdapter {
         }
 
         priceTextView.setText(String.format("%,d", (int) investment.getPrice()));
-        dpsPerRankTextView.setText("DPS: " +  String.valueOf(investment.getMoneyPerSecPerRank()));
-        rankTextView.setText("Rank: " + String.valueOf(investment.getRank()));
-        descriptionTextView.setText(investment.getDescription());
+        dpsPerRankTextView.setText("DPS: " + String.valueOf(investment.getMoneyPerSecPerRank()));
+        rankTextView.setText(String.valueOf(investment.getRank()));
+//        descriptionTextView.setText(investment.getDescription());
+        totalDPSTextView.setText("Total: " + String.valueOf(new DecimalFormat("0.0")
+                .format((investment.getMoneyPerSec())) + " (" + String.valueOf(String.format("%.2f", investment.getDPSPercentage())) + "%)"));
+        ;
         imageView.setBackgroundResource(investment.getImageResource());
 
         return listItemView;
