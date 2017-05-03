@@ -13,7 +13,7 @@ import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
  */
 
 public class State {
-    public Double currentMoney;
+    public double currentMoney;
     //upgradeBoughtById
     private HashMap<Integer, Boolean> UpgradeIdUnlocked;
     //InvestmentRankById

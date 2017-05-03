@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             marginLeft = getMarginLeft(event, marginLeft);
 
             params.setMargins(marginLeft, marginTop, 0, 0);
-            tapMoneyText.setText("+" + String.valueOf((game.getMoneyPerClick().intValue() + "$")));
+            tapMoneyText.setText("+" + String.valueOf((NumberFormat.getNumberInstance(Locale.US).format(game.getMoneyPerClick()) + "$")));
             tapMoneyText.setLayoutParams(params);
         }
     }

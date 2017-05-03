@@ -4,13 +4,25 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/greentexture"
+    tools:context=".MainActivity"
+    android:padding="2dp">
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Time remainig: 1h 25m"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"/>
 
     <ListView
         android:id="@+id/gambling_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/greentexture"
+        android:layout_below="@+id/timer"
         android:dividerHeight="8dp" />
 
 </RelativeLayout>

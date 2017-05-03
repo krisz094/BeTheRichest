@@ -1,6 +1,5 @@
 package hu.uniobuda.nik.betherichest.GameObjects;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -10,11 +9,13 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,7 +29,7 @@ public class Game {
 
     private static Game instance;
     private static final double START_MONEY_PER_CLICK = 1d;
-    private static final double START_MONEY = 0d;
+    private static final double START_MONEY_PER_SEC = 0d;
 
     public static Integer FPS = 20;
 
@@ -43,8 +44,8 @@ public class Game {
     public MoneyChangedListener onMoneyChanged;
     public MoneyChangedListener2 onMoneyChanged2;
     public Handler handler;
-    private Double moneyPerSec;
-    private Double moneyPerClick;
+    private double moneyPerSec;
+    private double moneyPerClick;
     private HashMap<Integer, Upgrade> upgrades;
     private HashMap<Integer, Investment> investments;
     private HashMap<Integer, Gambling> gamblings;
@@ -52,7 +53,7 @@ public class Game {
     private final int[] clickRelevantUpgradeIDs = {3, 4, 5}; //upgrade IDs that affect clicking
     private Timer T;
 
-    private DecimalFormat df = new DecimalFormat("0.0");
+    private NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
 
     private Game() {
         T = new Timer();
@@ -92,11 +93,11 @@ public class Game {
         }, 0, 300);
     }
 
-    public void earnMoney(Double money) {
+    public void earnMoney(double money) {
         gameState.currentMoney += money;
     }
 
-    public void deduceMoney(Double money) {
+    public void deduceMoney(double money) {
         gameState.currentMoney -= money;
     }
 
@@ -104,31 +105,29 @@ public class Game {
         earnMoney(moneyPerClick);
     }
 
-    public Double getMoneyPerSec() {
+    public double getMoneyPerSec() {
         return moneyPerSec;
     }
 
-    public Double getMoneyPerClick() {
+    public double getMoneyPerClick() {
         return moneyPerClick;
     }
 
     public String getMoneyPerSecAsString() {
-        return df.format(moneyPerSec) + " $ per sec";
+        return nf.format(moneyPerSec) + " $ per sec";
     }
 
     public String getMoneyPerClickAsString() {
-        return moneyPerClick.intValue() + " $ per tap";
+        return nf.format(moneyPerClick) + " $ per tap";
     }
 
-    public Double getCurrentMoney() {
+    public double getCurrentMoney() {
         return gameState.currentMoney;
     }
 
     public String getCurrentMoneyAsString() {
-        //TODO formázni kell a double számot, úgy hogy ott legyenek az ezres elválasztó vesszők, az int csak ~2 miliárdig megy föl
-        return String.valueOf(String.format("%,d", gameState.currentMoney.intValue()));
+        return nf.format(Math.round(gameState.currentMoney));
     }
-
 
     public List<Investment> getInvestments() {
         ArrayList<Investment> list = new ArrayList<>(investments.values());
@@ -187,7 +186,6 @@ public class Game {
         recalcAll();
     }
 
-
     public void saveGame(DatabaseHandler Handler) {
         gameState.saveState(Handler);
     }
@@ -205,7 +203,7 @@ public class Game {
 
 
     private void recalcMoneyPerSec() {
-        Double money = START_MONEY;
+        double money = START_MONEY_PER_SEC;
         for (Investment inv : investments.values()) {
             money += inv.getMoneyPerSec();
         }
@@ -216,7 +214,7 @@ public class Game {
     }
 
     private void recalcMoneyPerClick() {
-        Double money = START_MONEY_PER_CLICK;
+        double money = START_MONEY_PER_CLICK;
 
         for (Integer upgradeID : clickRelevantUpgradeIDs) {
             if (gameState.getUpgradeBoughtById(upgradeID)) {

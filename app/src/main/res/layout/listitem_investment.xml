@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:padding="2dp">
 
     <ImageView
         android:id="@+id/invIcon"
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="8dp"
         android:layout_toEndOf="@+id/invIcon"
         android:orientation="vertical">
 
@@ -27,9 +27,8 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/invIcon"
             android:text="Name"
-            android:textSize="18sp"
+            android:textSize="19sp"
             android:textStyle="bold" />
 
 
@@ -42,19 +41,31 @@
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="Price"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/dollarIcon"
                 android:layout_width="30dp"
-                android:layout_height="15dp"
+                android:layout_height="14sp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="6dp"
                 android:layout_toEndOf="@+id/price"
                 android:adjustViewBounds="true"
                 app:srcCompat="@drawable/dollarsmall" />
+
+            <TextView
+                android:id="@+id/dpsPerRank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="4dp"
+                android:text="DPS: +500"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -63,40 +74,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
-
-        <!--<TextView-->
-        <!--android:id="@+id/description"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Description"-->
-        <!--android:textSize="11sp" />-->
 
     </LinearLayout>
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp">
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:text="12"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="Rank: 12"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/dpsPerRank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/rank"
-            android:text="DPS: +500"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
 </RelativeLayout>

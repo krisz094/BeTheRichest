@@ -1,12 +1,14 @@
 package hu.uniobuda.nik.betherichest;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import hu.uniobuda.nik.betherichest.GameObjects.Game;
 
 public class GamblingListFragment extends Fragment {
     View rootView;
+    TextView timerText;
 
     public static GamblingListFragment newInstance() {
 
@@ -38,6 +41,8 @@ public class GamblingListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -53,5 +58,21 @@ public class GamblingListFragment extends Fragment {
 
         final ListView listView = (ListView) rootView.findViewById(R.id.gambling_listview);
         listView.setAdapter(adapter);
+
+        timerText = (TextView) rootView.findViewById(R.id.timer);
+        CountDownTimer timer= new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                timerText.setText("Time remaining: " + millisUntilFinished / 1000);
+                //here you can have your logic to set text to edittext
+            }
+
+            @Override
+            public void onFinish() {
+                this.start();
+            }
+
+
+        }.start();
     }
 }

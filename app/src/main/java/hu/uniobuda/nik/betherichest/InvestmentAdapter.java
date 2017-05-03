@@ -15,7 +15,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.data.StreamAssetPathFetcher;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Investment;
@@ -34,6 +36,8 @@ public class InvestmentAdapter extends BaseAdapter {
     TextView descriptionTextView;
     TextView totalDPSTextView;
     ImageView imageView;
+
+    NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
 
 
     public InvestmentAdapter(List<Investment> items) {
@@ -91,13 +95,11 @@ public class InvestmentAdapter extends BaseAdapter {
             nameTextView.setTextColor(Color.parseColor("#760c07"));
         }
 
-        priceTextView.setText(String.format("%,d", (int) investment.getPrice()));
-        dpsPerRankTextView.setText("DPS: " + String.valueOf(investment.getMoneyPerSecPerRank()));
+
+        priceTextView.setText(nf.format(investment.getPrice()));
         rankTextView.setText(String.valueOf(investment.getRank()));
-//        descriptionTextView.setText(investment.getDescription());
-        totalDPSTextView.setText("Total: " + String.valueOf(new DecimalFormat("0.0")
-                .format((investment.getMoneyPerSec())) + " (" + String.valueOf(String.format("%.2f", investment.getDPSPercentage())) + "%)"));
-        ;
+        dpsPerRankTextView.setText("DPS: " + String.valueOf(nf.format(investment.getMoneyPerSecPerRank() >= 1 ? (int) investment.getMoneyPerSecPerRank() : investment.getMoneyPerSecPerRank())));
+        totalDPSTextView.setText("Total: " + String.valueOf(nf.format((investment.getMoneyPerSec())) + " (" + String.format("%.2f", investment.getDPSPercentage()) + "%)"));
         imageView.setBackgroundResource(investment.getImageResource());
 
         return listItemView;

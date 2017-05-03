@@ -58,9 +58,9 @@ public class Investment {
      *
      * @return Money Made Per Second
      */
-    public Double getMoneyPerSec() {
-        Double MPS = getRank() * baseDpS;
-        for (Integer ID : relevantUpgradeIDs) {
+    public double getMoneyPerSec() {
+        double MPS = getRank() * baseDpS;
+        for (int ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {
                 MPS = currentGame.getUpgrades().get(ID).execute(MPS);
             }
@@ -68,9 +68,9 @@ public class Investment {
         return MPS;
     }
 
-    public Double getMoneyPerSecPerRank() {
-        Double MPS = baseDpS;
-        for (Integer ID : relevantUpgradeIDs) {
+    public double getMoneyPerSecPerRank() {
+        double MPS = baseDpS;
+        for (int ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {
                 MPS = currentGame.getUpgrades().get(ID).execute(MPS);
             }
@@ -95,6 +95,6 @@ public class Investment {
     }
 
     public double getDPSPercentage() {
-        return getMoneyPerSec() / (double)currentGame.getMoneyPerSec() * 100;
+        return currentGame.getMoneyPerSec() == 0 ? 0 : getMoneyPerSec() / currentGame.getMoneyPerSec() * 100;
     }
 }
