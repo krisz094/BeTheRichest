@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.uniobuda.nik.betherichest.Factories.LeadersFactory;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Leaders;
 
@@ -47,17 +48,19 @@ public class LeadersboardListFragment extends android.support.v4.app.Fragment {
         super.onActivityCreated(savedInstanceState);
         game = Game.Get();
 
-        List<Leaders> leaders = null;
         try {
-            leaders = game.getLeaders();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (XmlPullParserException e) {
+            ListView listView = (ListView) rootView.findViewById(R.id.leaderboard_listview);
+            LeadersFactory lf = new LeadersFactory();
+            List<Leaders> leaders = lf.parse(getActivity().getAssets().open("richest_people.xml"));
+            final LeadersAdapter adapter = new LeadersAdapter(leaders);
+            listView.setAdapter(adapter);
+
+        }catch (Exception e){
             e.printStackTrace();
         }
-        final LeadersAdapter adapter = new LeadersAdapter(leaders);
-        ListView listView = (ListView) rootView.findViewById(R.id.leaderboard_listview);
-        listView.setAdapter(adapter);
+
+
+
     }
 
     @Override
@@ -78,3 +81,4 @@ public class LeadersboardListFragment extends android.support.v4.app.Fragment {
         super.onDestroy();
     }
 }
+

@@ -6,9 +6,13 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Leaders;
 import hu.uniobuda.nik.betherichest.R;
 
@@ -18,51 +22,88 @@ import hu.uniobuda.nik.betherichest.R;
 
 public class LeadersFactory {
 
-    private static List<Leaders> leaders = new ArrayList<>();
+    private static List<Leaders> leaders;
+    Game game = Game.Get();
 
-
-    public static List<Leaders> getLeaders() throws XmlPullParserException, IOException {
-
-
-        /*XmlPullParserFactory xmlFactoryObject = XmlPullParserFactory.newInstance();
-        XmlPullParser myparser = xmlFactoryObject.newPullParser();
-        myparser.setInput(new (String.valueOf(R.xml.richest_people)), "utf-8");
-
-
-        int eventType = myparser.getEventType();
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            switch (eventType) {
-                case XmlPullParser.START_TAG:
-                    String name = myparser.getAttributeValue(0);
-                    long money = Long.valueOf(myparser.getAttributeValue(1));
-                    leaders.add(new Leaders(name, money));
-
-            }
-
-            eventType = myparser.next();
-
-        }*/
-
-
-        leaders.add(new Leaders("Bill Gates", 500000000));
-        leaders.add(new Leaders("Bill Gates", 500000000));
-        leaders.add(new Leaders("Jeff Bezos", 40000000));
-        leaders.add(new Leaders("Amancio Ortega", 300000000));
-        leaders.add(new Leaders("Mark Zuckerberg", 300000000));
-        leaders.add(new Leaders("Carlos Slim Helu", 300000000));
-        leaders.add(new Leaders("Larry Ellison", 300000000));
-        leaders.add(new Leaders("Charles Koch", 300000000));
-        leaders.add(new Leaders("David Koch", 300000000));
-        leaders.add(new Leaders("Michael Bloomberg", 300000000));
-        leaders.add(new Leaders("Bernard Arnault", 300000000));
-        leaders.add(new Leaders("Larry Page", 300000000));
-        leaders.add(new Leaders("David Koch", 300000000));
-        leaders.add(new Leaders("Michael Bloomberg", 300000000));
-        leaders.add(new Leaders("Bernard Arnault", 300000000));
-        leaders.add(new Leaders("Larry Page", 300000000));
-        return leaders;
+    public LeadersFactory(){
+        leaders = new ArrayList<Leaders>();
     }
 
+    public List<Leaders> getLeaders(){
+        return leaders;
+    }
+    Leaders leader;
+    String text;
+
+    public String ReadText(XmlPullParser parser) throws IOException, XmlPullParserException {
+        String result = "";
+        if (parser.next() == XmlPullParser.TEXT) {
+            result = parser.getText();
+            parser.nextTag();
+        }
+        return result;
+    }
+
+    public List<Leaders> parse(InputStream is){
+        XmlPullParserFactory factory =null;
+        XmlPullParser parser= null;
+        List<String> names =null;
+        List<Long> moneys = null;
+
+        try{
+            factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+
+            parser = factory.newPullParser();
+            parser.setInput(is,null);
+
+            names = new ArrayList<>();
+            moneys = new ArrayList<>();
+
+            int eventType =  parser.getEventType();
+            while(eventType!= XmlPullParser.END_DOCUMENT){
+                String tagname = parser.getName();
+                boolean mehet = false;
+                if (XmlPullParser.START_TAG ==eventType && tagname.equalsIgnoreCase("Name")){
+                    String name = ReadText(parser);
+                    names.add(name);
+                }
+                else if (XmlPullParser.START_TAG ==eventType && tagname.equalsIgnoreCase("Money")){
+                    long money = Long.parseLong(ReadText(parser));
+                    moneys.add(money);
+                }
+
+
+                eventType = parser.next();
+
+            }
+            for (int i = 0; i<=moneys.size(); i++){
+                leaders.add(new Leaders(names.get(i),moneys.get(i)));
+            }
+
+
+
+
+        }catch ( Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            long userMoney = Math.round(game.getCurrentMoney());
+            leaders.add(new Leaders("Játékos",userMoney));
+            Collections.sort(leaders, new Comparator<Leaders>() {
+                @Override
+                public int compare(Leaders o1, Leaders o2) {
+                    return Long.valueOf(o2.getMoney()).compareTo(o1.getMoney()) ;
+                }
+            });
+        }
+
+
+
+        return  leaders;
+
+
+    }
 
 }
 

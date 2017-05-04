@@ -153,8 +153,9 @@ public class Game {
         return list;
     }
 
-    public List<Leaders> getLeaders() throws IOException, XmlPullParserException {
-        return LeadersFactory.getLeaders();
+    public List<Leaders> getLeaders(){
+        LeadersFactory lf = new LeadersFactory();
+        return  lf.getLeaders();
     }
 
     public List<Upgrade> getUpgrades() {
