@@ -10,7 +10,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/a"
+        android:id="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp">

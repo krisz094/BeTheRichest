@@ -9,9 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.FieldPosition;
 import java.text.NumberFormat;
-import java.text.ParsePosition;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,7 +64,7 @@ public class UpgradeAdapter extends BaseAdapter {
         priceTextView = (TextView) listItemView.findViewById(R.id.price);
         //descriptionTextView = (TextView) listItemView.findViewById(R.id.description);
         imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
-        labelTextView=(TextView) listItemView.findViewById(R.id.label);
+        labelTextView=(TextView) listItemView.findViewById(R.id.multiplier);
 
         Upgrade upgrade = items.get(position);
         Glide
@@ -77,13 +75,12 @@ public class UpgradeAdapter extends BaseAdapter {
                 .dontTransform()
                 .into(imageView);
 
-
         //nameTextView.setText(upgrade.getName());
 
         if (upgrade.isBuyable()) {
-            labelTextView.setTextColor(Color.parseColor("#0c6f04"));
+            labelTextView.setTextColor(Color.parseColor("#BB0c6f04"));
         } else {
-            labelTextView.setTextColor(Color.parseColor("#760c07"));
+            labelTextView.setTextColor(Color.parseColor("#BB760c07"));
         }
         switch(upgrade.getEffect()) {
             case "DoublerEffect":
