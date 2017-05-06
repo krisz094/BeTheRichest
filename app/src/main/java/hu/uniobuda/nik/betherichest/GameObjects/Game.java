@@ -153,9 +153,9 @@ public class Game {
         return list;
     }
 
-    public List<Leader> getLeaders(){
+    public List<Leader> getLeaders() {
         LeadersFactory lf = new LeadersFactory();
-        return  lf.getLeaders();
+        return lf.getLeaders();
     }
 
     public List<Upgrade> getUpgrades() {
@@ -167,6 +167,26 @@ public class Game {
                 return Integer.compare(o1.getId(), o2.getId());
             }
         });
+        return list;
+    }
+
+    public List<Upgrade> getDisplayableUpgrades() {
+        ArrayList<Upgrade> list = new ArrayList<>();
+        for (Upgrade upgrade : getUpgrades()) {
+            if (upgrade.isDisplayable()) {
+                list.add(upgrade);
+            }
+        }
+        return list;
+    }
+
+    public List<Upgrade> getBoughtUpgrades() {
+        ArrayList<Upgrade> list = new ArrayList<>();
+        for (Upgrade upgrade : getUpgrades()) {
+            if (upgrade.isBought()) {
+                list.add(upgrade);
+            }
+        }
         return list;
     }
 

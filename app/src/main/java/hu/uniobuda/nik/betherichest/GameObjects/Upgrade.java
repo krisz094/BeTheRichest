@@ -47,7 +47,7 @@ public class Upgrade {
     }
 
     public boolean isDisplayable() {
-        return currentGame.getCurrentMoney() >= price*0.75 && areConditionsTrue();
+        return !isBought() && currentGame.getCurrentMoney() >= price*0.75 && areConditionsTrue();
     }
 
     private boolean areConditionsTrue() {
