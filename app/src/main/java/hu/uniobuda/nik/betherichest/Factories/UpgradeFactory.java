@@ -102,7 +102,7 @@ public class UpgradeFactory {
                     new DoublerEffect(),
                     conditionsArray,
                     currentGame,
-                    R.id.money,
+                    R.drawable.dollar,
                     colors[multiplIdx]
             ), map);
             currentGame.addClickRelevantUpgrade(currId);
@@ -128,7 +128,7 @@ public class UpgradeFactory {
                     new GlobalIncrementEffect(currentGame, moneyForEachGlobalIncrement[multiplIdx]),
                     conditionsArray,
                     currentGame,
-                    R.id.money,
+                    R.drawable.dollar,
                     colors[multiplIdx]
             ), map);
             currentGame.addClickRelevantUpgrade(currId);
