@@ -56,6 +56,10 @@ public class Upgrade {
         return true;
     }
 
+    public String getEffect() {
+        return this.effect.getClass().getSimpleName();
+    }
+
     public boolean buy() {
         if (isBuyable()) {
             currentGame.buyUpgrade(id);

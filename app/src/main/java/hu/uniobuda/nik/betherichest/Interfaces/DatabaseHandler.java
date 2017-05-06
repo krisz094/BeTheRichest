@@ -130,7 +130,7 @@ public class DatabaseHandler {
         Cursor result = db.query(TABLE_UPGRADES, null, null, null, null, null, null);
         result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
         db.close();
-        while (result.moveToNext()) {
+        while (!result.isAfterLast()) {
             Integer id = result.getInt(result.getColumnIndex("_id"));
             Boolean rank;
             if (result.getInt(result.getColumnIndex("rank")) == 1) {
@@ -139,6 +139,7 @@ public class DatabaseHandler {
                 rank = false;
             }
             upgradeIdUnlocked.put(id, rank);
+            result.moveToNext();
         }
         return result;
     }

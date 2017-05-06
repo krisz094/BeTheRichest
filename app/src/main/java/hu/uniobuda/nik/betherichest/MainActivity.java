@@ -22,12 +22,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
+import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
 import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -230,6 +234,15 @@ public class MainActivity extends AppCompatActivity {
                 getResources().getDisplayMetrics()));
     }
 
+    public void UpgradesClick(View view) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+        ft.replace(R.id.upgrade_container, new UpgradeListFragment());
+        ft.addToBackStack(UpgradeListFragment.class.getName());
+        ft.commit();
+    }
+
     public void GamblingClick(View view) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -237,14 +250,6 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.gambling_container, new GamblingListFragment());
         ft.addToBackStack(GamblingListFragment.class.getName());
         ft.commit();
-    }
-
-    public void UpgradesClick(View view) {
-        Toast.makeText(
-                MainActivity.this,
-                "Upgrades",
-                Toast.LENGTH_LONG
-        ).show();
     }
 
     public void LeaderboardClick(View view) {
