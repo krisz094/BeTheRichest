@@ -3,10 +3,6 @@ package hu.uniobuda.nik.betherichest.GameObjects;
 import hu.uniobuda.nik.betherichest.Factories.ConditionalProvider;
 import hu.uniobuda.nik.betherichest.Interfaces.IEffectable;
 
-/**
- * Created by krisz on 2017. 04. 01..
- */
-
 public class Upgrade {
     private String description;
     private long price;
@@ -60,10 +56,12 @@ public class Upgrade {
         return true;
     }
 
-    public void buy() {
+    public boolean buy() {
         if (isBuyable()) {
             currentGame.buyUpgrade(id);
+            return true;
         }
+        return false;
     }
 
     public boolean isBought() {
