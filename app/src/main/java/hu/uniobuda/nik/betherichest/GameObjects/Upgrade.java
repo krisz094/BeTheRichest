@@ -12,6 +12,7 @@ public class Upgrade {
     private int id;
     private int imageResource;
     private int color;
+    private boolean displayedOnce;
 
     public Upgrade(int id, String description, long price, IEffectable effect, ConditionalProvider[] conditions, Game currentGame, int imageResource, int color) {
         this.id = id;
@@ -24,7 +25,9 @@ public class Upgrade {
         this.color = color;
     }
 
-    public int getColor() { return color; }
+    public int getColor() {
+        return color;
+    }
 
     public int getId() {
         return id;
@@ -43,7 +46,10 @@ public class Upgrade {
     }
 
     public boolean isDisplayable() {
-        return !isBought() && currentGame.getCurrentMoney() >= price*0.75 && areConditionsTrue();
+        if (!displayedOnce) {
+            displayedOnce = currentGame.getCurrentMoney() >= price * 0.70 && areConditionsTrue();
+        }
+        return !isBought() && displayedOnce;
     }
 
     private boolean areConditionsTrue() {

@@ -72,7 +72,8 @@ public class Investment {
         double MPS = getRank() * baseDpS;
         for (int ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {
-                MPS = currentGame.getUpgrades().get(ID).execute(MPS);
+                //MPS = currentGame.getUpgrades().get(ID).execute(MPS);
+                MPS = currentGame.getUpgradeById(ID).execute(MPS);
             }
         }
         return MPS;
@@ -82,7 +83,7 @@ public class Investment {
         double MPS = baseDpS;
         for (int ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {
-                MPS = currentGame.getUpgrades().get(ID).execute(MPS);
+                MPS = currentGame.getUpgradeById(ID).execute(MPS);
             }
         }
         return MPS;

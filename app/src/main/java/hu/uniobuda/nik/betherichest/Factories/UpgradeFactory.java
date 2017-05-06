@@ -5,11 +5,13 @@ import android.graphics.Color;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IllegalFormatException;
 import java.util.List;
 
 import hu.uniobuda.nik.betherichest.Effects.AdderEffect;
 import hu.uniobuda.nik.betherichest.Effects.DoublerEffect;
 import hu.uniobuda.nik.betherichest.Effects.GlobalIncrementEffect;
+import hu.uniobuda.nik.betherichest.Effects.MultiplierEffect;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
@@ -25,7 +27,11 @@ public class UpgradeFactory {
         map.put(upgrade.getId(), upgrade);
     }
 
-    public static HashMap<Integer, Upgrade> createUpgrades(Game currentGame, List<Investment> investments) {
+    private static long Million(double input) {
+        return Math.round(input * 1000000);
+    }
+
+    public static HashMap<Integer, Upgrade> createUpgrades(Game currentGame, List<Investment> investments) throws ArrayIndexOutOfBoundsException {
         HashMap<Integer, Upgrade> map = new HashMap<>();
 
         /* Colors config */
@@ -44,12 +50,28 @@ public class UpgradeFactory {
         int[] rankOfIdNeeded = new int[]{1, 5, 25, 50};
 
         //Click doubler config
-        long[] clickDoublerPrices = new long[]{100, 500, 10000};
+        long[] clickDoublerPrices = new long[]{100, 500, 5000};
 
         //Click global incrementer config
-        final long[] globalIncrementPrices = new long[]{100000, 500000, 10000000, 1000000000};
-        final double[] moneyForEachGlobalIncrement = new double[]{0.1, 0.5, 5, 50};
+        final long[] globalIncrementPrices = new long[]{10000, Million(0.1), Million(0.5), Million(5), Million(50)};
+        final double[] moneyForEachGlobalIncrement = new double[]{0.1, 0.5, 5, 50, 500};
+
+        //Total money per sec upgrades
+        final long[] MPSUpgradePrices = new long[]{Million(0.5), Million(1), Million(2.5), Million(5), Million(10)};
+        final double[] MPSUpgradePercent = new double[]{1.01, 1.02, 1.03, 1.04, 1.05};
         /* End config */
+
+        if (
+                multipliers.length != rankOfIdNeeded.length ||
+                        globalIncrementPrices.length != moneyForEachGlobalIncrement.length ||
+                        MPSUpgradePrices.length != MPSUpgradePercent.length ||
+                        multipliers.length > colors.length ||
+                        clickDoublerPrices.length > colors.length ||
+                        globalIncrementPrices.length > colors.length ||
+                        MPSUpgradePrices.length > colors.length
+                ) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
 
         /* Begin factory */
         int currId = 0;
@@ -82,6 +104,7 @@ public class UpgradeFactory {
                 multiplIdx++;
                 currId++;
             }
+            currId += 100;
         }
 
         currId = 100000;
@@ -128,7 +151,7 @@ public class UpgradeFactory {
                     new GlobalIncrementEffect(currentGame, moneyForEachGlobalIncrement[multiplIdx]),
                     conditionsArray,
                     currentGame,
-                    R.drawable.dollar,
+                    R.drawable.click,
                     colors[multiplIdx]
             ), map);
             currentGame.addClickRelevantUpgrade(currId);
@@ -136,6 +159,33 @@ public class UpgradeFactory {
             multiplIdx++;
             currId++;
         }
+
+        currId = 300000;
+        multiplIdx = 0;
+        prevId = null;
+        for (long price : MPSUpgradePrices) {
+            List<ConditionalProvider> conditions = new ArrayList<>();
+            if (prevId != null) {
+                conditions.add(new UpgradeWithIDUnlocked(prevId));
+            }
+            ConditionalProvider[] conditionsArray = new ConditionalProvider[conditions.size()];
+            conditions.toArray(conditionsArray);
+            AddToMap(new Upgrade(
+                    currId,
+                    "",
+                    price,
+                    new MultiplierEffect(MPSUpgradePercent[multiplIdx]),
+                    conditionsArray,
+                    currentGame,
+                    R.drawable.dollar,
+                    colors[multiplIdx]
+            ), map);
+            currentGame.addMPSRelevantUpgrade(currId);
+            prevId = currId;
+            multiplIdx++;
+            currId++;
+        }
+
         return map;
     }
 
