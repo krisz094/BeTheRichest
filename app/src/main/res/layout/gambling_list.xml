@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/greentexture"
-    tools:context=".MainActivity"
-    android:padding="2dp">
+    android:padding="2dp"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/timer"
@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:text="Time remainig: 1h 25m"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"/>
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/gambling_listview"

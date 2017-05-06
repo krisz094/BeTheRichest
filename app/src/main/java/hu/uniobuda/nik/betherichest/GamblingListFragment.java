@@ -7,13 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Gambling;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
+import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 
 /**
  * Created by Szabi on 2017-04-27.
@@ -22,6 +25,7 @@ import hu.uniobuda.nik.betherichest.GameObjects.Game;
 public class GamblingListFragment extends Fragment {
     View rootView;
     TextView timerText;
+    boolean isTimerRunning = true;
 
     public static GamblingListFragment newInstance() {
 
@@ -41,8 +45,6 @@ public class GamblingListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -52,7 +54,7 @@ public class GamblingListFragment extends Fragment {
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        List<Gambling> items= Game.Get().getGamblings();
+        List<Gambling> items = Game.Get().getGamblings();
 
         final GamblingAdapter adapter = new GamblingAdapter(items);
 
@@ -60,19 +62,48 @@ public class GamblingListFragment extends Fragment {
         listView.setAdapter(adapter);
 
         timerText = (TextView) rootView.findViewById(R.id.timer);
-        CountDownTimer timer= new CountDownTimer(30000, 1000) {
+        final CountDownTimer timer = new CountDownTimer(5000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 timerText.setText("Time remaining: " + millisUntilFinished / 1000);
-                //here you can have your logic to set text to edittext
             }
+
 
             @Override
             public void onFinish() {
-                this.start();
+                timerText.setText("Time to gamble!");
+                isTimerRunning = false;
             }
 
 
         }.start();
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Gambling gambling = adapter.getItem(position);
+                if (!isTimerRunning) {
+                    adapter.notifyDataSetChanged();
+                    double a = gambling.getChance();
+                    Toast.makeText(
+                            getContext(),
+                            "You won" + gambling.getMaxWinAmount() + "$",
+                            Toast.LENGTH_LONG
+                    ).show();
+                    timer.start();
+                    isTimerRunning = true;
+
+                } else {
+                    Toast.makeText(
+                            getContext(),
+                            "You have to wait for the timer to finish.",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+
+            }
+        });
     }
 }

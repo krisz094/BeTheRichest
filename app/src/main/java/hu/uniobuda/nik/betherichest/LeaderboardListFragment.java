@@ -1,38 +1,31 @@
 package hu.uniobuda.nik.betherichest;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ListView;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import hu.uniobuda.nik.betherichest.Factories.LeadersFactory;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
-import hu.uniobuda.nik.betherichest.GameObjects.Leaders;
+import hu.uniobuda.nik.betherichest.GameObjects.Leader;
 
 /**
  * Created by Kristof on 2017. 04. 18..
  */
 
-public class LeadersboardListFragment extends android.support.v4.app.Fragment {
+public class LeaderboardListFragment extends android.support.v4.app.Fragment {
     View rootView;
     Game game;
 
-    public static LeadersboardListFragment newInstance() {
+    public static LeaderboardListFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        LeadersboardListFragment fragment = new LeadersboardListFragment();
+        LeaderboardListFragment fragment = new LeaderboardListFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,8 +44,8 @@ public class LeadersboardListFragment extends android.support.v4.app.Fragment {
         try {
             ListView listView = (ListView) rootView.findViewById(R.id.leaderboard_listview);
             LeadersFactory lf = new LeadersFactory();
-            List<Leaders> leaders = lf.parse(getActivity().getAssets().open("richest_people.xml"));
-            final LeadersAdapter adapter = new LeadersAdapter(leaders);
+            List<Leader> leaders = lf.parse(getActivity().getAssets().open("richest_people.xml"));
+            final LeaderAdapter adapter = new LeaderAdapter(leaders);
             listView.setAdapter(adapter);
 
         }catch (Exception e){
@@ -65,7 +58,7 @@ public class LeadersboardListFragment extends android.support.v4.app.Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_leaderboard_list,container,false);
+        rootView = inflater.inflate(R.layout.leaderboard_list,container,false);
         return rootView;
 
     }

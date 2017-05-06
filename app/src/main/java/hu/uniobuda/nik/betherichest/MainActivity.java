@@ -1,9 +1,7 @@
 package hu.uniobuda.nik.betherichest;
 
-import android.app.ActionBar;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
+import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -237,11 +235,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void LeaderboardClick(View view) {
-        setContentView(R.layout.leaderboard_container);
-        LeadersboardListFragment fragment = LeadersboardListFragment.newInstance();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.leaderboard_fragment_container, fragment)
-                .commit();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+        ft.replace(R.id.leaderboard_list_container, new LeaderboardListFragment());
+        ft.addToBackStack(LeaderboardListFragment.class.getName());
+        ft.commit();
     }
 
     @Override

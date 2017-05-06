@@ -5,10 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.RequiresApi;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +45,7 @@ public class Game {
     private HashMap<Integer, Upgrade> upgrades;
     private HashMap<Integer, Investment> investments;
     private HashMap<Integer, Gambling> gamblings;
-    private List<Leaders> leaders;
+    private List<Leader> leaders;
     private final int[] clickRelevantUpgradeIDs = {3, 4, 5}; //upgrade IDs that affect clicking
     private Timer T;
 
@@ -153,7 +149,7 @@ public class Game {
         return list;
     }
 
-    public List<Leaders> getLeaders(){
+    public List<Leader> getLeaders(){
         LeadersFactory lf = new LeadersFactory();
         return  lf.getLeaders();
     }

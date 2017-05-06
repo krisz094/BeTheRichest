@@ -4,7 +4,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -13,8 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
-import hu.uniobuda.nik.betherichest.GameObjects.Leaders;
-import hu.uniobuda.nik.betherichest.R;
+import hu.uniobuda.nik.betherichest.GameObjects.Leader;
 
 /**
  * Created by Kristof on 2017. 04. 18..
@@ -22,17 +20,18 @@ import hu.uniobuda.nik.betherichest.R;
 
 public class LeadersFactory {
 
-    private static List<Leaders> leaders;
+    private static List<Leader> leaders;
     Game game = Game.Get();
 
-    public LeadersFactory(){
-        leaders = new ArrayList<Leaders>();
+    public LeadersFactory() {
+        leaders = new ArrayList<>();
     }
 
-    public List<Leaders> getLeaders(){
+    public List<Leader> getLeaders() {
         return leaders;
     }
-    Leaders leader;
+
+    Leader leader;
     String text;
 
     public String ReadText(XmlPullParser parser) throws IOException, XmlPullParserException {
@@ -44,31 +43,30 @@ public class LeadersFactory {
         return result;
     }
 
-    public List<Leaders> parse(InputStream is){
-        XmlPullParserFactory factory =null;
-        XmlPullParser parser= null;
-        List<String> names =null;
+    public List<Leader> parse(InputStream is) {
+        XmlPullParserFactory factory = null;
+        XmlPullParser parser = null;
+        List<String> names = null;
         List<Long> moneys = null;
 
-        try{
+        try {
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
 
             parser = factory.newPullParser();
-            parser.setInput(is,null);
+            parser.setInput(is, null);
 
             names = new ArrayList<>();
             moneys = new ArrayList<>();
 
-            int eventType =  parser.getEventType();
-            while(eventType!= XmlPullParser.END_DOCUMENT){
+            int eventType = parser.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
                 String tagname = parser.getName();
                 boolean mehet = false;
-                if (XmlPullParser.START_TAG ==eventType && tagname.equalsIgnoreCase("Name")){
+                if (XmlPullParser.START_TAG == eventType && tagname.equalsIgnoreCase("Name")) {
                     String name = ReadText(parser);
                     names.add(name);
-                }
-                else if (XmlPullParser.START_TAG ==eventType && tagname.equalsIgnoreCase("Money")){
+                } else if (XmlPullParser.START_TAG == eventType && tagname.equalsIgnoreCase("Money")) {
                     long money = Long.parseLong(ReadText(parser));
                     moneys.add(money);
                 }
@@ -77,30 +75,26 @@ public class LeadersFactory {
                 eventType = parser.next();
 
             }
-            for (int i = 0; i<=moneys.size(); i++){
-                leaders.add(new Leaders(names.get(i),moneys.get(i)));
+            for (int i = 0; i <= moneys.size(); i++) {
+                leaders.add(new Leader(names.get(i), moneys.get(i)));
             }
 
 
-
-
-        }catch ( Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             long userMoney = Math.round(game.getCurrentMoney());
-            leaders.add(new Leaders("Játékos",userMoney));
-            Collections.sort(leaders, new Comparator<Leaders>() {
+            leaders.add(new Leader("Játékos", userMoney, true));
+            Collections.sort(leaders, new Comparator<Leader>() {
                 @Override
-                public int compare(Leaders o1, Leaders o2) {
-                    return Long.valueOf(o2.getMoney()).compareTo(o1.getMoney()) ;
+                public int compare(Leader o1, Leader o2) {
+                    return Long.valueOf(o2.getMoney()).compareTo(o1.getMoney());
                 }
             });
         }
 
 
-
-        return  leaders;
+        return leaders;
 
 
     }

@@ -36,7 +36,7 @@ public class GamblingAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Gambling getItem(int position) {
         return items == null ? null : items.get(position);
     }
 
