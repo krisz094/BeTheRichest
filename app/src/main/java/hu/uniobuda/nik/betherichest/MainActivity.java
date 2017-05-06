@@ -1,9 +1,12 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -52,6 +55,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+
+        actionBar.setIcon(R.mipmap.actionbar_icon);
+        ColorDrawable colorDrawable = new ColorDrawable();
+        colorDrawable.setColor(Color.rgb(139,69,19));
+        actionBar.setBackgroundDrawable(colorDrawable);
+
 
 
         DBHandler = new DatabaseHandler(this);
