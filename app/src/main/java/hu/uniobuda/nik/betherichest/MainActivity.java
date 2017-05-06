@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         ColorDrawable colorDrawable = new ColorDrawable();
         colorDrawable.setColor(Color.rgb(139,69,19));
         Resources resources = getResources();
-        Drawable drawable = resources.getDrawable(R.drawable.wood);
+        Drawable drawable = resources.getDrawable(R.drawable.bluewood);
         actionBar.setBackgroundDrawable(drawable);
 
 

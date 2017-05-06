@@ -18,12 +18,12 @@ import hu.uniobuda.nik.betherichest.GameObjects.Leader;
  * Created by Kristof on 2017. 04. 18..
  */
 
-public class LeadersFactory {
+public class LeaderFactory {
 
     private static List<Leader> leaders;
     Game game = Game.Get();
 
-    public LeadersFactory() {
+    public LeaderFactory() {
         leaders = new ArrayList<>();
     }
 
@@ -75,7 +75,7 @@ public class LeadersFactory {
                 eventType = parser.next();
 
             }
-            for (int i = 0; i <= moneys.size(); i++) {
+            for (int i = 1; i <= moneys.size(); i++) {
                 leaders.add(new Leader(names.get(i), moneys.get(i)));
             }
 

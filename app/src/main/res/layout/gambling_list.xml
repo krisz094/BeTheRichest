@@ -12,10 +12,10 @@
         android:id="@+id/timer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Time remainig: 1h 25m"
+        android:text="@string/gambling_header"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="30sp"
+        android:textSize="21sp"
         android:textStyle="bold" />
 
     <ListView

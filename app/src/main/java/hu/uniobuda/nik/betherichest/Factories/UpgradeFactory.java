@@ -102,7 +102,7 @@ public class UpgradeFactory {
                     new DoublerEffect(),
                     conditionsArray,
                     currentGame,
-                    R.drawable.dollar,
+                    R.drawable.click,
                     colors[multiplIdx]
             ), map);
             currentGame.addClickRelevantUpgrade(currId);

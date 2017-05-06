@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Be The Richest</string>
     <string name="I1">Bank Interest</string>
+    <string name="gambling_header">It\'s time to gamble!</string>
+    <string name="gambling_wait">Too much gambling is harmful! Wait a little!</string>
+    <string name="gambling_time_remaining">Time remaining: %1$d h %2$d m %3$d s</string>
 </resources>

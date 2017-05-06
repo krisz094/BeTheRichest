@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import hu.uniobuda.nik.betherichest.Factories.LeadersFactory;
+import hu.uniobuda.nik.betherichest.Factories.LeaderFactory;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Leader;
 
@@ -43,7 +43,7 @@ public class LeaderboardListFragment extends android.support.v4.app.Fragment {
 
         try {
             ListView listView = (ListView) rootView.findViewById(R.id.leaderboard_listview);
-            LeadersFactory lf = new LeadersFactory();
+            LeaderFactory lf = new LeaderFactory();
             List<Leader> leaders = lf.parse(getActivity().getAssets().open("richest_people.xml"));
             final LeaderAdapter adapter = new LeaderAdapter(leaders);
             listView.setAdapter(adapter);

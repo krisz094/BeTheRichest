@@ -24,7 +24,7 @@ public class GamblingFactory {
                 "Scratch off the paper, and see if Fortuna is by your side.",
                 200,
                 1000,
-                10,
+                30,
                 R.drawable.scratchoff
         ), map);
         AddToMap(new Gambling(
@@ -32,7 +32,7 @@ public class GamblingFactory {
                 "Bet on the fastest horses to win a cup of money",
                 1000,
                 5000,
-                0.05,
+                16,
                 R.drawable.horserace
         ), map);
         AddToMap(new Gambling(

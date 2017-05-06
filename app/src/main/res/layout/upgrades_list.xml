@@ -11,7 +11,7 @@
         android:id="@+id/upgrade_listview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/paper"
+        android:background="@drawable/sky"
         android:numColumns="4"
         android:dividerHeight="8dp" />
 

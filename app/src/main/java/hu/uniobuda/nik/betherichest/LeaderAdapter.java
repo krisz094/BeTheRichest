@@ -53,16 +53,24 @@ class LeaderAdapter extends BaseAdapter {
 
 
         Leader leader = leaderList.get(position);
-//        if (leader.isPlayer()) {
-//            listItemView.setBackgroundResource(R.drawable.goldcanvas);
-//            nameTextView.setTextColor(Color.WHITE);
-//            moneyTextView.setTextColor(Color.WHITE);
-//            personRankTextView.setTextColor(Color.WHITE);
-//        }
+
+        if (leader.isPlayer()) {
+            setListItemLayout(listItemView, nameTextView, moneyTextView, personRankTextView, R.drawable.sil, Color.parseColor("#646464"));
+        }
+        else{
+            setListItemLayout(listItemView, nameTextView, moneyTextView, personRankTextView, R.drawable.gold, Color.WHITE);
+        }
 
         nameTextView.setText(leader.getName());
         moneyTextView.setText(NumberFormat.getNumberInstance(Locale.US).format(leader.getMoney()));
-        personRankTextView.setText("#" + String.valueOf(getItemId(position)));
+        personRankTextView.setText("#" + String.valueOf(getItemId(position + 1)));
         return listItemView;
+    }
+
+    private void setListItemLayout(View listItemView, TextView nameTextView, TextView moneyTextView, TextView personRankTextView, int sil, int color) {
+        listItemView.setBackgroundResource(sil);
+        nameTextView.setTextColor(color);
+        moneyTextView.setTextColor(color);
+        personRankTextView.setTextColor(color);
     }
 }

@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.Factories.GamblingFactory;
 import hu.uniobuda.nik.betherichest.Factories.InvestmentFactory;
-import hu.uniobuda.nik.betherichest.Factories.LeadersFactory;
+import hu.uniobuda.nik.betherichest.Factories.LeaderFactory;
 import hu.uniobuda.nik.betherichest.Factories.UpgradeFactory;
 import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
 
@@ -154,7 +154,7 @@ public class Game {
     }
 
     public List<Leader> getLeaders() {
-        LeadersFactory lf = new LeadersFactory();
+        LeaderFactory lf = new LeaderFactory();
         return lf.getLeaders();
     }
 
