@@ -24,7 +24,6 @@ public class InvestmentFactory {
                 10,                 //BASE PRICE
                 0.1,                //BASE MONEY PER SECOND
                 "Home made lemonade with fresh lemon is the best refreshing drink in the summer.", //DESCRIPTION
-                new int[]{0, 1, 2},      //UPGRADES THAT AFFECT THIS INVESTMENT
                 currentGame,
                 R.drawable.lemonadestand      //ICON
         ), map);
@@ -34,7 +33,6 @@ public class InvestmentFactory {
                 80,
                 0.5,
                 "A cheap trampoline that children can use next to a playground for a small price.",
-                new int[]{0, 1, 2},
                 currentGame,
                 R.drawable.trampoline
         ), map);
@@ -44,7 +42,6 @@ public class InvestmentFactory {
                 400,
                 1,
                 "Get a used pedalo and rent it out on the beach, it's a lot of fun.",
-                new int[]{0, 1, 2},
                 currentGame,
                 R.drawable.pedalo
         ), map);
@@ -54,7 +51,6 @@ public class InvestmentFactory {
                 900,
                 2,
                 "One of every children's favourite activities, place it in a park and enjoy the income.",
-                new int[]{0, 1, 2},
                 currentGame,
                 R.drawable.bouncycastle
         ), map);
@@ -64,7 +60,6 @@ public class InvestmentFactory {
                 2000,
                 5,
                 "Make delicious ice creams in a small kiosk, people will love it.",
-                new int[]{6, 7, 8},
                 currentGame,
                 R.drawable.icecream
         ), map);
@@ -74,7 +69,6 @@ public class InvestmentFactory {
                 4400,
                 10,
                 "Professional environment for photographers.",
-                new int[]{0, 1, 2},
                 currentGame,
                 R.drawable.photostudio
         ), map);
@@ -84,7 +78,6 @@ public class InvestmentFactory {
                 12800,
                 35,
                 "When hungry people see this car, they cannot resist to buy a delicious hot-dog.",
-                new int[]{0, 1, 2},
                 currentGame,
                 R.drawable.hotdogtruck
         ), map);
@@ -94,7 +87,6 @@ public class InvestmentFactory {
                 31000,
                 90,
                 "For those who are curious how it feels like driving a race car.",
-                new int[]{9, 10, 11},
                 currentGame,
                 R.drawable.racecarsimulator
         ), map);
@@ -104,7 +96,6 @@ public class InvestmentFactory {
                 86600,
                 250,
                 "Buy apartments that you rent out to people.",
-                new int[]{12, 13, 14},
                 currentGame,
                 R.drawable.apartment
         ), map);
@@ -114,7 +105,6 @@ public class InvestmentFactory {
                 500000,
                 700,
                 "Take people's money, and invest it better than they can.",
-                new int[]{12, 13, 14},
                 currentGame,
                 R.drawable.bank
         ), map);
@@ -124,7 +114,6 @@ public class InvestmentFactory {
                 30000000,
                 150000,
                 "Manage a casino to get a lot of money from rich risk takers.",
-                new int[]{12, 13, 14},
                 currentGame,
                 R.drawable.casino
         ), map);
@@ -134,7 +123,6 @@ public class InvestmentFactory {
                 170000000,
                 600000,
                 "An amusement park attracts thousands of visitors daily.",
-                new int[]{12, 13, 14},
                 currentGame,
                 R.drawable.funfair
         ), map);
@@ -144,7 +132,6 @@ public class InvestmentFactory {
                 1500000000,
                 4000000,
                 "Tourist have to stay somewhere. Let's be it one of your hotels.",
-                new int[]{15, 16, 17},
                 currentGame,
                 R.drawable.hotel_chain
         ), map);
@@ -154,7 +141,6 @@ public class InvestmentFactory {
                 6000000000d,
                 500000000,
                 "Dig deep enough in your garden, and find a valuable material, called oil.",
-                new int[]{18, 19, 20},
                 currentGame,
                 R.drawable.oilrig
         ), map);

@@ -46,7 +46,7 @@ public class Game {
     private HashMap<Integer, Investment> investments;
     private HashMap<Integer, Gambling> gamblings;
     private List<Leader> leaders;
-    private final int[] clickRelevantUpgradeIDs = {3, 4, 5}; //upgrade IDs that affect clicking
+    private ArrayList<Integer> clickRelevantUpgradeIDs; //upgrade IDs that affect clicking
     private Timer T;
 
     private NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
@@ -56,10 +56,10 @@ public class Game {
         gameState = new State();
         moneyPerSec = 0d;
         moneyPerClick = 1d;
-        upgrades = UpgradeFactory.createUpgrades(this);
+        clickRelevantUpgradeIDs = new ArrayList<Integer>();
         investments = InvestmentFactory.createInvestments(this);
+        upgrades = UpgradeFactory.createUpgrades(this, getInvestments());
         gamblings = GamblingFactory.createGamblings(this);
-
         this.handler = new Handler(Looper.getMainLooper());
 
 
@@ -87,6 +87,10 @@ public class Game {
                 postMoneyChanged2();
             }
         }, 0, 300);
+    }
+
+    public void addClickRelevantUpgrade(Integer id) {
+        this.clickRelevantUpgradeIDs.add(id);
     }
 
     public void earnMoney(double money) {

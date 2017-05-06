@@ -8,45 +8,46 @@ import hu.uniobuda.nik.betherichest.Interfaces.IEffectable;
  */
 
 public class Upgrade {
-
-    private String name;
     private String description;
-    private int price;
+    private long price;
     private IEffectable effect;
     private Game currentGame;
     private ConditionalProvider[] conditions;
     private int id;
     private int imageResource;
+    private int color;
 
-    public Upgrade(int id, String name, String description, int price, IEffectable effect, ConditionalProvider[] conditions, Game currentGame, int imageResource) {
+    public Upgrade(int id, String description, long price, IEffectable effect, ConditionalProvider[] conditions, Game currentGame, int imageResource, int color) {
         this.id = id;
-        this.name = name;
         this.description = description;
         this.price = price;
         this.effect = effect;
         this.currentGame = currentGame;
         this.conditions = conditions;
         this.imageResource = imageResource;
+        this.color = color;
     }
+
+    public int getColor() { return color; }
 
     public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
     public boolean isBuyable() {
-        return !isBought() && currentGame.gameState.currentMoney >= price && areConditionsTrue();
+        return !isBought() && currentGame.getCurrentMoney() >= price && areConditionsTrue();
+    }
+
+    public boolean isDisplayable() {
+        return currentGame.getCurrentMoney() >= price*0.75 && areConditionsTrue();
     }
 
     private boolean areConditionsTrue() {
