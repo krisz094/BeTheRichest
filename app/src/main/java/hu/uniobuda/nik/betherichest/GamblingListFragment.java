@@ -31,7 +31,7 @@ public class GamblingListFragment extends Fragment {
     boolean isTimerRunning = false;
     Calendar lastGamblingDate;
     Calendar nextAllowedGamblingDate;
-    static final int TIME_BETWEEN_TWO_GAMBLING = 12;
+    static final int TIME_BETWEEN_TWO_GAMBLING = 15;
     Timer T;
 
     public static GamblingListFragment newInstance() {
@@ -76,10 +76,10 @@ public class GamblingListFragment extends Fragment {
 
                 Gambling gambling = adapter.getItem(position);
                 if (!isTimerRunning) {
-                    double wonMoney = CalculateWonMoney(gambling);
+                    int wonMoney = CalculateWonMoney(gambling);
                     Toast.makeText(
                             getContext(),
-                            "You won " + gambling.getMaxWinAmount() + "$",
+                            String.format(wonMoney != 0 ? getString(R.string.gamling_won_money) : getString(R.string.gamling_no_win), wonMoney),
                             Toast.LENGTH_LONG
                     ).show();
                     StartTimer();
@@ -97,9 +97,16 @@ public class GamblingListFragment extends Fragment {
         });
     }
 
-    private double CalculateWonMoney(Gambling gambling) {
+    private int CalculateWonMoney(Gambling gambling) {
         //TODO
-        return -1;
+        Random rnd = new Random();
+        if (rnd.nextInt(10000) < gambling.getChance() * 100) {
+            int minValue = gambling.getMinWinAmount();
+            int maxValue = gambling.getMaxWinAmount();
+            return rnd.nextInt(maxValue - minValue) + minValue;
+        } else {
+            return 0;
+        }
     }
 
     private void StartTimer() {
@@ -149,7 +156,7 @@ public class GamblingListFragment extends Fragment {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         lastGamblingDate = cal;
-        cal.add(Calendar.HOUR_OF_DAY, TIME_BETWEEN_TWO_GAMBLING);
+        cal.add(Calendar.SECOND, TIME_BETWEEN_TWO_GAMBLING);
         nextAllowedGamblingDate = cal;
 
     }
