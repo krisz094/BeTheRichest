@@ -10,6 +10,10 @@ public class MultiplierEffect implements IEffectable {
 
     Double multiplier;
 
+    public Double getMultiplier() {
+        return multiplier;
+    }
+
     public MultiplierEffect(Double multiplier) {
         this.multiplier = multiplier;
     }

@@ -12,6 +12,10 @@ public class GlobalIncrementEffect implements IEffectable {
     Game currentGame;
     double moneyForEach;
 
+    public double getMoneyForEach() {
+        return moneyForEach;
+    }
+
     public GlobalIncrementEffect(Game currentGame, double moneyForEach) {
         this.currentGame = currentGame;
         this.moneyForEach = moneyForEach;

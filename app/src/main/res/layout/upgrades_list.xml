@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/sky"
         android:dividerHeight="3dp"
-        android:numColumns="4" />
+        android:numColumns="4"
+        android:textAlignment="center"/>
 
 </RelativeLayout>

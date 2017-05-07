@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +30,7 @@ public class UpgradeAdapter extends BaseAdapter {
     TextView priceTextView;
     ImageView imageView;
     TextView labelTextView;
+    RelativeLayout upgradeBackground;
     NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
 
     public UpgradeAdapter(List<Upgrade> items) {
@@ -68,7 +70,8 @@ public class UpgradeAdapter extends BaseAdapter {
         priceTextView = (TextView) listItemView.findViewById(R.id.price);
         //descriptionTextView = (TextView) listItemView.findViewById(R.id.description);
         imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
-        labelTextView=(TextView) listItemView.findViewById(R.id.multiplier);
+        labelTextView = (TextView) listItemView.findViewById(R.id.multiplier);
+        upgradeBackground = (RelativeLayout) listItemView.findViewById(R.id.upgradeBackground);
 
         Upgrade upgrade = items.get(position);
         Glide
@@ -81,12 +84,14 @@ public class UpgradeAdapter extends BaseAdapter {
 
         //nameTextView.setText(upgrade.getName());
 
+        upgradeBackground.setBackgroundColor(upgrade.getColor());
+
         if (upgrade.isBuyable()) {
             labelTextView.setTextColor(Color.parseColor("#BB0c6f04"));
         } else {
             labelTextView.setTextColor(Color.parseColor("#BB760c07"));
         }
-        switch(upgrade.getEffect()) {
+        switch (upgrade.getEffect()) {
 
             case "DoublerEffect":
                 labelTextView.setText("X2");

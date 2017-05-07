@@ -17,7 +17,6 @@ public class InvestmentFactory {
 
     public static HashMap<Integer, Investment> createInvestments(Game currentGame) {
         HashMap<Integer, Investment> map = new HashMap<>();
-
         AddToMap(new Investment(
                 0,                  //ID
                 "Lemonade stand",              //NAME
@@ -139,7 +138,7 @@ public class InvestmentFactory {
                 13,
                 "Oil Rig",
                 6000000000d,
-                500000000,
+                30000000,
                 "Dig deep enough in your garden, and find a valuable material, called oil.",
                 currentGame,
                 R.drawable.oilrig
