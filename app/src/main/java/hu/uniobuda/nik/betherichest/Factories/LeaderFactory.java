@@ -75,7 +75,7 @@ public class LeaderFactory {
                 eventType = parser.next();
 
             }
-            for (int i = 1; i <= moneys.size(); i++) {
+            for (int i = 0; i <= moneys.size(); i++) {
                 leaders.add(new Leader(names.get(i), moneys.get(i)));
             }
 
