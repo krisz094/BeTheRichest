@@ -47,7 +47,7 @@ public class Upgrade {
 
     public boolean isDisplayable() {
         if (!displayedOnce) {
-            displayedOnce = currentGame.getCurrentMoney() >= price * 0.70 && areConditionsTrue();
+            displayedOnce = currentGame.getCurrentMoney() >= price * 0.50 && areConditionsTrue();
         }
         return !isBought() && displayedOnce;
     }

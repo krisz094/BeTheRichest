@@ -80,7 +80,7 @@ public class GamblingListFragment extends Fragment {
                     int wonMoney = CalculateWonMoney(gambling);
                     Toast.makeText(
                             getContext(),
-                            String.format(wonMoney != 0 ? getString(R.string.gamling_won_money) : getString(R.string.gamling_no_win), wonMoney),
+                            String.format(wonMoney != 0 ? getString(R.string.gambling_won_money) : getString(R.string.gambling_no_win), wonMoney),
                             Toast.LENGTH_LONG
                     ).show();
                     StartTimer();

@@ -96,7 +96,7 @@ public class InvestmentAdapter extends BaseAdapter {
 
         priceTextView.setText(nf.format(investment.getPrice()));
         rankTextView.setText(String.valueOf(investment.getRank()));
-        dpsPerRankTextView.setText("DPS: " + String.valueOf(nf.format(investment.getMoneyPerSecPerRank() >= 1 ? (int) investment.getMoneyPerSecPerRank() : investment.getMoneyPerSecPerRank())));
+        dpsPerRankTextView.setText("DPS: " + String.valueOf(nf.format(investment.getMoneyPerSecPerRank())));
         totalDPSTextView.setText("Total: " + String.valueOf(nf.format((investment.getMoneyPerSec())) + " (" + String.format("%.2f", investment.getDPSPercentage()) + "%)"));
         imageView.setBackgroundResource(investment.getImageResource());
 

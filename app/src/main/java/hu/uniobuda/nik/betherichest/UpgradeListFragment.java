@@ -60,16 +60,8 @@ public class UpgradeListFragment extends android.support.v4.app.Fragment {
         game = Game.Get();
 
         items = game.getDisplayableUpgrades();
-        if (items.size() < 1) {
-            Toast.makeText(
-                    getContext(),
-                    "No upgrades available",
-                    Toast.LENGTH_LONG
-            ).show();
-            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-        }
         final UpgradeAdapter adapter = new UpgradeAdapter(items);
-        //itt nem találja meg a upgrade Listviewt és ezért nulllesz a Listview
+        //itt nem találja meg a upgrade Listviewt és ezért null lesz a Listview
         final GridView listView = (GridView) rootView.findViewById(R.id.upgrade_listview);
         listView.setAdapter(adapter);
 

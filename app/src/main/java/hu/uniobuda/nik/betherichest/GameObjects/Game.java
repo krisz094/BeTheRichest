@@ -119,11 +119,12 @@ public class Game {
     }
 
     public String getMoneyPerSecAsString() {
+        nf.setMaximumFractionDigits(1);
         return nf.format(moneyPerSec) + " $ per sec";
     }
 
     public String getMoneyPerClickAsString() {
-        return nf.format(moneyPerClick) + " $ per tap";
+        return String.format("%s $ per tap", nf.format(moneyPerClick));
     }
 
     public double getCurrentMoney() {
@@ -169,7 +170,7 @@ public class Game {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public int compare(Upgrade o1, Upgrade o2) {
-                return Integer.compare(o1.getId(), o2.getId());
+                return Long.compare(o1.getPrice(), o2.getPrice());
             }
         });
         return list;

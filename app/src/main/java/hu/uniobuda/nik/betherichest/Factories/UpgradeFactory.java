@@ -84,9 +84,9 @@ public class UpgradeFactory {
             for (int multiplier : multipliers) {
                 List<ConditionalProvider> conditions = new ArrayList<>();
                 conditions.add(new RankOfIDNeeded(investment.getId(), rankOfIdNeeded[multiplIdx]));
-                if (prevId != null) {
-                    conditions.add(new UpgradeWithIDUnlocked(prevId));
-                }
+//                if (prevId != null) {
+//                    conditions.add(new UpgradeWithIDUnlocked(prevId));
+//                }
                 ConditionalProvider[] conditionsArray = new ConditionalProvider[conditions.size()];
                 conditions.toArray(conditionsArray);
                 AddToMap(new Upgrade(
@@ -113,9 +113,9 @@ public class UpgradeFactory {
         prevId = null;
         for (long price : clickDoublerPrices) {
             List<ConditionalProvider> conditions = new ArrayList<>();
-            if (prevId != null) {
-                conditions.add(new UpgradeWithIDUnlocked(prevId));
-            }
+//            if (prevId != null) {
+//                conditions.add(new UpgradeWithIDUnlocked(prevId));
+//            }
             ConditionalProvider[] conditionsArray = new ConditionalProvider[conditions.size()];
             conditions.toArray(conditionsArray);
             AddToMap(new Upgrade(
@@ -139,9 +139,9 @@ public class UpgradeFactory {
         prevId = null;
         for (long price : globalIncrementPrices) {
             List<ConditionalProvider> conditions = new ArrayList<>();
-            if (prevId != null) {
-                conditions.add(new UpgradeWithIDUnlocked(prevId));
-            }
+//            if (prevId != null) {
+//                conditions.add(new UpgradeWithIDUnlocked(prevId));
+//            }
             ConditionalProvider[] conditionsArray = new ConditionalProvider[conditions.size()];
             conditions.toArray(conditionsArray);
             AddToMap(new Upgrade(
@@ -165,9 +165,9 @@ public class UpgradeFactory {
         prevId = null;
         for (long price : MPSUpgradePrices) {
             List<ConditionalProvider> conditions = new ArrayList<>();
-            if (prevId != null) {
-                conditions.add(new UpgradeWithIDUnlocked(prevId));
-            }
+//            if (prevId != null) {
+//                conditions.add(new UpgradeWithIDUnlocked(prevId));
+//            }
             ConditionalProvider[] conditionsArray = new ConditionalProvider[conditions.size()];
             conditions.toArray(conditionsArray);
             AddToMap(new Upgrade(
@@ -177,7 +177,7 @@ public class UpgradeFactory {
                     new MultiplierEffect(MPSUpgradePercent[multiplIdx]),
                     conditionsArray,
                     currentGame,
-                    R.drawable.dollar,
+                    R.drawable.dollarsmall,
                     colors[multiplIdx]
             ), map);
             currentGame.addMPSRelevantUpgrade(currId);
