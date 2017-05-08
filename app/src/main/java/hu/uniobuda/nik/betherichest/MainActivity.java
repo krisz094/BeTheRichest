@@ -23,6 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -61,20 +63,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(true);
-        }
-
-        actionBar.setIcon(R.mipmap.actionbar_icon);
-        ColorDrawable colorDrawable = new ColorDrawable();
-        colorDrawable.setColor(Color.rgb(139,69,19));
-        Resources resources = getResources();
-        Drawable drawable = resources.getDrawable(R.drawable.bluewood);
-        actionBar.setBackgroundDrawable(drawable);
-
 
 
         DBHandler = new DatabaseHandler(this);
@@ -190,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void InitializeUIElements() {
+        InitializeActionBar();
         currMoneyText = (TextView) findViewById(R.id.currMoneyText);
         moneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
         moneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
@@ -203,6 +192,20 @@ public class MainActivity extends AppCompatActivity {
         growAndFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.grow_and_fade);
 
         mainRelativeLayout = (RelativeLayout) findViewById(R.id.mainRelativeLayout);
+    }
+
+    private void InitializeActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+
+        actionBar.setIcon(R.mipmap.actionbar_icon);
+        ColorDrawable colorDrawable = new ColorDrawable();
+        colorDrawable.setColor(Color.rgb(139, 69, 19));
+        Resources resources = getResources();
+        Drawable drawable = resources.getDrawable(R.drawable.bluewood);
+        actionBar.setBackgroundDrawable(drawable);
     }
 
     private void refreshView() {

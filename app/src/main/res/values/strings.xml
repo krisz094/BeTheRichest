@@ -3,5 +3,7 @@
     <string name="I1">Bank Interest</string>
     <string name="gambling_header">It\'s time to gamble!</string>
     <string name="gambling_wait">Too much gambling is harmful! Wait a little!</string>
-    <string name="gambling_time_remaining">Time remaining: %1$d h %2$d m %3$d s</string>
+    <string name="gambling_time_remaining">Time remaining: %1$dh %2$dm %3$ds</string>
+    <string name="gamling_won_money">You won %1$d$</string>
+    <string name="gamling_no_win">You won nothing</string>
 </resources>

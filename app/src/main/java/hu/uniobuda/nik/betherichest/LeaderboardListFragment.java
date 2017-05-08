@@ -48,17 +48,16 @@ public class LeaderboardListFragment extends android.support.v4.app.Fragment {
             final LeaderAdapter adapter = new LeaderAdapter(leaders);
             listView.setAdapter(adapter);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.leaderboard_list,container,false);
+        rootView = inflater.inflate(R.layout.leaderboard_list, container, false);
         return rootView;
 
     }

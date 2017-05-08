@@ -17,8 +17,8 @@ public class InvestmentFactory {
 
     public static HashMap<Integer, Investment> createInvestments(Game currentGame) {
         HashMap<Integer, Investment> map = new HashMap<>();
+
         AddToMap(new Investment(
-                0,                  //ID
                 "Lemonade stand",              //NAME
                 10,                 //BASE PRICE
                 0.1,                //BASE MONEY PER SECOND
@@ -27,118 +27,153 @@ public class InvestmentFactory {
                 R.drawable.lemonadestand      //ICON
         ), map);
         AddToMap(new Investment(
-                1,
                 "Trampoline",
                 80,
-                0.5,
+                0.4,
                 "A cheap trampoline that children can use next to a playground for a small price.",
                 currentGame,
                 R.drawable.trampoline
         ), map);
         AddToMap(new Investment(
-                2,
                 "Pedalo",
-                400,
+                320,
                 1,
                 "Get a used pedalo and rent it out on the beach, it's a lot of fun.",
                 currentGame,
                 R.drawable.pedalo
         ), map);
         AddToMap(new Investment(
-                3,
                 "Bouncy Castle",
-                900,
-                2,
+                790,
+                2.2,
                 "One of every children's favourite activities, place it in a park and enjoy the income.",
                 currentGame,
                 R.drawable.bouncycastle
         ), map);
         AddToMap(new Investment(
-                4,
                 "Ice Cream Kiosk",
-                2000,
+                2020,
                 5,
                 "Make delicious ice creams in a small kiosk, people will love it.",
                 currentGame,
                 R.drawable.icecream
         ), map);
         AddToMap(new Investment(
-                5,
                 "Photo Studio",
-                4400,
-                10,
+                4800,
+                11,
                 "Professional environment for photographers.",
                 currentGame,
                 R.drawable.photostudio
         ), map);
         AddToMap(new Investment(
-                6,
                 "Hot Dog Truck",
                 12800,
-                35,
+                33,
                 "When hungry people see this car, they cannot resist to buy a delicious hot-dog.",
                 currentGame,
                 R.drawable.hotdogtruck
         ), map);
         AddToMap(new Investment(
-                7,
                 "Race Car Simulator",
                 31000,
-                90,
+                75,
                 "For those who are curious how it feels like driving a race car.",
                 currentGame,
                 R.drawable.racecarsimulator
         ), map);
         AddToMap(new Investment(
-                8,
                 "Apartment",
-                86600,
-                250,
+                92000,
+                220,
                 "Buy apartments that you rent out to people.",
                 currentGame,
                 R.drawable.apartment
         ), map);
         AddToMap(new Investment(
-                9,
-                "Bank",
-                500000,
-                700,
-                "Take people's money, and invest it better than they can.",
+                "Family House",
+                229000,
+                500,
+                "Buy houses that you sell.",
                 currentGame,
-                R.drawable.bank
+                R.drawable.familyhouse
         ), map);
         AddToMap(new Investment(
-                10,
+                "Yacht",
+                468000,
+                970,
+                "",
+                currentGame,
+                R.drawable.yacht
+        ), map);
+        AddToMap(new Investment(
+                "Server Farm",
+                1076000,
+                2150,
+                "",
+                currentGame,
+                R.drawable.serverfarm
+        ), map);
+        AddToMap(new Investment(
+                "Mine Truck",
+                3640000,
+                6110,
+                "",
+                currentGame,
+                R.drawable.minetruck
+        ), map);
+        AddToMap(new Investment(
+                "Private Airplane",
+                6150000,
+                9980,
+                "",
+                currentGame,
+                R.drawable.airplane
+        ), map);
+        AddToMap(new Investment(
+                "Office Building",
+                10722000,
+                16300,
+                "",
+                currentGame,
+                R.drawable.officebuilding
+        ), map);
+        AddToMap(new Investment(
+                "Luxury Real Estate",
+                19000000,
+                30100,
+                "",
+                currentGame,
+                R.drawable.luxuryrealestate
+        ), map);
+        AddToMap(new Investment(
                 "Casino",
-                30000000,
-                150000,
+                29999000,
+                47200,
                 "Manage a casino to get a lot of money from rich risk takers.",
                 currentGame,
                 R.drawable.casino
         ), map);
         AddToMap(new Investment(
-                11,
                 "Amusement park",
-                170000000,
-                600000,
+                65800000,
+                98700,
                 "An amusement park attracts thousands of visitors daily.",
                 currentGame,
                 R.drawable.funfair
         ), map);
         AddToMap(new Investment(
-                12,
                 "Hotel Chain",
-                1500000000,
-                4000000,
+                98900000,
+                146000,
                 "Tourist have to stay somewhere. Let's be it one of your hotels.",
                 currentGame,
-                R.drawable.hotel_chain
+                R.drawable.hotel_chain2
         ), map);
         AddToMap(new Investment(
-                13,
                 "Oil Rig",
-                6000000000d,
-                30000000,
+                150000000d,
+                235000,
                 "Dig deep enough in your garden, and find a valuable material, called oil.",
                 currentGame,
                 R.drawable.oilrig
