@@ -168,7 +168,7 @@ public class InvestmentFactory {
                 146000,
                 "Tourist have to stay somewhere. Let's be it one of your hotels.",
                 currentGame,
-                R.drawable.hotel_chain2
+                R.drawable.hotelchain
         ), map);
         AddToMap(new Investment(
                 "Oil Rig",
