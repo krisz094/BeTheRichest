@@ -3,6 +3,7 @@ package hu.uniobuda.nik.betherichest.GameObjects;
 import android.content.Context;
 import android.os.Handler;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,8 @@ public class State {
     private HashMap<Integer, Boolean> UpgradeIdUnlocked;
     //InvestmentRankById
     private HashMap<Integer, Integer> InvestmentIdRank; //ezt vissza majd privátra
+    private Calendar lastGamblingDate;
+    private Calendar nextAllowedGamblingDate;
 
 
 
@@ -25,7 +28,8 @@ public class State {
         currentMoney = 0d;
         UpgradeIdUnlocked = new HashMap<>();
         InvestmentIdRank = new HashMap<>();
-
+        lastGamblingDate=null;
+        nextAllowedGamblingDate=null;
     }
 
     public Boolean getUpgradeBoughtById(int id) {

@@ -24,23 +24,55 @@ public class DatabaseHandler {
     private static final String TABLE_INVESTMENTS = "Investments";
     private static final String TABLE_MONEY = "Money";
     private static final String TABLE_UPGRADES = "Upgrades";
+    private static final String TABLE_LASTGAMBLINGDATE="LastGamblingDate";
+    private static final String TABLE_NEXTALLOWEDGAMBLINGDATE="NextAllowedGamblingDate";
 
     public DBHelper dbHelper;
 
     public DatabaseHandler(Context context) {
         dbHelper = new DBHelper(context);
-
-        /*
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("_id", 3);
-        values.put("rank", 3);
-        long id = db.insert(TABLE_INVESTMENTS, null, values);
-        */
-
     }
 
     //Save nél elösször delete() utána bejárni a listát és insert
+
+    //ITT VANNAK A GAMBLINGES MÓKÁK
+    public long saveLastGamblingDate(String lastGamblingDate)
+    {
+        SQLiteDatabase db=deleteLastGamblingdate();
+        ContentValues values=new ContentValues();
+        values.put("lastDate",lastGamblingDate);
+        long id=db.insert(TABLE_LASTGAMBLINGDATE,null,values);
+        return id;
+    }
+
+    private SQLiteDatabase deleteLastGamblingdate()
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LASTGAMBLINGDATE);
+        db.execSQL("CREATE TABLE " + TABLE_LASTGAMBLINGDATE + "(" +
+                "lastDate TEXT PRIMARY KEY" +
+                ")");
+        return db;
+    }
+
+    public long saveNextAllowedGamblingDate(String nextAllowedGamblingDate)
+    {
+        SQLiteDatabase db=deleteNextAllowedGamblingDate();
+        ContentValues values = new ContentValues();
+        values.put("nextAllowedDate", nextAllowedGamblingDate);
+        long id = db.insert(TABLE_NEXTALLOWEDGAMBLINGDATE, null, values);
+        return id;
+    }
+
+    private SQLiteDatabase deleteNextAllowedGamblingDate()
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEXTALLOWEDGAMBLINGDATE);
+        db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
+                "nextAllowedDate REAL PRIMARY KEY" +
+                ")");
+        return db;
+    }
 
     public long saveMoney(double currentmoney) {
         deleteMoney();
