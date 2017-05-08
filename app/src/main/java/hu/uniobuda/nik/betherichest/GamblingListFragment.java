@@ -26,12 +26,13 @@ import hu.uniobuda.nik.betherichest.GameObjects.Game;
  */
 
 public class GamblingListFragment extends Fragment {
+    Game game;
     View rootView;
     TextView timerText;
     boolean isTimerRunning = false;
-    Calendar lastGamblingDate;
-    Calendar nextAllowedGamblingDate;
-    static final int TIME_BETWEEN_TWO_GAMBLING = 3;
+    //Calendar lastGamblingDate;
+    //Calendar nextAllowedGamblingDate;
+    static final int TIME_BETWEEN_TWO_GAMBLING = 12;
     Timer T;
 
     public static GamblingListFragment newInstance() {
@@ -62,8 +63,8 @@ public class GamblingListFragment extends Fragment {
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        List<Gambling> items = Game.Get().getGamblings();
+        game = Game.Get();
+        List<Gambling> items = game.getGamblings();
         final GamblingAdapter adapter = new GamblingAdapter(items);
         final ListView listView = (ListView) rootView.findViewById(R.id.gambling_listview);
         listView.setAdapter(adapter);
@@ -98,7 +99,6 @@ public class GamblingListFragment extends Fragment {
     }
 
     private int CalculateWonMoney(Gambling gambling) {
-        //TODO
         Random rnd = new Random();
         if (rnd.nextInt(10000) < gambling.getChance() * 100) {
             int minValue = gambling.getMinWinAmount();
@@ -130,10 +130,10 @@ public class GamblingListFragment extends Fragment {
      * @return difference as formatted string, which will be displayed on the UI
      */
     private String getCalculatedRemainingTimeString() {
-        if (nextAllowedGamblingDate != null) {
+        if (game.gameState.getNextAllowedGamblingDate() != null) { //itt
 
             Calendar today = Calendar.getInstance();
-            long diffInMilliSeconds = (nextAllowedGamblingDate.getTimeInMillis() - today.getTimeInMillis());
+            long diffInMilliSeconds = (game.gameState.getNextAllowedGamblingDate().getTimeInMillis() - today.getTimeInMillis());
 
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(diffInMilliSeconds);
@@ -155,9 +155,11 @@ public class GamblingListFragment extends Fragment {
     private void setGamblingDates() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        lastGamblingDate = cal;
-        cal.add(Calendar.SECOND, TIME_BETWEEN_TWO_GAMBLING);
-        nextAllowedGamblingDate = cal;
+        //lastGamblingDate = cal;
+        game.gameState.setLastGamblingDate(cal);
+        cal.add(Calendar.HOUR_OF_DAY, TIME_BETWEEN_TWO_GAMBLING);
+        //nextAllowedGamblingDate = cal;
+        game.gameState.setNextAllowedGamblingDate(cal);
 
     }
 

@@ -22,6 +22,24 @@ public class State {
     private Calendar lastGamblingDate;
     private Calendar nextAllowedGamblingDate;
 
+    public Calendar getLastGamblingDate() {
+        return lastGamblingDate;
+    }
+
+    public void setLastGamblingDate(Calendar lastGamblingDate) {
+        this.lastGamblingDate = lastGamblingDate;
+    }
+
+    public Calendar getNextAllowedGamblingDate() {
+        return nextAllowedGamblingDate;
+    }
+
+    public void setNextAllowedGamblingDate(Calendar nextAllowedGamblingDate) {
+        this.nextAllowedGamblingDate = nextAllowedGamblingDate;
+    }
+
+
+
 
 
     public State() {
