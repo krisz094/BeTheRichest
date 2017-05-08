@@ -148,8 +148,8 @@ public class InvestmentFactory {
         ), map);
         AddToMap(new Investment(
                 "Casino",
-                29999000,
-                47200,
+                39999000,
+                58200,
                 "Manage a casino to get a lot of money from rich risk takers.",
                 currentGame,
                 R.drawable.casino
