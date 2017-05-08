@@ -76,8 +76,7 @@ public class UpgradeListFragment extends android.support.v4.app.Fragment {
         game.setOnMoneyChanged2(new Game.MoneyChangedListener2() {
             @Override
             public void onTotalMoneychanged2() {
-                //FIXME
-                items = game.getDisplayableUpgrades();
+                adapter.setItems(game.getDisplayableUpgrades());
                 adapter.notifyDataSetChanged();
 
             }
@@ -90,8 +89,7 @@ public class UpgradeListFragment extends android.support.v4.app.Fragment {
                 Upgrade selectedUpgrade = adapter.getItem(position);
                 boolean success = selectedUpgrade.buy();
                 if (success) {
-                    //FIXME
-                    items = game.getDisplayableUpgrades();
+                    adapter.setItems(game.getDisplayableUpgrades());
                     adapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(

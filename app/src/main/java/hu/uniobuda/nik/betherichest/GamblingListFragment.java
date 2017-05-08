@@ -31,7 +31,6 @@ public class GamblingListFragment extends Fragment {
     boolean isTimerRunning = false;
     Calendar lastGamblingDate;
     Calendar nextAllowedGamblingDate;
-
     static final int TIME_BETWEEN_TWO_GAMBLING = 12;
     Timer T;
 

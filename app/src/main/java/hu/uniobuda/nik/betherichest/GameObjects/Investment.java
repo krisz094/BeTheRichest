@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 
 public class Investment {
+    static int currentId = 0;
     private int id;
     private String name;
     private double basePrice;
@@ -19,8 +20,8 @@ public class Investment {
     private final double coeff = 1.15;
     private int imageResource;
 
-    public Investment(int id, String name, double basePrice, double baseDpS, String description, Game currentGame, int imageResource) {
-        this.id = id;
+    public Investment(String name, double basePrice, double baseDpS, String description, Game currentGame, int imageResource) {
+        this.id = currentId++;
         this.name = name;
         this.basePrice = basePrice;
         this.baseDpS = baseDpS;
@@ -72,7 +73,8 @@ public class Investment {
         double MPS = getRank() * baseDpS;
         for (int ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {
-                MPS = currentGame.getUpgrades().get(ID).execute(MPS);
+                //MPS = currentGame.getUpgrades().get(ID).execute(MPS);
+                MPS = currentGame.getUpgradeById(ID).execute(MPS);
             }
         }
         return MPS;
@@ -82,7 +84,7 @@ public class Investment {
         double MPS = baseDpS;
         for (int ID : relevantUpgradeIDs) {
             if (currentGame.gameState.getUpgradeBoughtById(ID)) {
-                MPS = currentGame.getUpgrades().get(ID).execute(MPS);
+                MPS = currentGame.getUpgradeById(ID).execute(MPS);
             }
         }
         return MPS;

@@ -47,6 +47,7 @@ public class Game {
     private HashMap<Integer, Gambling> gamblings;
     private List<Leader> leaders;
     private ArrayList<Integer> clickRelevantUpgradeIDs; //upgrade IDs that affect clicking
+    private ArrayList<Integer> MPSRelevantUpgradeIDs;
     private Timer T;
 
     private NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
@@ -57,11 +58,11 @@ public class Game {
         moneyPerSec = 0d;
         moneyPerClick = 1d;
         clickRelevantUpgradeIDs = new ArrayList<Integer>();
+        MPSRelevantUpgradeIDs = new ArrayList<Integer>();
         investments = InvestmentFactory.createInvestments(this);
         upgrades = UpgradeFactory.createUpgrades(this, getInvestments());
         gamblings = GamblingFactory.createGamblings(this);
         this.handler = new Handler(Looper.getMainLooper());
-
 
         //gameState.loadState();
         recalcMoneyPerSec();
@@ -91,6 +92,10 @@ public class Game {
 
     public void addClickRelevantUpgrade(Integer id) {
         this.clickRelevantUpgradeIDs.add(id);
+    }
+
+    public void addMPSRelevantUpgrade(Integer id) {
+        this.MPSRelevantUpgradeIDs.add(id);
     }
 
     public void earnMoney(double money) {
@@ -170,6 +175,10 @@ public class Game {
         return list;
     }
 
+    public Upgrade getUpgradeById(Integer id) {
+        return this.upgrades.get(id);
+    }
+
     public List<Upgrade> getDisplayableUpgrades() {
         ArrayList<Upgrade> list = new ArrayList<>();
         for (Upgrade upgrade : getUpgrades()) {
@@ -228,6 +237,13 @@ public class Game {
         for (Investment inv : investments.values()) {
             money += inv.getMoneyPerSec();
         }
+
+        for(Integer upgradeID: MPSRelevantUpgradeIDs) {
+            if (gameState.getUpgradeBoughtById(upgradeID)) {
+                money = upgrades.get(upgradeID).execute(money);
+            }
+        }
+
         moneyPerSec = money;
         if (onMoneyChanged != null) {
             onMoneyChanged.onMoneyPerSecChanged(getMoneyPerSecAsString());

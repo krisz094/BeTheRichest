@@ -1,6 +1,7 @@
 package hu.uniobuda.nik.betherichest;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -34,6 +35,9 @@ public class UpgradeAdapter extends BaseAdapter {
         this.items = items;
     }
 
+    public void setItems(List<Upgrade> items) {
+        this.items = items;
+    }
 
     @Override
     public int getCount() {
@@ -83,12 +87,17 @@ public class UpgradeAdapter extends BaseAdapter {
             labelTextView.setTextColor(Color.parseColor("#BB760c07"));
         }
         switch(upgrade.getEffect()) {
+
             case "DoublerEffect":
                 labelTextView.setText("X2");
                 break;
-            case "GlobalIncerementEffect":
-                labelTextView.setText("GI");
+            case "GlobalIncrementEffect":
+                labelTextView.setText("GI"); // TODO TO CHANGE
                 break;
+            case "MultiplierEffect":
+                labelTextView.setText("ME"); // TODO TO CHANGE
+                break;
+
         }
 
         priceTextView.setText(nf.format(upgrade.getPrice()));

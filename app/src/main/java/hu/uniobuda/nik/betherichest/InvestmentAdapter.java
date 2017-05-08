@@ -33,7 +33,6 @@ public class InvestmentAdapter extends BaseAdapter {
     TextView priceTextView;
     TextView dpsPerRankTextView;
     TextView rankTextView;
-    TextView descriptionTextView;
     TextView totalDPSTextView;
     ImageView imageView;
 
@@ -73,7 +72,6 @@ public class InvestmentAdapter extends BaseAdapter {
         priceTextView = (TextView) listItemView.findViewById(R.id.price);
         dpsPerRankTextView = (TextView) listItemView.findViewById(R.id.dpsPerRank);
         rankTextView = (TextView) listItemView.findViewById(R.id.rank);
-        //  descriptionTextView = (TextView) listItemView.findViewById(R.id.description);
         totalDPSTextView = (TextView) listItemView.findViewById(R.id.total);
         imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
 
