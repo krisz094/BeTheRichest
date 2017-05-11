@@ -3,9 +3,9 @@ package hu.uniobuda.nik.betherichest;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -15,6 +15,7 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,17 +26,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
 import java.text.NumberFormat;
-import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
-import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
 import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
 
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,20 +64,11 @@ public class MainActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-
         DBHandler = new DatabaseHandler(this);
 
-        //game.gameState.currentMoney=DBHandler.loadMoney();
-        //if(game.gameState.InvestmentIdRank.size()==0) {
-        //game.buyInvestment(1);
-        //}
         game.loadGame(DBHandler);
 
-        //DBHandler.loadInvestments(game.gameState.InvestmentIdRank);
-
         InitializeUIElements();
-
-        //InitializeTimer();
     }
 
     @Override
@@ -115,36 +106,57 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void dollarOnTouch(MotionEvent event) {
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//                    TextView tapText = new TextView(MainActivity.this);
-//
-//                    tapText.setTextSize(35);
-//                    tapText.setTextColor(Color.parseColor("#e5ba0a"));
-//                    tapText.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
-//                    tapText.setText("+" + String.valueOf(game.getMoneyPerClick() + "$"));
-//                    params.setMargins((int) (event.getX() - tapText.getWidth() / 2), (int) (event.getY() + tapText.getTextSize()), 0, 0);
-//                    tapText.setLayoutParams(params);
-//                    mainRelativeLayout.addView(tapText);
-//                    TextGrowthAnimationListener listener = new TextGrowthAnimationListener(tapText, mainRelativeLayout);
-//                    growth.setAnimationListener(listener);
-//                    tapText.startAnimation(growth);
-
-            game.click();
-            tapBtn.startAnimation(shrink);
-            tapMoneyText.startAnimation(growAndFade);
-
             params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            final TextView tapText = (TextView) View.inflate(this, R.layout.plusone, null);
 
-            int marginLeft = (int) (event.getX() - tapMoneyText.getWidth() / 2);
-            int marginTop = (int) (event.getY() + tapMoneyText.getTextSize() * 2);
+            tapText.setText("+" + String.valueOf(game.getMoneyPerClick() + "$"));
+            params.setMargins((int) (event.getX() - tapText.getWidth() / 2), (int) (event.getY() + tapText.getTextSize()), 0, 0);
+            tapText.setLayoutParams(params);
+            mainRelativeLayout.addView(tapText);
+//            TextGrowthAnimationListener listener = new TextGrowthAnimationListener(tapText, mainRelativeLayout);
+//            growth.setAnimationListener(listener);
+            Animation growAndFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.grow_and_fade);
+            growAndFade.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
 
-            marginLeft = getMarginLeft(event, marginLeft);
+                }
 
-            params.setMargins(marginLeft, marginTop, 0, 0);
-            tapMoneyText.setText("+" + String.valueOf((NumberFormat.getNumberInstance(Locale.US).format(game.getMoneyPerClick()) + "$")));
-            tapMoneyText.setLayoutParams(params);
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mainRelativeLayout.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mainRelativeLayout.removeView(tapText);
+                        }
+                    });
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            tapText.startAnimation(growAndFade);
+
+//            game.click();
+//            tapBtn.startAnimation(shrink);
+//            tapMoneyText.startAnimation(growAndFade);
+//
+//            params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//
+//            int marginLeft = (int) (event.getX() - tapMoneyText.getWidth() / 2);
+//            int marginTop = (int) (event.getY() + tapMoneyText.getTextSize() * 2);
+//
+//            marginLeft = getMarginLeft(event, marginLeft);
+//
+//            params.setMargins(marginLeft, marginTop, 0, 0);
+//            tapMoneyText.setText("+" + String.valueOf((NumberFormat.getNumberInstance(Locale.US).format(game.getMoneyPerClick()) + "$")));
+//            tapMoneyText.setLayoutParams(params);
         }
     }
 
@@ -250,8 +262,7 @@ public class MainActivity extends AppCompatActivity {
                     "No upgrades available",
                     Toast.LENGTH_LONG
             ).show();
-        }
-        else{
+        } else {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);

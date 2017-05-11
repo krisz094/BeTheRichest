@@ -8,6 +8,13 @@
     android:padding="2dp"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/rotatingImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerInParent="true"
+        />
+
     <TextView
         android:id="@+id/timer"
         android:layout_width="match_parent"

@@ -1,12 +1,16 @@
 package hu.uniobuda.nik.betherichest;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,9 +33,11 @@ public class GamblingListFragment extends Fragment {
     Game game;
     View rootView;
     TextView timerText;
+    ImageView rotatingImage;
     boolean isTimerRunning = false;
     //Calendar lastGamblingDate;
     //Calendar nextAllowedGamblingDate;
+    Animation growAndRotate;
     static final int TIME_BETWEEN_TWO_GAMBLING = 12;
     Timer T;
 
@@ -54,6 +60,7 @@ public class GamblingListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         T = new Timer();
+        growAndRotate = AnimationUtils.loadAnimation(getContext(), R.anim.grow_and_rotate);
     }
 
     @Override
@@ -70,22 +77,45 @@ public class GamblingListFragment extends Fragment {
         listView.setAdapter(adapter);
 
         timerText = (TextView) rootView.findViewById(R.id.timer);
+        rotatingImage = (ImageView) rootView.findViewById(R.id.rotatingImage);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 Gambling gambling = adapter.getItem(position);
                 if (!isTimerRunning) {
-                    int wonMoney = CalculateWonMoney(gambling);
-                    Toast.makeText(
-                            getContext(),
-                            String.format(wonMoney != 0 ? getString(R.string.gambling_won_money) : getString(R.string.gambling_no_win), wonMoney),
-                            Toast.LENGTH_LONG
-                    ).show();
-                    StartTimer();
-                    isTimerRunning = true;
-                    setGamblingDates();
+
+                    rotatingImage.setBackgroundResource(gambling.getImageResource());
+                    rotatingImage.startAnimation(growAndRotate);
+
+                    growAndRotate.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            StartTimer();
+                            isTimerRunning = true;
+                            setGamblingDates();
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            int wonMoney = CalculateWonMoney(adapter.getItem(position));
+                            Toast.makeText(
+                                    getContext(),
+                                    String.format(wonMoney != 0 ? getString(R.string.gambling_won_money) : getString(R.string.gambling_no_win), wonMoney),
+                                    Toast.LENGTH_LONG
+                            ).show();
+//                            StartTimer();
+//                            isTimerRunning = true;
+//                            setGamblingDates();
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
 
                 } else {
                     Toast.makeText(
