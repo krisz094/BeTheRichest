@@ -54,6 +54,7 @@ class LeaderAdapter extends BaseAdapter {
 
         Leader leader = leaderList.get(position);
 
+        // highlights the player in the list
         if (leader.isPlayer()) {
             setListItemLayout(listItemView, nameTextView, moneyTextView, personRankTextView, R.drawable.silver, Color.parseColor("#646464"));
         } else {

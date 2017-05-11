@@ -26,11 +26,12 @@ import hu.uniobuda.nik.betherichest.GameObjects.Game;
  */
 
 public class GamblingListFragment extends Fragment {
+    Game game;
     View rootView;
     TextView timerText;
     boolean isTimerRunning = false;
-    Calendar lastGamblingDate;
-    Calendar nextAllowedGamblingDate;
+    //Calendar lastGamblingDate;
+    //Calendar nextAllowedGamblingDate;
     static final int TIME_BETWEEN_TWO_GAMBLING = 12;
     Timer T;
 
@@ -62,8 +63,8 @@ public class GamblingListFragment extends Fragment {
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        List<Gambling> items = Game.Get().getGamblings();
+        game = Game.Get();
+        List<Gambling> items = game.getGamblings();
         final GamblingAdapter adapter = new GamblingAdapter(items);
         final ListView listView = (ListView) rootView.findViewById(R.id.gambling_listview);
         listView.setAdapter(adapter);
@@ -76,10 +77,10 @@ public class GamblingListFragment extends Fragment {
 
                 Gambling gambling = adapter.getItem(position);
                 if (!isTimerRunning) {
-                    double wonMoney = CalculateWonMoney(gambling);
+                    int wonMoney = CalculateWonMoney(gambling);
                     Toast.makeText(
                             getContext(),
-                            "You won " + gambling.getMaxWinAmount() + "$",
+                            String.format(wonMoney != 0 ? getString(R.string.gambling_won_money) : getString(R.string.gambling_no_win), wonMoney),
                             Toast.LENGTH_LONG
                     ).show();
                     StartTimer();
@@ -97,9 +98,15 @@ public class GamblingListFragment extends Fragment {
         });
     }
 
-    private double CalculateWonMoney(Gambling gambling) {
-        //TODO
-        return -1;
+    private int CalculateWonMoney(Gambling gambling) {
+        Random rnd = new Random();
+        if (rnd.nextInt(10000) < gambling.getChance() * 100) {
+            int minValue = gambling.getMinWinAmount();
+            int maxValue = gambling.getMaxWinAmount();
+            return rnd.nextInt(maxValue - minValue) + minValue;
+        } else {
+            return 0;
+        }
     }
 
     private void StartTimer() {
@@ -123,10 +130,10 @@ public class GamblingListFragment extends Fragment {
      * @return difference as formatted string, which will be displayed on the UI
      */
     private String getCalculatedRemainingTimeString() {
-        if (nextAllowedGamblingDate != null) {
+        if (game.gameState.getNextAllowedGamblingDate() != null) { //itt
 
             Calendar today = Calendar.getInstance();
-            long diffInMilliSeconds = (nextAllowedGamblingDate.getTimeInMillis() - today.getTimeInMillis());
+            long diffInMilliSeconds = (game.gameState.getNextAllowedGamblingDate().getTimeInMillis() - today.getTimeInMillis());
 
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(diffInMilliSeconds);
@@ -148,9 +155,11 @@ public class GamblingListFragment extends Fragment {
     private void setGamblingDates() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        lastGamblingDate = cal;
+        //lastGamblingDate = cal;
+        game.gameState.setLastGamblingDate(cal);
         cal.add(Calendar.HOUR_OF_DAY, TIME_BETWEEN_TWO_GAMBLING);
-        nextAllowedGamblingDate = cal;
+        //nextAllowedGamblingDate = cal;
+        game.gameState.setNextAllowedGamblingDate(cal);
 
     }
 

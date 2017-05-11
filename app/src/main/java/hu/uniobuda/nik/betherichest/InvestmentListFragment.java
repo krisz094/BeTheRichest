@@ -75,7 +75,6 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
 
                 Investment selectedInvestment = adapter.getItem(position);
                 if (selectedInvestment.buy()) {
-                    //game.buyInvestment(selectedInvestment.getId());
                     adapter.notifyDataSetChanged();
                 }
                 else {

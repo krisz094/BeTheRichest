@@ -24,8 +24,8 @@ public class DatabaseHandler {
     private static final String TABLE_INVESTMENTS = "Investments";
     private static final String TABLE_MONEY = "Money";
     private static final String TABLE_UPGRADES = "Upgrades";
-    private static final String TABLE_LASTGAMBLINGDATE="LastGamblingDate";
-    private static final String TABLE_NEXTALLOWEDGAMBLINGDATE="NextAllowedGamblingDate";
+    private static final String TABLE_LASTGAMBLINGDATE = "LastGamblingDate";
+    private static final String TABLE_NEXTALLOWEDGAMBLINGDATE = "NextAllowedGamblingDate";
 
     public DBHelper dbHelper;
 
@@ -36,17 +36,15 @@ public class DatabaseHandler {
     //Save nél elösször delete() utána bejárni a listát és insert
 
     //ITT VANNAK A GAMBLINGES MÓKÁK
-    public long saveLastGamblingDate(String lastGamblingDate)
-    {
-        SQLiteDatabase db=deleteLastGamblingdate();
-        ContentValues values=new ContentValues();
-        values.put("lastDate",lastGamblingDate);
-        long id=db.insert(TABLE_LASTGAMBLINGDATE,null,values);
+    public long saveLastGamblingDate(String lastGamblingDate) {
+        SQLiteDatabase db = deleteLastGamblingdate();
+        ContentValues values = new ContentValues();
+        values.put("lastDate", lastGamblingDate);
+        long id = db.insert(TABLE_LASTGAMBLINGDATE, null, values);
         return id;
     }
 
-    private SQLiteDatabase deleteLastGamblingdate()
-    {
+    private SQLiteDatabase deleteLastGamblingdate() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LASTGAMBLINGDATE);
         db.execSQL("CREATE TABLE " + TABLE_LASTGAMBLINGDATE + "(" +
@@ -55,17 +53,15 @@ public class DatabaseHandler {
         return db;
     }
 
-    public long saveNextAllowedGamblingDate(String nextAllowedGamblingDate)
-    {
-        SQLiteDatabase db=deleteNextAllowedGamblingDate();
+    public long saveNextAllowedGamblingDate(String nextAllowedGamblingDate) {
+        SQLiteDatabase db = deleteNextAllowedGamblingDate();
         ContentValues values = new ContentValues();
         values.put("nextAllowedDate", nextAllowedGamblingDate);
         long id = db.insert(TABLE_NEXTALLOWEDGAMBLINGDATE, null, values);
         return id;
     }
 
-    private SQLiteDatabase deleteNextAllowedGamblingDate()
-    {
+    private SQLiteDatabase deleteNextAllowedGamblingDate() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEXTALLOWEDGAMBLINGDATE);
         db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
@@ -181,11 +177,9 @@ public class DatabaseHandler {
         Cursor result = db.query(TABLE_MONEY, null, null, null, null, null, null);
         result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
         db.close();
-        if(result.getCount()==0)
-        {
+        if (result.getCount() == 0) {
             return 0.0;
-        }
-        else {
+        } else {
 
 
             return result.getDouble(result.getColumnIndex("currentMoney"));

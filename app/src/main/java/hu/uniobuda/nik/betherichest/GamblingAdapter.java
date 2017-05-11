@@ -62,7 +62,7 @@ public class GamblingAdapter extends BaseAdapter {
 
         imageView = (ImageView) listItemView.findViewById(R.id.gambIcon);
 
-        Gambling gambling = (Gambling) getItem(position);
+        Gambling gambling = getItem(position);
         Glide
                 .with(parent.getContext())
                 .load(gambling.getImageResource())

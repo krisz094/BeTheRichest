@@ -1,6 +1,7 @@
 package hu.uniobuda.nik.betherichest;
 
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class UpgradeAdapter extends BaseAdapter {
     TextView priceTextView;
     ImageView imageView;
     TextView labelTextView;
-    RelativeLayout upgradeBackground;
+    RelativeLayout relativeLayout;
     NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
 
     public UpgradeAdapter(List<Upgrade> items) {
@@ -66,12 +67,11 @@ public class UpgradeAdapter extends BaseAdapter {
             listItemView = view;
         }
 
-        //nameTextView = (TextView) listItemView.findViewById(R.id.name);
+
         priceTextView = (TextView) listItemView.findViewById(R.id.price);
-        //descriptionTextView = (TextView) listItemView.findViewById(R.id.description);
         imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
         labelTextView = (TextView) listItemView.findViewById(R.id.multiplier);
-        upgradeBackground = (RelativeLayout) listItemView.findViewById(R.id.upgradeBackground);
+        relativeLayout = (RelativeLayout) listItemView.findViewById(R.id.layout);
 
         Upgrade upgrade = items.get(position);
         Glide
@@ -82,14 +82,11 @@ public class UpgradeAdapter extends BaseAdapter {
                 .dontTransform()
                 .into(imageView);
 
-        //nameTextView.setText(upgrade.getName());
-
-        upgradeBackground.setBackgroundColor(upgrade.getColor());
-
+        // sets text color based on availability
         if (upgrade.isBuyable()) {
-            labelTextView.setTextColor(Color.parseColor("#BB0c6f04"));
+            labelTextView.setTextColor(Color.parseColor("#CC0c6f04"));
         } else {
-            labelTextView.setTextColor(Color.parseColor("#BB760c07"));
+            labelTextView.setTextColor(Color.parseColor("#CC760c07"));
         }
         switch (upgrade.getEffect()) {
 
@@ -105,10 +102,13 @@ public class UpgradeAdapter extends BaseAdapter {
 
         }
 
-        priceTextView.setText(nf.format(upgrade.getPrice()));
-        //descriptionTextView.setText(upgrade.getDescription());
+        // makes a dynamic border around the relativlayout which contains the image and the effect text
+        GradientDrawable gd = new GradientDrawable();
+        gd.setStroke(2, upgrade.getColor());
+        gd.setCornerRadius(8);
+        relativeLayout.setBackground(gd);
 
-        //imageView.setBackgroundResource(upgrade.getImageResource());
+        priceTextView.setText(nf.format(upgrade.getPrice()));
 
         return listItemView;
     }

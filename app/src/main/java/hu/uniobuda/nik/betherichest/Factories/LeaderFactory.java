@@ -84,7 +84,7 @@ public class LeaderFactory {
             e.printStackTrace();
         } finally {
             long userMoney = Math.round(game.getCurrentMoney());
-            leaders.add(new Leader("Játékos", userMoney, true));
+            leaders.add(new Leader("Player", userMoney, true));
             Collections.sort(leaders, new Comparator<Leader>() {
                 @Override
                 public int compare(Leader o1, Leader o2) {

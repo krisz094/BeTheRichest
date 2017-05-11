@@ -244,12 +244,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void UpgradesClick(View view) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
-        ft.replace(R.id.upgrade_container, new UpgradeListFragment());
-        ft.addToBackStack(UpgradeListFragment.class.getName());
-        ft.commit();
+        if (game.getDisplayableUpgrades().size() < 1) {
+            Toast.makeText(
+                    MainActivity.this,
+                    "No upgrades available",
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+        else{
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+            ft.replace(R.id.upgrade_container, new UpgradeListFragment());
+            ft.addToBackStack(UpgradeListFragment.class.getName());
+            ft.commit();
+        }
     }
 
     public void GamblingClick(View view) {
