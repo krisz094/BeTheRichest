@@ -39,15 +39,12 @@ public class State {
     }
 
 
-
-
-
     public State() {
         currentMoney = 0d;
         UpgradeIdUnlocked = new HashMap<>();
         InvestmentIdRank = new HashMap<>();
-        lastGamblingDate=null;
-        nextAllowedGamblingDate=null;
+        lastGamblingDate = null;
+        nextAllowedGamblingDate = null;
     }
 
     public Boolean getUpgradeBoughtById(int id) {
@@ -75,20 +72,17 @@ public class State {
         Handler.deleteUpgrade();
         Handler.saveMoney(currentMoney);
 
-        for(Map.Entry<Integer,Integer> entry : InvestmentIdRank.entrySet()) {
-            Handler.saveInvestment(entry.getKey(),entry.getValue());
+        for (Map.Entry<Integer, Integer> entry : InvestmentIdRank.entrySet()) {
+            Handler.saveInvestment(entry.getKey(), entry.getValue());
         }
         Integer a;
-        for(Map.Entry<Integer,Boolean> entry : UpgradeIdUnlocked.entrySet()) {
-            if(entry.getValue())
-            {
-                a=1;
+        for (Map.Entry<Integer, Boolean> entry : UpgradeIdUnlocked.entrySet()) {
+            if (entry.getValue()) {
+                a = 1;
+            } else {
+                a = 0;
             }
-            else
-            {
-                a=0;
-            }
-            Handler.saveUpgrade(entry.getKey(),a);
+            Handler.saveUpgrade(entry.getKey(), a);
         }
     }
 

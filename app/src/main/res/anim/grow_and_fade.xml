@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fillAfter="true">
+<set xmlns:android="http://schemas.android.com/apk/res/android">
     <scale
+        android:duration="600"
+        android:fromXScale="0.3"
+        android:fromYScale="0.3"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:fromXScale="0.2"
-        android:fromYScale="0.2"
         android:toXScale="1"
-        android:toYScale="1"
-        android:duration="200"
-        />
+        android:toYScale="1" />
     <alpha
-        android:duration="1500"
-        android:fromAlpha="1.0"
-        android:interpolator="@android:anim/accelerate_interpolator"
+        android:duration="2500"
+        android:fromAlpha="1.3"
         android:toAlpha="0.0" />
 </set>
