@@ -70,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
         //game.gameState.currentMoney=DBHandler.loadMoney();
         //if(game.gameState.InvestmentIdRank.size()==0) {
         //game.buyInvestment(1);
+
         //}
         game.loadGame(DBHandler);
+
 
         //DBHandler.loadInvestments(game.gameState.InvestmentIdRank);
 

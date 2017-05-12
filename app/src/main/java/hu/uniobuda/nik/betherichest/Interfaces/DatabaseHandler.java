@@ -71,8 +71,8 @@ public class DatabaseHandler {
     }
 
     public long saveMoney(double currentmoney) {
-        deleteMoney();
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db=deleteMoney();
+        //SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("currentMoney", currentmoney);
         long id = db.insert(TABLE_MONEY, null, values);
@@ -81,14 +81,15 @@ public class DatabaseHandler {
         return id;
     }
 
-    private void deleteMoney() {
+    private SQLiteDatabase deleteMoney() {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MONEY);
         db.execSQL("CREATE TABLE " + TABLE_MONEY + "(" +
                 "currentMoney REAL PRIMARY KEY" +
                 ")");
-        db.close();
+        //db.close();
+        return db;
     }
 
     public long saveInvestment(int _id, int rank) {
