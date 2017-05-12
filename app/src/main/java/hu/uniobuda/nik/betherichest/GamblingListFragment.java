@@ -1,7 +1,7 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -33,12 +33,15 @@ public class GamblingListFragment extends Fragment {
     Game game;
     View rootView;
     TextView timerText;
+    TextView wonMoneyText;
     ImageView rotatingImage;
     boolean isTimerRunning = false;
-    //Calendar lastGamblingDate;
-    //Calendar nextAllowedGamblingDate;
+
     Animation growAndRotate;
-    static final int TIME_BETWEEN_TWO_GAMBLING = 12;
+    Animation grow;
+    Animation fade;
+
+    static final int TIME_BETWEEN_TWO_GAMBLING = 6;
     Timer T;
 
     public static GamblingListFragment newInstance() {
@@ -61,6 +64,8 @@ public class GamblingListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         T = new Timer();
         growAndRotate = AnimationUtils.loadAnimation(getContext(), R.anim.grow_and_rotate);
+        grow = AnimationUtils.loadAnimation(getContext(), R.anim.grow);
+        fade = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
     }
 
     @Override
@@ -77,6 +82,7 @@ public class GamblingListFragment extends Fragment {
         listView.setAdapter(adapter);
 
         timerText = (TextView) rootView.findViewById(R.id.timer);
+        wonMoneyText = (TextView) rootView.findViewById(R.id.wonMoney);
         rotatingImage = (ImageView) rootView.findViewById(R.id.rotatingImage);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,34 +95,7 @@ public class GamblingListFragment extends Fragment {
                     rotatingImage.setBackgroundResource(gambling.getImageResource());
                     rotatingImage.startAnimation(growAndRotate);
 
-                    growAndRotate.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
-                            StartTimer();
-                            isTimerRunning = true;
-                            setGamblingDates();
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            int wonMoney = CalculateWonMoney(adapter.getItem(position));
-                            Toast.makeText(
-                                    getContext(),
-                                    String.format(wonMoney != 0 ? getString(R.string.gambling_won_money) : getString(R.string.gambling_no_win), wonMoney),
-                                    Toast.LENGTH_LONG
-                            ).show();
-//                            StartTimer();
-//                            isTimerRunning = true;
-//                            setGamblingDates();
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-
-                        }
-                    });
-
-
+                    setAnimationListeners(position);
                 } else {
                     Toast.makeText(
                             getContext(),
@@ -124,6 +103,73 @@ public class GamblingListFragment extends Fragment {
                             Toast.LENGTH_LONG
                     ).show();
                 }
+            }
+
+            private void setAnimationListeners(final int position) {
+                growAndRotate.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        StartTimer();
+                        isTimerRunning = true;
+                        setGamblingDates();
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        int wonMoney = CalculateWonMoney(adapter.getItem(position));
+                        String text;
+                        if (wonMoney == 0) {
+                            text = getString(R.string.gambling_no_win);
+                            wonMoneyText.setTextColor(getResources().getColor(R.color.darkRed));
+                        } else {
+                            text = "You won " + wonMoney + "$";
+                            wonMoneyText.setTextColor(getResources().getColor(R.color.orange));
+
+                        }
+                        wonMoneyText.setVisibility(View.VISIBLE);
+                        wonMoneyText.setText(text);
+                        wonMoneyText.startAnimation(grow);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                grow.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        rotatingImage.startAnimation(fade);
+                        wonMoneyText.startAnimation(fade);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                fade.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        rotatingImage.setVisibility(View.GONE);
+                        wonMoneyText.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
             }
         });
     }
@@ -143,12 +189,16 @@ public class GamblingListFragment extends Fragment {
         T.schedule(new TimerTask() {
             @Override
             public void run() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        timerText.setText(String.valueOf(getCalculatedRemainingTimeString()));
-                    }
-                });
+                try {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            timerText.setText(String.valueOf(getCalculatedRemainingTimeString()));
+                        }
+                    });
+                } catch (Exception ignored) {
+
+                }
             }
         }, 0, 1000);
     }
@@ -167,9 +217,14 @@ public class GamblingListFragment extends Fragment {
 
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(diffInMilliSeconds);
-            String formattedTime = String.format(getResources().getString(R.string.gambling_time_remaining), cal.get(Calendar.HOUR_OF_DAY) - 1, cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND));
+            String formattedTime = "";
+            try {
+                formattedTime = String.format(getResources().getString(R.string.gambling_time_remaining), cal.get(Calendar.HOUR_OF_DAY) - 1, cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND));
+            } catch (Exception ignored) {
 
-            if (diffInMilliSeconds <= 0) {
+            }
+
+            if (diffInMilliSeconds <= 0) {  // if the timer id down
                 T.purge();
                 isTimerRunning = false;
                 return getResources().getString(R.string.gambling_header);
@@ -185,17 +240,21 @@ public class GamblingListFragment extends Fragment {
     private void setGamblingDates() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        //lastGamblingDate = cal;
         game.gameState.setLastGamblingDate(cal);
         cal.add(Calendar.HOUR_OF_DAY, TIME_BETWEEN_TWO_GAMBLING);
-        //nextAllowedGamblingDate = cal;
         game.gameState.setNextAllowedGamblingDate(cal);
 
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        T.purge();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
-        T.cancel();
+        T.purge();
     }
 }

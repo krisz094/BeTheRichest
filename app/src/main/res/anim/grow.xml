@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <scale
+        android:duration="800"
+        android:fromXScale="0.4"
+        android:fromYScale="0.4"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1"
+        android:toYScale="1" />
+
+    <!--Just not to do anything for 1.5 seconds-->
+    <alpha
+        android:duration="1500"
+        android:fromAlpha="1"
+        android:toAlpha="1" />
+</set>

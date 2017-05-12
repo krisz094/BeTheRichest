@@ -64,7 +64,6 @@ public class Game {
         gamblings = GamblingFactory.createGamblings(this);
         this.handler = new Handler(Looper.getMainLooper());
 
-        //gameState.loadState();
         recalcMoneyPerSec();
         recalcMoneyPerTap();
         StartTimer();

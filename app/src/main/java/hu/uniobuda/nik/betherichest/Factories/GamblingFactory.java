@@ -38,9 +38,9 @@ public class GamblingFactory {
         AddToMap(new Gambling(
                 "Slot Machine",
                 "Patience, patience, once you'll get the jackpot",
-                500000,
-                3000000,
-                0.05,
+                10000,
+                50000,
+                1,
                 R.drawable.slotmachine
         ), map);
 
