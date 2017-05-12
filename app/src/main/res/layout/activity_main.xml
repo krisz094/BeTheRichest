@@ -72,18 +72,6 @@
         android:adjustViewBounds="true"
         app:srcCompat="@drawable/dollar" />
 
-    <TextView
-        android:id="@+id/tapMoneyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:shadowColor="@android:color/black"
-        android:shadowRadius="3"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:fontFamily="sans-serif-condensed"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="35sp"
-        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/icons"
@@ -200,13 +188,13 @@
         android:id="@+id/leaderboard_list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 
     <FrameLayout
         android:id="@+id/upgrade_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/dollar"/>
+        android:layout_below="@+id/dollar" />
 
 </RelativeLayout>

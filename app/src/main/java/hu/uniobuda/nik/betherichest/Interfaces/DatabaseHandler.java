@@ -208,10 +208,12 @@ public class DatabaseHandler {
             db.execSQL("CREATE TABLE " + TABLE_UPGRADES + "(" +
                     "_id   INTEGER PRIMARY KEY," +
                     "rank  INTEGER" +
-                    ")");
+                    ")"
+            );
             db.execSQL("CREATE TABLE " + TABLE_MONEY + "(" +
                     "currentMoney REAL PRIMARY KEY" +
-                    ")");
+                    ")"
+            );
 
 
         }

@@ -62,7 +62,7 @@ class LeaderAdapter extends BaseAdapter {
         }
 
         nameTextView.setText(leader.getName());
-        moneyTextView.setText(NumberFormat.getNumberInstance(Locale.US).format(leader.getMoney()));
+        moneyTextView.setText(NumberFormat.getNumberInstance(Locale.FRANCE).format(leader.getMoney()));
         personRankTextView.setText("#" + String.valueOf(getItemId(position + 1)));
         return listItemView;
     }
