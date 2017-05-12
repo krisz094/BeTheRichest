@@ -20,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
-        android:scaleType="centerCrop"
         android:background="@drawable/goldcanvas"
-        android:dividerHeight="8dp" />
+        android:dividerHeight="8dp"
+        android:scaleType="centerCrop" />
 
 </RelativeLayout>
