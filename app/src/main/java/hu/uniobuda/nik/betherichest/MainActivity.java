@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void CheatClick(View view) {
-        game.earnMoney(1000000);
+        game.earnMoney(1000000000);
     }
 
     public void GamblingClick(View view) {
