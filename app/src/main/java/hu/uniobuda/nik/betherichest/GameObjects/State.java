@@ -50,7 +50,8 @@ public class State {
         UpgradeIdUnlocked = new HashMap<>();
         InvestmentIdRank = new HashMap<>();
         lastGamblingDate = null;
-        nextAllowedGamblingDate = null;
+        nextAllowedGamblingDate = Calendar.getInstance();
+
     }
 
     public Boolean getUpgradeBoughtById(int id) {
@@ -89,8 +90,8 @@ public class State {
             }
             Handler.saveUpgrade(entry.getKey(), a, db);
         }
-//        Handler.saveLastGamblingDate(ConvertCalendarToString(lastGamblingDate));
-//        Handler.saveNextAllowedGamblingDate(ConvertCalendarToString(nextAllowedGamblingDate));
+        //Handler.saveLastGamblingDate(ConvertCalendarToString(lastGamblingDate));
+        Handler.saveNextAllowedGamblingDate(nextAllowedGamblingDate.getTimeInMillis());
         Handler.closeDatabase(db);
     }
 
@@ -101,8 +102,12 @@ public class State {
         Handler.loadInvestments(InvestmentIdRank);
         Handler.loadUpGrades(UpgradeIdUnlocked);
         //lastGamblingDate=ConvertStringToCalendar(Handler.loadLastGamblingDate());
-        String s = Handler.loadLastGamblingDate();
-
+        nextAllowedGamblingDate.setTimeInMillis(Handler.loadNextAllowedGamblingDate());
+        if (nextAllowedGamblingDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis() > 0) {
+            isGamblingTimerRunning = true;
+        }
+        //isGamblingTimerRunning=true;
+        //SZABIVAL EGYEZTETNI MI LEGYEN
 
     }
 
@@ -113,12 +118,11 @@ public class State {
 
     private Calendar ConvertStringToCalendar(String timeString) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss:SSS", Locale.ENGLISH);
-
-        Date date = sdf.parse(timeString);// all done
         Calendar cal = sdf.getCalendar();
         if (timeString == null) {
             cal.setTime(new Date());
         } else {
+            Date date = sdf.parse(timeString);
             cal.setTime(date);
         }
         return cal;

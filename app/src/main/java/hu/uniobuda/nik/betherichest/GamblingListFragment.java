@@ -40,7 +40,7 @@ public class GamblingListFragment extends Fragment {
     Animation grow;
     Animation fade;
 
-    static final int TIME_BETWEEN_TWO_GAMBLING = 6;
+    static final int TIME_BETWEEN_TWO_GAMBLING = 6; //6ra vissza
     Timer T;
 
     public static GamblingListFragment newInstance() {

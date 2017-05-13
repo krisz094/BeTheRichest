@@ -53,7 +53,7 @@ public class DatabaseHandler {
         return db;
     }
 
-    public long saveNextAllowedGamblingDate(String nextAllowedGamblingDate) {
+    public long saveNextAllowedGamblingDate(long nextAllowedGamblingDate) {
         SQLiteDatabase db = deleteNextAllowedGamblingDate();
         ContentValues values = new ContentValues();
         values.put("nextAllowedDate", nextAllowedGamblingDate);
@@ -65,7 +65,7 @@ public class DatabaseHandler {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEXTALLOWEDGAMBLINGDATE);
         db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
-                "nextAllowedDate TEXT PRIMARY KEY" +
+                "nextAllowedDate REAL PRIMARY KEY" +
                 ")");
         return db;
     }
@@ -76,7 +76,6 @@ public class DatabaseHandler {
         ContentValues values = new ContentValues();
         values.put("currentMoney", currentmoney);
         long id = db.insert(TABLE_MONEY, null, values);
-
         db.close();
         return id;
     }
@@ -139,7 +138,7 @@ public class DatabaseHandler {
         return db;
     }
 
-    //külön fügvény arra hogy zárja az adatbázist ne kelljen for cikulba nyitni zárni
+
     public void closeDatabase(SQLiteDatabase db) {
         db.close();
     }
@@ -208,6 +207,19 @@ public class DatabaseHandler {
         }
     }
 
+    public long loadNextAllowedGamblingDate()
+    {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor result = db.query(TABLE_NEXTALLOWEDGAMBLINGDATE, null, null, null, null, null, null);
+        result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
+        db.close();
+        if (result.getCount() == 0) {
+            return 0;
+        } else {
+            return result.getLong(result.getColumnIndex("nextAllowedDate"));
+        }
+    }
+
     public class DBHelper extends SQLiteOpenHelper {
 
         public DBHelper(Context context) {
@@ -237,7 +249,7 @@ public class DatabaseHandler {
                     "lastDate TEXT PRIMARY KEY" +
                     ")");
             db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
-                    "nextAllowedDate TEXT PRIMARY KEY" +
+                    "nextAllowedDate REAL PRIMARY KEY" +
                     ")");
 
 
