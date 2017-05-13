@@ -88,9 +88,9 @@ public class InvestmentAdapter extends BaseAdapter {
         nameTextView.setText(investment.getName());
 
         if (investment.isBuyable()) {
-            nameTextView.setTextColor(Color.parseColor("#0c6f04"));
+            nameTextView.setTextColor(Color.parseColor("#006A4E"));
         } else {
-            nameTextView.setTextColor(Color.parseColor("#760c07"));
+            nameTextView.setTextColor(Color.parseColor("#F2003C"));
         }
 
 

@@ -84,10 +84,14 @@ public class UpgradeAdapter extends BaseAdapter {
 
         // sets text color based on availability
         if (upgrade.isBuyable()) {
-            labelTextView.setTextColor(Color.parseColor("#CC0c6f04"));
+            priceTextView.setTextColor(Color.parseColor("#90EE90"));
+            //labelTextView.setTextColor(Color.parseColor("#DDffffff"));
         } else {
-            labelTextView.setTextColor(Color.parseColor("#CC760c07"));
+            priceTextView.setTextColor(Color.parseColor("#F2003C"));
+            //labelTextView.setTextColor(Color.parseColor("#DDffffff"));
         }
+
+        labelTextView.setTextColor(upgrade.getColor());
         /*switch (upgrade.getEffect()) {
 
             case "DoublerEffect":

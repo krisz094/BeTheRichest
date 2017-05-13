@@ -25,6 +25,6 @@ public class MultiplierEffect implements IEffectable {
 
     @Override
     public String getExtraInfo() {
-        return "+" + String.valueOf((multiplier-1)*100) + "%";
+        return "+" + String.valueOf((multiplier-1d)*100d) + "%";
     }
 }

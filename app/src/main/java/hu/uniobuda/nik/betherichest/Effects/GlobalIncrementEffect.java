@@ -32,6 +32,11 @@ public class GlobalIncrementEffect implements IEffectable {
 
     @Override
     public String getExtraInfo() {
+
+        //return String.valueOf((this.moneyForEach >= 1) ? (int) this.moneyForEach : this.moneyForEach);
+        if (this.moneyForEach >= 1) {
+            return String.valueOf((int) this.moneyForEach);
+        }
         return String.valueOf(this.moneyForEach);
     }
 }

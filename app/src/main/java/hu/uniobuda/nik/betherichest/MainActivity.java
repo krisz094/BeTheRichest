@@ -284,6 +284,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void CheatClick(View view) {
+        game.earnMoney(1000000);
+    }
+
     public void GamblingClick(View view) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

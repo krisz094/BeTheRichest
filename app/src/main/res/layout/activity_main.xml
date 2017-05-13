@@ -72,6 +72,16 @@
         android:adjustViewBounds="true"
         app:srcCompat="@drawable/dollar" />
 
+    <!--CHEAT BUTTON-->
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dollar"
+        android:onClick="CheatClick"
+        android:text="CHEAT"
+        android:visibility="invisible"
+        android:enabled="false"
+        />
 
     <LinearLayout
         android:id="@+id/icons"
