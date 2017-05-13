@@ -44,9 +44,6 @@ public class State {
     }
 
 
-
-
-
     public State() {
         currentMoney = 0d;
         UpgradeIdUnlocked = new HashMap<>();

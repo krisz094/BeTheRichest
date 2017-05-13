@@ -25,6 +25,13 @@ public class Upgrade {
         this.color = color;
     }
 
+    public boolean getDisplayedOnce() {
+        return this.displayedOnce;
+    }
+    public void setDisplayedOnce(boolean value) {
+        this.displayedOnce = value;
+    }
+
     public int getColor() {
         return color;
     }

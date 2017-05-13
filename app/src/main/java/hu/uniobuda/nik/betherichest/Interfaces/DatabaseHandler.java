@@ -246,14 +246,12 @@ public class DatabaseHandler {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_INVESTMENTS);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPGRADES);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_MONEY);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_LASTGAMBLINGDATE);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEXTALLOWEDGAMBLINGDATE);
             onCreate(db);
-
         }
     }
 }
