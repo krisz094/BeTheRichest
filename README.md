@@ -1,18 +1,17 @@
 # BeTheRichest
 
-# Progress
-* Game engine mostly done
-* Main UI mostly done
+# What is this?
 
-# TODO
-* Implement Save/Load
-* Create new Upgrades/Investments
-* Adjust Method/Field accessibilities
+An incremental-style game for Android, with some additional gameplay elements, like gambling.
 
-* UPGRADES menu !!! 
-* Create Toolbar icon
-* Scale bitmaps to avoid OutOfMemoryException (or other effective way to avoid it)
-* Calculate appropriate investment prices and DPS's, in order to make the game enjoyable, but not too short or long.
-* Different layout for 6+ " screeens
-* Gambling (?)
-* Leaderboard with images, and the players rank displayed on it
+# What can I do in it?
+
+You start out from the bottom, and start buying cheap investments until you can purchase more expensive ones, to finally become the richest person in the world.
+
+There are upgrades that help you along the way, and you can test your luck with gambling every six hours.
+
+You can always check your position on the leaderboards.
+
+# How do I get it?
+
+It will be available in the Play Store later.
