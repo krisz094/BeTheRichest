@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
@@ -62,7 +64,16 @@ public class MainActivity extends AppCompatActivity {
 
         DBHandler = new DatabaseHandler(this);
 
-        game.loadGame(DBHandler);
+        //game.gameState.currentMoney=DBHandler.loadMoney();
+        //if(game.gameState.InvestmentIdRank.size()==0) {
+        //game.buyInvestment(1);
+
+        //}
+        try {
+            game.loadGame(DBHandler);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         InitializeUIElements();
     }

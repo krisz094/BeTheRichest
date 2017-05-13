@@ -65,7 +65,7 @@ public class DatabaseHandler {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEXTALLOWEDGAMBLINGDATE);
         db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
-                "nextAllowedDate REAL PRIMARY KEY" +
+                "nextAllowedDate TEXT PRIMARY KEY" +
                 ")");
         return db;
     }
@@ -92,17 +92,17 @@ public class DatabaseHandler {
         return db;
     }
 
-    public long saveInvestment(int _id, int rank) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public long saveInvestment(int _id, int rank,SQLiteDatabase db) {
+        //SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("_id", _id);
         values.put("rank", rank);
         long id = db.insert(TABLE_INVESTMENTS, null, values);
-        db.close();
+        //db.close();
         return id;
     }
 
-    public void deleteInvestments() {
+    public SQLiteDatabase deleteInvestments() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INVESTMENTS);
         db.execSQL(
@@ -110,33 +110,44 @@ public class DatabaseHandler {
                         "_id   INTEGER PRIMARY KEY," +
                         "rank  INTEGER" +
                         ")");
-        db.close();
+        //db.close();
+        return db;
     }
 
 
-    public long saveUpgrade(int _id, int rank) {
+    public long saveUpgrade(int _id, int rank,SQLiteDatabase db) {
         long id = 0;
         if (rank == 1) {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            //SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put("_id", _id);
             values.put("rank", rank);
             id = db.insert(TABLE_UPGRADES, null, values);
-            db.close();
+            //db.close();
         }
         return id;
     }
 
-    public void deleteUpgrade() {
+    public SQLiteDatabase deleteUpgrade() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPGRADES);
         db.execSQL("CREATE TABLE " + TABLE_UPGRADES + "(" +
                 "_id   INTEGER PRIMARY KEY," +
                 "rank  INTEGER" +
                 ")");
-        db.close();
+        //db.close();
+        return db;
     }
 
+    //külön fügvény arra hogy zárja az adatbázist ne kelljen for cikulba nyitni zárni
+    public void closeDatabase(SQLiteDatabase db)
+    {
+        db.close();
+    }
+    public void openDatabase(SQLiteDatabase db)
+    {
+        db = dbHelper.getWritableDatabase();
+    }
 
     //LOAD
     public Cursor loadInvestments(HashMap<Integer, Integer> investmentIdRank) {
@@ -181,9 +192,20 @@ public class DatabaseHandler {
         if (result.getCount() == 0) {
             return 0.0;
         } else {
-
-
             return result.getDouble(result.getColumnIndex("currentMoney"));
+        }
+    }
+
+    public String loadLastGamblingDate() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor result = db.query(TABLE_LASTGAMBLINGDATE, null, null, null, null, null, null);
+        result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
+        db.close();
+        if (result.getCount() == 0) {
+            return null;
+        } else {
+            return result.getString(result.getColumnIndex("lastDate"));
+            //TABLE_LASTGAMBLINGDATE = "LastGamblingDate";
         }
     }
 
@@ -208,12 +230,16 @@ public class DatabaseHandler {
             db.execSQL("CREATE TABLE " + TABLE_UPGRADES + "(" +
                     "_id   INTEGER PRIMARY KEY," +
                     "rank  INTEGER" +
-                    ")"
-            );
+                    ")");
             db.execSQL("CREATE TABLE " + TABLE_MONEY + "(" +
                     "currentMoney REAL PRIMARY KEY" +
-                    ")"
-            );
+                    ")");
+            db.execSQL("CREATE TABLE " + TABLE_LASTGAMBLINGDATE + "(" +
+                    "lastDate TEXT PRIMARY KEY" +
+                    ")");
+            db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
+                    "nextAllowedDate TEXT PRIMARY KEY" +
+                    ")");
 
 
         }
@@ -224,6 +250,8 @@ public class DatabaseHandler {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_INVESTMENTS);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPGRADES);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_MONEY);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_LASTGAMBLINGDATE);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEXTALLOWEDGAMBLINGDATE);
             onCreate(db);
 
         }

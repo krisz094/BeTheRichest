@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.support.annotation.RequiresApi;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -220,7 +221,7 @@ public class Game {
     }
 
 
-    public void loadGame(DatabaseHandler Handler) {
+    public void loadGame(DatabaseHandler Handler) throws ParseException {
         gameState.loadState(Handler);
         recalcAll();
     }
