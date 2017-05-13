@@ -93,7 +93,7 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 "Yacht",
                 868000,
-                250,
+                230,
                 "",
                 currentGame,
                 R.drawable.yacht
@@ -101,7 +101,7 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 "Mine Truck",
                 3150000,
-                650,
+                550,
                 "",
                 currentGame,
                 R.drawable.minetruck
@@ -109,7 +109,7 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 "Private Airplane",
                 9150000,
-                1400,
+                1200,
                 "",
                 currentGame,
                 R.drawable.airplane
@@ -117,31 +117,31 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 "Luxury Real Estate",
                 19000000,
-                2600,
+                2080,
                 "",
                 currentGame,
                 R.drawable.luxuryrealestate
         ), map);
         AddToMap(new Investment(
-                "Office Building",
+                "Casino",
                 35722000,
                 3750,
-                "",
-                currentGame,
-                R.drawable.officebuilding
-        ), map);
-        AddToMap(new Investment(
-                "Casino",
-                79990000,
-                7100,
                 "Manage a casino to get a lot of money from rich risk takers.",
                 currentGame,
                 R.drawable.casino
         ), map);
         AddToMap(new Investment(
+                "Office Building",
+                79990000,
+                6100,
+                "",
+                currentGame,
+                R.drawable.officebuilding
+        ), map);
+        AddToMap(new Investment(
                 "Amusement park",
                 165800000,
-                13000,
+                10500,
                 "An amusement park attracts thousands of visitors daily.",
                 currentGame,
                 R.drawable.funfair
@@ -149,7 +149,7 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 "Hotel Chain",
                 443000000,
-                39200,
+                28200,
                 "Tourist have to stay somewhere. Let's be it one of your hotels.",
                 currentGame,
                 R.drawable.hotelchain
@@ -157,7 +157,7 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 "Oil Rig",
                 925000000d,
-                75000,
+                50000,
                 "Dig deep enough in your garden, and find a valuable material, called oil.",
                 currentGame,
                 R.drawable.oilrig
@@ -165,7 +165,7 @@ public class InvestmentFactory {
         AddToMap(new Investment(
                 "Nuclear Power Plant",
                 5550000000d,
-                250000,
+                200000,
                 "Provide the power for a whole city.",
                 currentGame,
                 R.drawable.nuclearplant

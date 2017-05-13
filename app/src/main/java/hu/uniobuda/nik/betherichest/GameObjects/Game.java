@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.support.annotation.RequiresApi;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,10 +25,10 @@ import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
 public class Game {
 
     private static Game instance;
-    private static final double START_MONEY_PER_CLICK = 1d;
+    private static final double START_MONEY_PER_TAP = 1d;
     private static final double START_MONEY_PER_SEC = 0d;
 
-    public static Integer FPS = 20;
+    public static Integer FPS = 24;
 
     public static Game Get() {
         if (instance == null) {
@@ -41,7 +42,7 @@ public class Game {
     public MoneyChangedListener2 onMoneyChanged2;
     public Handler handler;
     private double moneyPerSec;
-    private double moneyPerClick;
+    private double moneyPerTap;
     private HashMap<Integer, Upgrade> upgrades;
     private HashMap<Integer, Investment> investments;
     private HashMap<Integer, Gambling> gamblings;
@@ -50,13 +51,13 @@ public class Game {
     private ArrayList<Integer> MPSRelevantUpgradeIDs;
     private Timer T;
 
-    private NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+    private NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
 
     private Game() {
         T = new Timer();
         gameState = new State();
         moneyPerSec = 0d;
-        moneyPerClick = 1d;
+        moneyPerTap = 1d;
         clickRelevantUpgradeIDs = new ArrayList<Integer>();
         MPSRelevantUpgradeIDs = new ArrayList<Integer>();
         investments = InvestmentFactory.createInvestments(this);
@@ -64,9 +65,8 @@ public class Game {
         gamblings = GamblingFactory.createGamblings(this);
         this.handler = new Handler(Looper.getMainLooper());
 
-        //gameState.loadState();
         recalcMoneyPerSec();
-        recalcMoneyPerClick();
+        recalcMoneyPerTap();
         StartTimer();
         //TODO: start timer that increments current money with money per sec
     }
@@ -107,15 +107,15 @@ public class Game {
     }
 
     public void click() {
-        earnMoney(moneyPerClick);
+        earnMoney(moneyPerTap);
     }
 
     public double getMoneyPerSec() {
         return moneyPerSec;
     }
 
-    public double getMoneyPerClick() {
-        return moneyPerClick;
+    public double getMoneyPerTap() {
+        return moneyPerTap;
     }
 
     public String getMoneyPerSecAsString() {
@@ -123,8 +123,8 @@ public class Game {
         return nf.format(moneyPerSec) + " $ per sec";
     }
 
-    public String getMoneyPerClickAsString() {
-        return String.format("%s $ per tap", nf.format(moneyPerClick));
+    public String getMoneyPerTapAsString() {
+        return String.format("%s $ per tap", nf.format((int) moneyPerTap));
     }
 
     public double getCurrentMoney() {
@@ -212,7 +212,6 @@ public class Game {
         Integer currRank = gameState.getInvestmentRankById(id);
         currRank += 1;
         gameState.setInvestmentRankById(id, currRank);
-        //deduceMoney((double) investments.get(id).getPrice());
         //refresh current MPS because there was a change
         recalcAll();
     }
@@ -222,14 +221,14 @@ public class Game {
     }
 
 
-    public void loadGame(DatabaseHandler Handler) {
+    public void loadGame(DatabaseHandler Handler) throws ParseException {
         gameState.loadState(Handler);
         recalcAll();
     }
 
     public void recalcAll() {
         recalcMoneyPerSec();
-        recalcMoneyPerClick();
+        recalcMoneyPerTap();
     }
 
 
@@ -251,8 +250,8 @@ public class Game {
         }
     }
 
-    private void recalcMoneyPerClick() {
-        double money = START_MONEY_PER_CLICK;
+    private void recalcMoneyPerTap() {
+        double money = START_MONEY_PER_TAP;
 
         for (Integer upgradeID : clickRelevantUpgradeIDs) {
             if (gameState.getUpgradeBoughtById(upgradeID)) {
@@ -260,9 +259,9 @@ public class Game {
             }
         }
 
-        moneyPerClick = money;
+        moneyPerTap = money;
         if (onMoneyChanged != null) {
-            onMoneyChanged.onMoneyPerTapChanged(getMoneyPerClickAsString());
+            onMoneyChanged.onMoneyPerTapChanged(getMoneyPerTapAsString());
         }
     }
 

@@ -35,7 +35,7 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.investments_list, container, false);
+        rootView = inflater.inflate(R.layout.investment_list, container, false);
         return rootView;
     }
 

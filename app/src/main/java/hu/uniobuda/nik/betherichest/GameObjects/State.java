@@ -1,10 +1,15 @@
 package hu.uniobuda.nik.betherichest.GameObjects;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
@@ -70,14 +75,13 @@ public class State {
 
 
     public void saveState(DatabaseHandler Handler) {
-
-        Handler.deleteInvestments();
-        Handler.deleteUpgrade();
         Handler.saveMoney(currentMoney);
-
+        SQLiteDatabase db=Handler.deleteInvestments();
         for(Map.Entry<Integer,Integer> entry : InvestmentIdRank.entrySet()) {
-            Handler.saveInvestment(entry.getKey(),entry.getValue());
+            Handler.saveInvestment(entry.getKey(), entry.getValue(),db);
         }
+        Handler.closeDatabase(db);
+        db=Handler.deleteUpgrade();
         Integer a;
         for(Map.Entry<Integer,Boolean> entry : UpgradeIdUnlocked.entrySet()) {
             if(entry.getValue())
@@ -88,16 +92,37 @@ public class State {
             {
                 a=0;
             }
-            Handler.saveUpgrade(entry.getKey(),a);
+            Handler.saveUpgrade(entry.getKey(),a,db);
         }
+        //Handler.saveLastGamblingDate(ConvertCalendarToString(lastGamblingDate));
+        //Handler.saveNextAllowedGamblingDate(ConvertCalendarToString(nextAllowedGamblingDate));
+        Handler.closeDatabase(db);
     }
 
-    public void loadState(DatabaseHandler Handler) {
+    public void loadState(DatabaseHandler Handler) throws ParseException {
         //TODO
 
         currentMoney = Handler.loadMoney();
         Handler.loadInvestments(InvestmentIdRank);
         Handler.loadUpGrades(UpgradeIdUnlocked);
+        //lastGamblingDate=ConvertStringToCalendar(Handler.loadLastGamblingDate());
+        //String s =Handler.loadLastGamblingDate();
 
+
+    }
+
+    private String ConvertCalendarToString(Calendar cal)
+    {
+        final String timeString = new SimpleDateFormat("HH:mm:ss:SSS").format(cal.getTime());
+        return timeString;
+    }
+
+    private Calendar ConvertStringToCalendar(String timeString) throws ParseException
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss:SSS", Locale.ENGLISH);
+        Date date = sdf.parse(timeString);// all done
+        Calendar cal = sdf.getCalendar();
+        cal.setTime(date);
+        return cal;
     }
 }

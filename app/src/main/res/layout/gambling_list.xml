@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/greentexture"
-    android:padding="2dp"
-    tools:context=".MainActivity">
+    android:padding="2dp">
 
     <TextView
         android:id="@+id/timer"
@@ -25,4 +23,26 @@
         android:layout_below="@+id/timer"
         android:dividerHeight="8dp" />
 
+    <ImageView
+        android:id="@+id/rotatingImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/wonMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:text="You won 100$"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="80sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 </RelativeLayout>
