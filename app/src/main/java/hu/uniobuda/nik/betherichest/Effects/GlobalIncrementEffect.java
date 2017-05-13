@@ -29,4 +29,9 @@ public class GlobalIncrementEffect implements IEffectable {
         }
         return input + ranks * moneyForEach;
     }
+
+    @Override
+    public String getExtraInfo() {
+        return String.valueOf(this.moneyForEach);
+    }
 }

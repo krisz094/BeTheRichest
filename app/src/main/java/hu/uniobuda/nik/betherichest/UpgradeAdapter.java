@@ -88,19 +88,21 @@ public class UpgradeAdapter extends BaseAdapter {
         } else {
             labelTextView.setTextColor(Color.parseColor("#CC760c07"));
         }
-        switch (upgrade.getEffect()) {
+        /*switch (upgrade.getEffect()) {
 
             case "DoublerEffect":
                 labelTextView.setText("X2");
                 break;
             case "GlobalIncrementEffect":
-                labelTextView.setText("GI"); // TODO TO CHANGE
+                labelTextView.setText(upgrade.getEffectExtraInfo()); // TODO TO CHANGE
                 break;
             case "MultiplierEffect":
                 labelTextView.setText("ME"); // TODO TO CHANGE
                 break;
 
-        }
+        }*/
+
+        labelTextView.setText(upgrade.getEffectExtraInfo());
 
         // makes a dynamic border around the relativlayout which contains the image and the effect text
         GradientDrawable gd = new GradientDrawable();

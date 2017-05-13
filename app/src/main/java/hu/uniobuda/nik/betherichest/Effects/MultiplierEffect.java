@@ -22,4 +22,9 @@ public class MultiplierEffect implements IEffectable {
     public double effect(double input) {
         return input * this.multiplier;
     }
+
+    @Override
+    public String getExtraInfo() {
+        return "+" + String.valueOf((multiplier-1)*100) + "%";
+    }
 }

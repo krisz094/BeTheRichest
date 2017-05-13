@@ -11,4 +11,9 @@ public class DoublerEffect implements IEffectable {
     public double effect(double input) {
         return input * 2;
     }
+
+    @Override
+    public String getExtraInfo() {
+        return "X2";
+    }
 }

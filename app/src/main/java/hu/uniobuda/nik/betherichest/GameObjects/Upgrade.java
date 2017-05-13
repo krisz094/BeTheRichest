@@ -72,7 +72,9 @@ public class Upgrade {
     public String getEffect() {
         return this.effect.getClass().getSimpleName();
     }
-
+    public String getEffectExtraInfo() {
+        return this.effect.getExtraInfo();
+    }
     public boolean buy() {
         if (isBuyable()) {
             currentGame.buyUpgrade(id);

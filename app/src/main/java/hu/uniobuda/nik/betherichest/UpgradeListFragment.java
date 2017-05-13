@@ -48,10 +48,13 @@ public class UpgradeListFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
+        if (noMoneyToast != null) {
+            noMoneyToast.cancel();
+        }
     }
-
+    Toast noMoneyToast = null;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -84,12 +87,16 @@ public class UpgradeListFragment extends android.support.v4.app.Fragment {
                     adapter.setItems(game.getDisplayableUpgrades());
                     adapter.notifyDataSetChanged();
                 } else {
+                    if (noMoneyToast != null) {
+                        noMoneyToast.cancel();
+                    }
+                    noMoneyToast =
                     Toast.makeText(
                             getContext(),
                             "You don't have enough money",
-                            Toast.LENGTH_LONG
-                    ).show();
-
+                            Toast.LENGTH_SHORT
+                    );
+                    noMoneyToast.show();
                 }
             }
         });

@@ -15,4 +15,9 @@ public class AdderEffect implements IEffectable {
     public double effect(double input) {
         return input + money;
     }
+
+    @Override
+    public String getExtraInfo() {
+        return "+" + money.toString() + "$";
+    }
 }

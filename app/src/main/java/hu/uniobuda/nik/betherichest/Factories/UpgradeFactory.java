@@ -160,6 +160,7 @@ public class UpgradeFactory {
             currId++;
         }
 
+/*
         currId = 300000;
         multiplIdx = 0;
         prevId = null;
@@ -185,7 +186,7 @@ public class UpgradeFactory {
             multiplIdx++;
             currId++;
         }
-
+*/
         return map;
     }
 

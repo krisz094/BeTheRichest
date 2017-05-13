@@ -6,4 +6,5 @@ package hu.uniobuda.nik.betherichest.Interfaces;
 
 public interface IEffectable {
     public double effect(double input);
+    public String getExtraInfo();
 }

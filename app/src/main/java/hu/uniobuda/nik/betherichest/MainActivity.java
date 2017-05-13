@@ -250,6 +250,8 @@ public class MainActivity extends AppCompatActivity {
         dollarImage.setLayoutParams(params);
     }
 
+    Toast noUpgradesToast = null;
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -262,11 +264,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void UpgradesClick(View view) {
         if (game.getDisplayableUpgrades().size() < 1) {
+            if (noUpgradesToast != null) {
+                noUpgradesToast.cancel();
+            }
+            noUpgradesToast =
             Toast.makeText(
                     MainActivity.this,
                     "No upgrades available",
-                    Toast.LENGTH_LONG
-            ).show();
+                    Toast.LENGTH_SHORT
+            );
+            noUpgradesToast.show();
         } else {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -298,18 +305,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        game.saveGame(DBHandler);
+        //game.saveGame(DBHandler);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        if (noUpgradesToast != null) {
+            noUpgradesToast.cancel();
+        }
         game.saveGame(DBHandler);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        game.saveGame(DBHandler);
+        //game.saveGame(DBHandler);
     }
 }

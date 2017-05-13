@@ -77,6 +77,8 @@ public class GamblingListFragment extends Fragment {
         super.onDestroy();
     }
 
+    Toast tooMuchToast = null;
+
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -101,11 +103,16 @@ public class GamblingListFragment extends Fragment {
 
                     setAnimationListeners(position);
                 } else {
+                    if (tooMuchToast != null) {
+                        tooMuchToast.cancel();
+                    }
+                    tooMuchToast =
                     Toast.makeText(
                             getContext(),
                             R.string.gambling_wait,
-                            Toast.LENGTH_LONG
-                    ).show();
+                            Toast.LENGTH_SHORT
+                    );
+                    tooMuchToast.show();
                 }
             }
 
@@ -255,12 +262,18 @@ public class GamblingListFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if(tooMuchToast != null){
+            tooMuchToast.cancel();
+        }
         T.purge();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        if(tooMuchToast != null){
+            tooMuchToast.cancel();
+        }
         T.purge();
     }
 }
