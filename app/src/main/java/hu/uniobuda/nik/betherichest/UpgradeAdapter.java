@@ -122,7 +122,7 @@ public class UpgradeAdapter extends BaseAdapter {
         } else if (price >= 1000000 && price < 1000000000) {
             priceTextView.setText(String.format("%.1f", (double)price/1000000) + "M");
         } else if (price >= 1000000000) {
-            priceTextView.setText(String.format("%.1f", (double)price/1000000) + "B");
+            priceTextView.setText(String.format("%.1f", (double)price/1000000000) + "B");
         }
 
         return listItemView;
