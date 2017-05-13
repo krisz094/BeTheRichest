@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -32,7 +33,7 @@ public class UpgradeAdapter extends BaseAdapter {
     ImageView imageView;
     TextView labelTextView;
     RelativeLayout relativeLayout;
-    NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+    NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
 
     public UpgradeAdapter(List<Upgrade> items) {
         this.items = items;
@@ -113,8 +114,16 @@ public class UpgradeAdapter extends BaseAdapter {
         gd.setStroke(2, upgrade.getColor());
         gd.setCornerRadius(8);
         relativeLayout.setBackground(gd);
-
-        priceTextView.setText(nf.format(upgrade.getPrice()));
+        long price = upgrade.getPrice();
+        if (price < 10000) {
+            priceTextView.setText(nf.format(upgrade.getPrice()));
+        } else if (price >= 10000 && price < 1000000) {
+            priceTextView.setText(String.format("%.1f", (double)price/1000) + "K");
+        } else if (price >= 1000000 && price < 1000000000) {
+            priceTextView.setText(String.format("%.1f", (double)price/1000000) + "M");
+        } else if (price >= 1000000000) {
+            priceTextView.setText(String.format("%.1f", (double)price/1000000) + "B");
+        }
 
         return listItemView;
     }
