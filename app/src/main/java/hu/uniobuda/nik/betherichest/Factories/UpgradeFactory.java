@@ -35,13 +35,15 @@ public class UpgradeFactory {
         HashMap<Integer, Upgrade> map = new HashMap<>();
 
         /* Colors config */
-        int[] colors = new int[]{         //standard rpg rarity colors (source: World of Warcraft)
+        int[] colors = new int[]{
                 Color.rgb(255, 255, 255),   // white - common
                 Color.rgb(30, 255, 0),      // green - uncommon
-                Color.rgb(0, 112, 221),   // blue - rare
-                Color.rgb(163, 53, 238),   // purple - epic
-                Color.rgb(255, 128, 0),   // orange - legendary
-                Color.rgb(230, 204, 255)    // light orange - artifact
+                Color.rgb(0, 112, 221),     // blue - rare
+                Color.rgb(163, 53, 238),    // purple - epic
+                Color.rgb(255, 128, 0),     // orange - legendary
+                Color.rgb(230, 204, 255),   // light orange - artifact
+                Color.rgb(125, 249, 255),   // electric blue
+                Color.rgb(252, 15, 192)     // shocking pink
         };
 
         /* The following arrays' length must NOT exceed the length of the colors' array */
@@ -59,16 +61,26 @@ public class UpgradeFactory {
         //Total money per sec upgrades
         final long[] MPSUpgradePrices = new long[]{Million(0.5), Million(1), Million(2.5), Million(5), Million(10)};
         final double[] MPSUpgradePercent = new double[]{1.01, 1.02, 1.03, 1.04, 1.05};
+
+        //Gambling reward doubler prices
+        final long[] GamblingRewardDoublerPrices = new long[]{Million(0.5), Million(1), Million(10), Million(50), Million(100), Million(200)};
+
+        //Gambling chance increment prices + values
+        final long[] GamblingChanceDoublerPrices = new long[]{Million(0.5), Million(1), Million(10), Million(50), Million(100), Million(200)};
+        final double[] GamblingChanceIncrements = new double[]{5, 5, 5, 5, 5, 5}; // In percents
         /* End config */
 
         if (
                 multipliers.length != rankOfIdNeeded.length ||
                         globalIncrementPrices.length != moneyForEachGlobalIncrement.length ||
                         MPSUpgradePrices.length != MPSUpgradePercent.length ||
+                        GamblingChanceDoublerPrices.length != GamblingChanceIncrements.length ||
                         multipliers.length > colors.length ||
                         clickDoublerPrices.length > colors.length ||
                         globalIncrementPrices.length > colors.length ||
-                        MPSUpgradePrices.length > colors.length
+                        MPSUpgradePrices.length > colors.length ||
+                        GamblingRewardDoublerPrices.length > colors.length ||
+                        GamblingChanceDoublerPrices.length > colors.length
                 ) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -187,6 +199,46 @@ public class UpgradeFactory {
             currId++;
         }
 */
+
+        currId = 400000;
+        multiplIdx = 0;
+        //prevId = null;
+        for (long price : GamblingRewardDoublerPrices) {
+            AddToMap(new Upgrade(
+                    currId,
+                    "",
+                    price,
+                    new DoublerEffect(),
+                    new ConditionalProvider[]{},
+                    currentGame,
+                    R.drawable.clover,
+                    colors[multiplIdx]
+            ), map);
+            currentGame.addGamblingRewardRelevantUpgrade(currId);
+            //prevId = currId;
+            multiplIdx++;
+            currId++;
+        }
+
+        currId = 500000;
+        multiplIdx = 0;
+        for (long price : GamblingChanceDoublerPrices) {
+            AddToMap(new Upgrade(
+                    currId,
+                    "",
+                    price,
+                    new AdderEffect(GamblingChanceIncrements[multiplIdx]),
+                    new ConditionalProvider[]{},
+                    currentGame,
+                    R.drawable.clover,
+                    colors[multiplIdx]
+            ), map);
+            currentGame.addGamblingChanceRelevantUpgrade(currId);
+            //prevId = currId;
+            multiplIdx++;
+            currId++;
+        }
+
         return map;
     }
 

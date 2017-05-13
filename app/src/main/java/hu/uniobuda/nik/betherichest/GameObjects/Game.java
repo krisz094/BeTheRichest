@@ -49,6 +49,9 @@ public class Game {
     private List<Leader> leaders;
     private ArrayList<Integer> clickRelevantUpgradeIDs; //upgrade IDs that affect clicking
     private ArrayList<Integer> MPSRelevantUpgradeIDs;
+    private ArrayList<Integer> gamblingRewardRelevantUpgradeIDs;
+    private ArrayList<Integer> gamblingChanceRelevantUpgradeIDs;
+
     private Timer T;
 
     private NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
@@ -60,6 +63,8 @@ public class Game {
         moneyPerTap = 1d;
         clickRelevantUpgradeIDs = new ArrayList<Integer>();
         MPSRelevantUpgradeIDs = new ArrayList<Integer>();
+        gamblingRewardRelevantUpgradeIDs = new ArrayList<Integer>();
+        gamblingChanceRelevantUpgradeIDs = new ArrayList<Integer>();
         investments = InvestmentFactory.createInvestments(this);
         upgrades = UpgradeFactory.createUpgrades(this, getInvestments());
         gamblings = GamblingFactory.createGamblings(this);
@@ -96,6 +101,14 @@ public class Game {
 
     public void addMPSRelevantUpgrade(Integer id) {
         this.MPSRelevantUpgradeIDs.add(id);
+    }
+
+    public void addGamblingRewardRelevantUpgrade(Integer id) {
+        this.gamblingRewardRelevantUpgradeIDs.add(id);
+    }
+
+    public void addGamblingChanceRelevantUpgrade(Integer id) {
+        this.gamblingChanceRelevantUpgradeIDs.add(id);
     }
 
     public void earnMoney(double money) {
@@ -238,7 +251,7 @@ public class Game {
             money += inv.getMoneyPerSec();
         }
 
-        for(Integer upgradeID: MPSRelevantUpgradeIDs) {
+        for (Integer upgradeID : MPSRelevantUpgradeIDs) {
             if (gameState.getUpgradeBoughtById(upgradeID)) {
                 money = upgrades.get(upgradeID).execute(money);
             }
@@ -263,6 +276,26 @@ public class Game {
         if (onMoneyChanged != null) {
             onMoneyChanged.onMoneyPerTapChanged(getMoneyPerTapAsString());
         }
+    }
+
+    public int calcGambleRealReward(int input) {
+        int reward = input;
+        for (int ID : gamblingRewardRelevantUpgradeIDs) {
+            if (gameState.getUpgradeBoughtById(ID)) {
+                reward = (int) upgrades.get(ID).execute(reward);
+            }
+        }
+        return reward;
+    }
+
+    public double calcGambleRealChance(double input) {
+        double chance = input;
+        for (int ID : gamblingChanceRelevantUpgradeIDs) {
+            if (gameState.getUpgradeBoughtById(ID)) {
+                chance = upgrades.get(ID).execute(chance);
+            }
+        }
+        return (chance > 100) ? 100 : chance;
     }
 
 

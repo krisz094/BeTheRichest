@@ -7,17 +7,17 @@ import hu.uniobuda.nik.betherichest.Interfaces.IEffectable;
  */
 
 public class AdderEffect implements IEffectable {
-    Double money;
+    Double percent;
     public AdderEffect(Double money) {
-        this.money = money;
+        this.percent = money;
     }
     @Override
     public double effect(double input) {
-        return input + money;
+        return input + percent;
     }
 
     @Override
     public String getExtraInfo() {
-        return "+" + money.toString() + "$";
+        return "+" + String.valueOf(percent.intValue()) + "%";
     }
 }

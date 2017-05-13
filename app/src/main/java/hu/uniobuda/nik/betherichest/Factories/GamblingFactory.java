@@ -25,7 +25,8 @@ public class GamblingFactory {
                 200,
                 1000,
                 30,
-                R.drawable.scratchoff
+                R.drawable.scratchoff,
+                currentGame
         ), map);
         AddToMap(new Gambling(
                 "Horse Race",
@@ -33,15 +34,29 @@ public class GamblingFactory {
                 1000,
                 5000,
                 16,
-                R.drawable.horserace
+                R.drawable.horserace,
+                currentGame
         ), map);
+
+        AddToMap(new Gambling(
+                "Play Poker",
+                "Just don't forget to use your Poker Face",
+                10000,
+                50000,
+                10,
+                R.drawable.slotmachine,
+                currentGame
+        ), map);
+
+
         AddToMap(new Gambling(
                 "Slot Machine",
                 "Patience, patience, once you'll get the jackpot",
-                10000,
-                50000,
+                20000,
+                100000,
                 1,
-                R.drawable.slotmachine
+                R.drawable.slotmachine,
+                currentGame
         ), map);
 
         return map;

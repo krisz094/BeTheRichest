@@ -79,8 +79,8 @@
         android:layout_below="@id/dollar"
         android:onClick="CheatClick"
         android:text="CHEAT"
-        android:visibility="invisible"
-        android:enabled="false"
+        android:visibility="visible"
+        android:enabled="true"
         />
 
     <LinearLayout
