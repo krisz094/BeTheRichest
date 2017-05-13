@@ -26,6 +26,7 @@ public class State {
     private HashMap<Integer, Integer> InvestmentIdRank; //ezt vissza majd privátra
     private Calendar lastGamblingDate;
     private Calendar nextAllowedGamblingDate;
+    private boolean isGamblingTimerRunning = false;
 
     public Calendar getLastGamblingDate() {
         return lastGamblingDate;
@@ -88,8 +89,8 @@ public class State {
             }
             Handler.saveUpgrade(entry.getKey(), a, db);
         }
-        Handler.saveLastGamblingDate(ConvertCalendarToString(lastGamblingDate));
-        Handler.saveNextAllowedGamblingDate(ConvertCalendarToString(nextAllowedGamblingDate));
+//        Handler.saveLastGamblingDate(ConvertCalendarToString(lastGamblingDate));
+//        Handler.saveNextAllowedGamblingDate(ConvertCalendarToString(nextAllowedGamblingDate));
         Handler.closeDatabase(db);
     }
 
@@ -121,5 +122,13 @@ public class State {
             cal.setTime(date);
         }
         return cal;
+    }
+
+    public boolean getIsGamblingTimerRunning() {
+        return isGamblingTimerRunning;
+    }
+
+    public void setIsGamblingTimerRunning(boolean isGamblingTimerRunning) {
+        this.isGamblingTimerRunning = isGamblingTimerRunning;
     }
 }

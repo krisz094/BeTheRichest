@@ -35,7 +35,6 @@ public class GamblingListFragment extends Fragment {
     TextView timerText;
     TextView wonMoneyText;
     ImageView rotatingImage;
-    boolean isTimerRunning = false;
 
     Animation growAndRotate;
     Animation grow;
@@ -62,7 +61,12 @@ public class GamblingListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        game = Game.Get();
+
         T = new Timer();
+        StartTimer();
+
         growAndRotate = AnimationUtils.loadAnimation(getContext(), R.anim.grow_and_rotate);
         grow = AnimationUtils.loadAnimation(getContext(), R.anim.grow);
         fade = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
@@ -75,7 +79,7 @@ public class GamblingListFragment extends Fragment {
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        game = Game.Get();
+
         List<Gambling> items = game.getGamblings();
         final GamblingAdapter adapter = new GamblingAdapter(items);
         final ListView listView = (ListView) rootView.findViewById(R.id.gambling_listview);
@@ -90,7 +94,7 @@ public class GamblingListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 Gambling gambling = adapter.getItem(position);
-                if (!isTimerRunning) {
+                if (!game.gameState.getIsGamblingTimerRunning()) {
 
                     rotatingImage.setBackgroundResource(gambling.getImageResource());
                     rotatingImage.startAnimation(growAndRotate);
@@ -110,7 +114,7 @@ public class GamblingListFragment extends Fragment {
                     @Override
                     public void onAnimationStart(Animation animation) {
                         StartTimer();
-                        isTimerRunning = true;
+                        game.gameState.setIsGamblingTimerRunning(true);
                         setGamblingDates();
                     }
 
@@ -210,13 +214,15 @@ public class GamblingListFragment extends Fragment {
      * @return difference as formatted string, which will be displayed on the UI
      */
     private String getCalculatedRemainingTimeString() {
-        if (game.gameState.getNextAllowedGamblingDate() != null) { //itt
+        String a;
+        if (game.gameState.getNextAllowedGamblingDate() != null) {
 
-            Calendar today = Calendar.getInstance();
-            long diffInMilliSeconds = (game.gameState.getNextAllowedGamblingDate().getTimeInMillis() - today.getTimeInMillis());
+            Calendar dateNow = Calendar.getInstance();
+            long diffInMilliSeconds = game.gameState.getNextAllowedGamblingDate().getTimeInMillis() - dateNow.getTimeInMillis();
 
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(diffInMilliSeconds);
+
             String formattedTime = "";
             try {
                 formattedTime = String.format(getResources().getString(R.string.gambling_time_remaining), cal.get(Calendar.HOUR_OF_DAY) - 1, cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND));
@@ -224,9 +230,9 @@ public class GamblingListFragment extends Fragment {
 
             }
 
-            if (diffInMilliSeconds <= 0) {  // if the timer id down
+            if (diffInMilliSeconds <= 0) {  // if the timer is down
                 T.purge();
-                isTimerRunning = false;
+                game.gameState.setIsGamblingTimerRunning(false);
                 return getResources().getString(R.string.gambling_header);
             }
             return formattedTime;
@@ -240,7 +246,7 @@ public class GamblingListFragment extends Fragment {
     private void setGamblingDates() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        game.gameState.setLastGamblingDate(cal);
+        //game.gameState.setLastGamblingDate(cal);
         cal.add(Calendar.HOUR_OF_DAY, TIME_BETWEEN_TWO_GAMBLING);
         game.gameState.setNextAllowedGamblingDate(cal);
 

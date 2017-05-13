@@ -71,7 +71,7 @@ public class DatabaseHandler {
     }
 
     public long saveMoney(double currentmoney) {
-        SQLiteDatabase db=deleteMoney();
+        SQLiteDatabase db = deleteMoney();
         //SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("currentMoney", currentmoney);
@@ -92,7 +92,7 @@ public class DatabaseHandler {
         return db;
     }
 
-    public long saveInvestment(int _id, int rank,SQLiteDatabase db) {
+    public long saveInvestment(int _id, int rank, SQLiteDatabase db) {
         //SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("_id", _id);
@@ -115,7 +115,7 @@ public class DatabaseHandler {
     }
 
 
-    public long saveUpgrade(int _id, int rank,SQLiteDatabase db) {
+    public long saveUpgrade(int _id, int rank, SQLiteDatabase db) {
         long id = 0;
         if (rank == 1) {
             //SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -140,12 +140,11 @@ public class DatabaseHandler {
     }
 
     //külön fügvény arra hogy zárja az adatbázist ne kelljen for cikulba nyitni zárni
-    public void closeDatabase(SQLiteDatabase db)
-    {
+    public void closeDatabase(SQLiteDatabase db) {
         db.close();
     }
-    public void openDatabase(SQLiteDatabase db)
-    {
+
+    public void openDatabase(SQLiteDatabase db) {
         db = dbHelper.getWritableDatabase();
     }
 
