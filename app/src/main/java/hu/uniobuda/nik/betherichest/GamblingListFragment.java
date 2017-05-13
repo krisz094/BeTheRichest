@@ -134,6 +134,7 @@ public class GamblingListFragment extends Fragment {
                             wonMoneyText.setTextColor(getResources().getColor(R.color.darkRed));
                         } else {
                             text = "You won " + wonMoney + "$";
+                            game.earnMoney(wonMoney);
                             wonMoneyText.setTextColor(getResources().getColor(R.color.orange));
 
                         }
