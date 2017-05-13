@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
@@ -299,16 +299,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //timer.cancel();
-        //timer.purge();
+        //Log.d("HEHE", "onDestroy");
+        //game.saveGame(DBHandler);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //Log.d("HEHE", "onPause");
+        game.saveGame(DBHandler);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        //DBHandler.saveMoney(game.getCurrentMoney());
-        game.saveGame(DBHandler);
-
-
+        //Log.d("HEHE", "onStop");
+        //game.saveGame(DBHandler);
     }
+
+
 }

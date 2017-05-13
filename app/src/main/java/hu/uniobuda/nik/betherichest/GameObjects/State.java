@@ -48,8 +48,8 @@ public class State {
         currentMoney = 0d;
         UpgradeIdUnlocked = new HashMap<>();
         InvestmentIdRank = new HashMap<>();
-        lastGamblingDate=null;
-        nextAllowedGamblingDate=null;
+        lastGamblingDate = null;
+        nextAllowedGamblingDate = null;
     }
 
     public Boolean getUpgradeBoughtById(int id) {
@@ -73,26 +73,23 @@ public class State {
 
     public void saveState(DatabaseHandler Handler) {
         Handler.saveMoney(currentMoney);
-        SQLiteDatabase db=Handler.deleteInvestments();
-        for(Map.Entry<Integer,Integer> entry : InvestmentIdRank.entrySet()) {
-            Handler.saveInvestment(entry.getKey(), entry.getValue(),db);
+        SQLiteDatabase db = Handler.deleteInvestments();
+        for (Map.Entry<Integer, Integer> entry : InvestmentIdRank.entrySet()) {
+            Handler.saveInvestment(entry.getKey(), entry.getValue(), db);
         }
         Handler.closeDatabase(db);
-        db=Handler.deleteUpgrade();
+        db = Handler.deleteUpgrade();
         Integer a;
-        for(Map.Entry<Integer,Boolean> entry : UpgradeIdUnlocked.entrySet()) {
-            if(entry.getValue())
-            {
-                a=1;
+        for (Map.Entry<Integer, Boolean> entry : UpgradeIdUnlocked.entrySet()) {
+            if (entry.getValue()) {
+                a = 1;
+            } else {
+                a = 0;
             }
-            else
-            {
-                a=0;
-            }
-            Handler.saveUpgrade(entry.getKey(),a,db);
+            Handler.saveUpgrade(entry.getKey(), a, db);
         }
-        //Handler.saveLastGamblingDate(ConvertCalendarToString(lastGamblingDate));
-        //Handler.saveNextAllowedGamblingDate(ConvertCalendarToString(nextAllowedGamblingDate));
+        Handler.saveLastGamblingDate(ConvertCalendarToString(lastGamblingDate));
+        Handler.saveNextAllowedGamblingDate(ConvertCalendarToString(nextAllowedGamblingDate));
         Handler.closeDatabase(db);
     }
 
@@ -103,23 +100,26 @@ public class State {
         Handler.loadInvestments(InvestmentIdRank);
         Handler.loadUpGrades(UpgradeIdUnlocked);
         //lastGamblingDate=ConvertStringToCalendar(Handler.loadLastGamblingDate());
-        //String s =Handler.loadLastGamblingDate();
+        String s = Handler.loadLastGamblingDate();
 
 
     }
 
-    private String ConvertCalendarToString(Calendar cal)
-    {
+    private String ConvertCalendarToString(Calendar cal) {
         final String timeString = new SimpleDateFormat("HH:mm:ss:SSS").format(cal.getTime());
         return timeString;
     }
 
-    private Calendar ConvertStringToCalendar(String timeString) throws ParseException
-    {
+    private Calendar ConvertStringToCalendar(String timeString) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss:SSS", Locale.ENGLISH);
+
         Date date = sdf.parse(timeString);// all done
         Calendar cal = sdf.getCalendar();
-        cal.setTime(date);
+        if (timeString == null) {
+            cal.setTime(new Date());
+        } else {
+            cal.setTime(date);
+        }
         return cal;
     }
 }
