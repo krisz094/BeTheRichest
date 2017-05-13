@@ -232,6 +232,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void InvestmentsClick(View view) {
+        if (noUpgradesToast != null) {
+            noUpgradesToast.cancel();
+        }
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -289,6 +292,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void GamblingClick(View view) {
+        if (noUpgradesToast != null) {
+            noUpgradesToast.cancel();
+        }
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
@@ -298,6 +304,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void LeaderboardClick(View view) {
+        if (noUpgradesToast != null) {
+            noUpgradesToast.cancel();
+        }
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
