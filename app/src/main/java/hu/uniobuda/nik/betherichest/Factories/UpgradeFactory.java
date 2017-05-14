@@ -48,8 +48,8 @@ public class UpgradeFactory {
 
         /* The following arrays' length must NOT exceed the length of the colors' array */
         /* Begin config */
-        int[] multipliers = new int[]{1, 5, 50, 5000};
-        int[] rankOfIdNeeded = new int[]{1, 5, 25, 50};
+        int[] multipliers = new int[]{1, 5, 50, 5000 };
+        int[] rankOfIdNeeded = new int[]{1, 5, 25, 50 };
 
         //Click doubler config
         long[] clickDoublerPrices = new long[]{100, 500, 5000};

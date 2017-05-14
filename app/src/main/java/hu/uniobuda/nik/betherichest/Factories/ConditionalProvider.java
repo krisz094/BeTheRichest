@@ -5,12 +5,16 @@ import hu.uniobuda.nik.betherichest.GameObjects.Game;
 /**
  * Created by krisz on 2017. 04. 01..
  */
-
+/*
 public abstract class ConditionalProvider {
     public abstract Boolean Evaluate(Game currentGame);
+}*/
+
+public interface ConditionalProvider {
+    public Boolean Evaluate(Game currentGame);
 }
 
-class RankOfIDNeeded extends ConditionalProvider {
+class RankOfIDNeeded implements ConditionalProvider {
     int rank;
     int id;
     public RankOfIDNeeded(int id, int rank) {
@@ -24,7 +28,7 @@ class RankOfIDNeeded extends ConditionalProvider {
     }
 }
 
-class UpgradeWithIDUnlocked extends  ConditionalProvider{
+class UpgradeWithIDUnlocked implements ConditionalProvider{
 
     public UpgradeWithIDUnlocked(int id) {
         this.id = id;
