@@ -6,9 +6,11 @@ import android.os.Handler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -24,6 +26,16 @@ public class State {
     private HashMap<Integer, Boolean> UpgradeIdUnlocked;
     //InvestmentRankById
     private HashMap<Integer, Integer> InvestmentIdRank; //ezt vissza majd privátra
+
+    public List<Integer> getDisplayableUpgradeId() {
+        return DisplayableUpgradeId;
+    }
+
+    public void setDisplayableUpgradeId(Integer id) {
+        DisplayableUpgradeId.add(id);
+    }
+
+    private List<Integer> DisplayableUpgradeId;
     private Calendar lastGamblingDate;
     private Calendar nextAllowedGamblingDate;
     private boolean isGamblingTimerRunning = false;
@@ -43,15 +55,12 @@ public class State {
     public void setNextAllowedGamblingDate(Calendar nextAllowedGamblingDate) {
         this.nextAllowedGamblingDate = nextAllowedGamblingDate;
     }
-
-
     public State() {
         currentMoney = 0d;
         UpgradeIdUnlocked = new HashMap<>();
         InvestmentIdRank = new HashMap<>();
         lastGamblingDate = null;
         nextAllowedGamblingDate = Calendar.getInstance();
-
     }
 
     public Boolean getUpgradeBoughtById(int id) {
@@ -91,23 +100,29 @@ public class State {
             Handler.saveUpgrade(entry.getKey(), a, db);
         }
         //Handler.saveLastGamblingDate(ConvertCalendarToString(lastGamblingDate));
+        db = Handler.deleteDisplayedUpgrades();
+        for (Upgrade upgrade :Game.Get().getDisplayableUpgrades()) {
+            DisplayableUpgradeId.add(upgrade.getId());
+            Handler.saveDisplayedUpgrade(upgrade.getId(),db);
+        }
         Handler.saveNextAllowedGamblingDate(nextAllowedGamblingDate.getTimeInMillis());
         Handler.closeDatabase(db);
     }
 
     public void loadState(DatabaseHandler Handler) throws ParseException {
-        //TODO
-
         currentMoney = Handler.loadMoney();
         Handler.loadInvestments(InvestmentIdRank);
         Handler.loadUpGrades(UpgradeIdUnlocked);
-        //lastGamblingDate=ConvertStringToCalendar(Handler.loadLastGamblingDate());
         nextAllowedGamblingDate.setTimeInMillis(Handler.loadNextAllowedGamblingDate());
         if (nextAllowedGamblingDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis() > 0) {
             isGamblingTimerRunning = true;
         }
-        //isGamblingTimerRunning=true;
-        //SZABIVAL EGYEZTETNI MI LEGYEN
+        DisplayableUpgradeId=new ArrayList<>();
+        Handler.loadDisplayedUpgades(DisplayableUpgradeId);
+        for(Integer id :DisplayableUpgradeId)
+        {
+            Game.Get().setUpgrades(id);
+        }
 
     }
 

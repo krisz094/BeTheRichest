@@ -8,9 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import hu.uniobuda.nik.betherichest.GameObjects.State;
+import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
 
 
 /**
@@ -26,6 +28,7 @@ public class DatabaseHandler {
     private static final String TABLE_UPGRADES = "Upgrades";
     private static final String TABLE_LASTGAMBLINGDATE = "LastGamblingDate";
     private static final String TABLE_NEXTALLOWEDGAMBLINGDATE = "NextAllowedGamblingDate";
+    private static final String TABLE_DISPLAYEDINVESTMENTS="DisplayedInvestments";
 
     public DBHelper dbHelper;
 
@@ -35,24 +38,26 @@ public class DatabaseHandler {
 
     //Save nél elösször delete() utána bejárni a listát és insert
 
-    //ITT VANNAK A GAMBLINGES MÓKÁK
-    public long saveLastGamblingDate(String lastGamblingDate) {
-        SQLiteDatabase db = deleteLastGamblingdate();
+    public long saveDisplayedUpgrade(Integer _id, SQLiteDatabase db) {
+        //SQLiteDatabase db = deleteDisplayedInvestments();
         ContentValues values = new ContentValues();
-        values.put("lastDate", lastGamblingDate);
-        long id = db.insert(TABLE_LASTGAMBLINGDATE, null, values);
+        values.put("displayedId", _id);
+        long id = db.insert(TABLE_DISPLAYEDINVESTMENTS, null, values);
         return id;
     }
 
-    private SQLiteDatabase deleteLastGamblingdate() {
+    public SQLiteDatabase deleteDisplayedUpgrades() {
+
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LASTGAMBLINGDATE);
-        db.execSQL("CREATE TABLE " + TABLE_LASTGAMBLINGDATE + "(" +
-                "lastDate TEXT PRIMARY KEY" +
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISPLAYEDINVESTMENTS);
+        db.execSQL("CREATE TABLE " + TABLE_DISPLAYEDINVESTMENTS + "(" +
+                "displayedId INTEGER PRIMARY KEY" +
                 ")");
+        //db.close();
         return db;
     }
 
+    //ITT VANNAK A GAMBLINGES MÓKÁK
     public long saveNextAllowedGamblingDate(long nextAllowedGamblingDate) {
         SQLiteDatabase db = deleteNextAllowedGamblingDate();
         ContentValues values = new ContentValues();
@@ -148,6 +153,20 @@ public class DatabaseHandler {
     }
 
     //LOAD
+
+    public Cursor loadDisplayedUpgades(List<Integer> list) {
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor result = db.query(TABLE_DISPLAYEDINVESTMENTS, null, null, null, null, null, null);
+        result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
+        db.close();
+        while (!result.isAfterLast()) {
+            Integer id = result.getInt(result.getColumnIndex("displayedId"));
+            list.add(id);
+            result.moveToNext();
+        }
+        return result;
+    }
     public Cursor loadInvestments(HashMap<Integer, Integer> investmentIdRank) {
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -162,7 +181,6 @@ public class DatabaseHandler {
         }
         return result;
     }
-
     public Cursor loadUpGrades(HashMap<Integer, Boolean> upgradeIdUnlocked) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor result = db.query(TABLE_UPGRADES, null, null, null, null, null, null);
@@ -181,7 +199,6 @@ public class DatabaseHandler {
         }
         return result;
     }
-
     public Double loadMoney() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor result = db.query(TABLE_MONEY, null, null, null, null, null, null);
@@ -193,20 +210,6 @@ public class DatabaseHandler {
             return result.getDouble(result.getColumnIndex("currentMoney"));
         }
     }
-
-    public String loadLastGamblingDate() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.query(TABLE_LASTGAMBLINGDATE, null, null, null, null, null, null);
-        result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
-        db.close();
-        if (result.getCount() == 0) {
-            return null;
-        } else {
-            return result.getString(result.getColumnIndex("lastDate"));
-            //TABLE_LASTGAMBLINGDATE = "LastGamblingDate";
-        }
-    }
-
     public long loadNextAllowedGamblingDate()
     {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -245,14 +248,12 @@ public class DatabaseHandler {
             db.execSQL("CREATE TABLE " + TABLE_MONEY + "(" +
                     "currentMoney REAL PRIMARY KEY" +
                     ")");
-            db.execSQL("CREATE TABLE " + TABLE_LASTGAMBLINGDATE + "(" +
-                    "lastDate TEXT PRIMARY KEY" +
-                    ")");
             db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
                     "nextAllowedDate REAL PRIMARY KEY" +
                     ")");
-
-
+            db.execSQL("CREATE TABLE " + TABLE_DISPLAYEDINVESTMENTS + "(" +
+                    "displayedId INTEGER PRIMARY KEY" +
+                    ")");
         }
 
         @Override
@@ -260,8 +261,8 @@ public class DatabaseHandler {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_INVESTMENTS);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPGRADES);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_MONEY);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_LASTGAMBLINGDATE);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEXTALLOWEDGAMBLINGDATE);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISPLAYEDINVESTMENTS);
             onCreate(db);
         }
     }

@@ -43,6 +43,11 @@ public class Game {
     public Handler handler;
     private double moneyPerSec;
     private double moneyPerTap;
+
+    public void setUpgrades(int id) {
+        this.upgrades.get(id).setDisplayedOnce(true);
+    }
+
     private HashMap<Integer, Upgrade> upgrades;
     private HashMap<Integer, Investment> investments;
     private HashMap<Integer, Gambling> gamblings;
