@@ -109,27 +109,38 @@ public class UpgradeAdapter extends BaseAdapter {
         }*/
 
         labelTextView.setText(upgrade.getEffectExtraInfo());
+        CreateColorfulBorder(upgrade);
 
+
+        ConvertThousandsToSIUnit(upgrade);
+
+        return listItemView;
+    }
+
+    private void CreateColorfulBorder(Upgrade upgrade) {
         // makes a dynamic border around the relativlayout which contains the image and the effect text
         GradientDrawable gd = new GradientDrawable();
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = 5 / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        gd.setStroke((int) dp, upgrade.getColor());
-        gd.setCornerRadius(15);
+        // different borderSize in pixels for different density displays
+        gd.setStroke((int) getPixelFromDP(3), upgrade.getColor());
+        gd.setCornerRadius(getPixelFromDP(15));
         relativeLayout.setBackground(gd);
+    }
+
+    private void ConvertThousandsToSIUnit(Upgrade upgrade) {
         long price = upgrade.getPrice();
         if (price < 10000) {
             priceTextView.setText(nf.format(upgrade.getPrice()));
         } else if (price >= 10000 && price < 1000000) {
-            priceTextView.setText(String.format("%.1f", (double) price / 1000) + "K");
+            priceTextView.setText(nf.format(price / 1000) + "K");
         } else if (price >= 1000000 && price < 1000000000) {
-            priceTextView.setText(String.format("%.1f", (double) price / 1000000) + "M");
+            priceTextView.setText(nf.format(price / 1000000) + "M");
         } else if (price >= 1000000000) {
-            priceTextView.setText(String.format("%.1f", (double) price / 1000000000) + "B");
+            priceTextView.setText(nf.format(price / 1000000000) + "B");
         }
+    }
 
-        return listItemView;
+    private float getPixelFromDP(int dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
     @Override

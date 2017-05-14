@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView dollarImage;
 
     ActionBar actionBar;
+    //ImageView helpImage;
+
     RelativeLayout mainRelativeLayout;
 
     Animation shrink;
@@ -206,6 +210,14 @@ public class MainActivity extends AppCompatActivity {
         moneyPerSecText = (TextView) findViewById(R.id.moneyPerSecText);
         moneyPerTapText = (TextView) findViewById(R.id.moneyPerTapText);
         dollarImage = (ImageView) findViewById(R.id.dollar);
+        ImageView smallDollar =  (ImageView) findViewById(R.id.smallDollar);
+        smallDollar.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                CheatClick(v);
+                return true;
+            }
+        });
 
         moneyPerSecText.setText(game.getMoneyPerSecAsString());
         moneyPerTapText.setText(game.getMoneyPerTapAsString());
@@ -240,31 +252,32 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(drawable);
 
 
-        actionBar.setDisplayOptions(actionBar.getDisplayOptions()
-                | ActionBar.DISPLAY_SHOW_CUSTOM);
-        ImageView imageView = new ImageView(actionBar.getThemedContext());
-        imageView.setScaleType(ImageView.ScaleType.CENTER);
-        imageView.setImageResource(R.mipmap.help_mipmap);
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
-                ft.addToBackStack(InvestmentListFragment.class.getName());
-                ft.replace(R.id.investment_list_container, new InvestmentListFragment());
-                ft.commit();
-            }
-        };
-        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams( ActionBar.LayoutParams.WRAP_CONTENT,
-                ActionBar.LayoutParams.WRAP_CONTENT, Gravity.RIGHT
-                | Gravity.CENTER_VERTICAL
-        );
-
-        imageView.setLayoutParams(layoutParams);
-        actionBar.setCustomView(imageView);
-        imageView.setOnClickListener(listener);
+//        actionBar.setDisplayOptions(actionBar.getDisplayOptions()
+//                | ActionBar.DISPLAY_SHOW_CUSTOM);
+//        helpImage = new ImageView(actionBar.getThemedContext());
+//        helpImage.setScaleType(ImageView.ScaleType.CENTER);
+//        helpImage.setImageResource(R.mipmap.help_mipmap);
+//
+//        View.OnClickListener listener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                helpImage.setVisibility(View.GONE);
+//                FragmentManager fm = getSupportFragmentManager();
+//                FragmentTransaction ft = fm.beginTransaction();
+//                //ft.setCustomAnimations(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+//                ft.addToBackStack(HelpFragment.class.getName());
+//                ft.replace(R.id.help_container, new HelpFragment());
+//                ft.commit();
+//            }
+//        };
+//        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams( ActionBar.LayoutParams.WRAP_CONTENT,
+//                ActionBar.LayoutParams.WRAP_CONTENT, Gravity.RIGHT
+//                | Gravity.CENTER_VERTICAL
+//        );
+//
+//        helpImage.setLayoutParams(layoutParams);
+//        actionBar.setCustomView(helpImage);
+//        helpImage.setOnClickListener(listener);
     }
 
     private void refreshView() {
@@ -278,7 +291,6 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
         ft.addToBackStack(InvestmentListFragment.class.getName());
         ft.replace(R.id.investment_list_container, new InvestmentListFragment());
@@ -304,6 +316,8 @@ public class MainActivity extends AppCompatActivity {
                 TypedValue.COMPLEX_UNIT_DIP,
                 50,
                 getResources().getDisplayMetrics()));
+       // helpImage.setVisibility(View.VISIBLE);
+
     }
 
     public void UpgradesClick(View view) {
@@ -375,5 +389,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         //game.saveGame(DBHandler);
+    }
+
+    public void closeHelp(View view) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.help_container);
+        if(fragment != null)
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        //helpImage.setVisibility(View.VISIBLE);
     }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/silverwood" />
+
+    <TextView
+        android:id="@+id/help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="HELP"
+        android:textColor="@color/darkGray"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/bg"
+        android:layout_alignParentEnd="true"
+        android:adjustViewBounds="true"
+        android:onClick="closeHelp"
+        app:srcCompat="@drawable/close" />
+
+    <LinearLayout
+        android:id="@+id/first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/help"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap the "
+            android:textColor="@color/darkGray"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="5sp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/dollarsmall" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="icon to get money."
+            android:textColor="@color/darkGray"
+            android:textSize="18sp"
+
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/first"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Buy investments to get $ in each second."
+        android:textColor="@color/darkGray"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/third"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/second"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="DPS = Dollar per second"
+        android:textColor="@color/darkGray"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/third"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Upgrades have the following benefits:"
+        android:textColor="@color/darkGray"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

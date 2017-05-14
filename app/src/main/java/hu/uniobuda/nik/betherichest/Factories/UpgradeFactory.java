@@ -56,7 +56,7 @@ public class UpgradeFactory {
 
         //Click global incrementer config
         final long[] globalIncrementPrices = new long[]{10000, Million(0.1), Million(0.5), Million(5), Million(25), Million(200), Million(500),Million(5000)};
-        final double[] moneyForEachGlobalIncrement = new double[]{0.1, 0.5, 5, 50, 200, 1000, 2500, 5000};
+        final double[] moneyForEachGlobalIncrement = new double[]{0.1, 0.5, 2, 10, 25, 100, 200, 500};
 
         //Total money per sec upgrades
         //final long[] MPSUpgradePrices = new long[]{Million(0.5), Million(1), Million(2.5), Million(5), Million(10)};
@@ -163,7 +163,7 @@ public class UpgradeFactory {
                     new GlobalIncrementEffect(currentGame, moneyForEachGlobalIncrement[multiplIdx]),
                     conditionsArray,
                     currentGame,
-                    R.drawable.click,
+                    R.drawable.globalincrement,
                     colors[multiplIdx]
             ), map);
             currentGame.addClickRelevantUpgrade(currId);

@@ -22,7 +22,6 @@ import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 public class InvestmentListFragment extends android.support.v4.app.Fragment {
     View rootView;
     Game game;
-    Timer timer;
 
     public static InvestmentListFragment newInstance() {
 

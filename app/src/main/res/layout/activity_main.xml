@@ -9,16 +9,6 @@
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     tools:context="hu.uniobuda.nik.betherichest.MainActivity">
 
-    <!--CHEAT BUTTON-->
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:onClick="CheatClick"
-        android:text="CH"
-        android:backgroundTint="#55fcde54"
-        android:textSize="5sp"
-        />
-
     <RelativeLayout
         android:id="@+id/currMoneyLayout"
         android:layout_width="wrap_content"
@@ -37,6 +27,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/smallDollar"
             android:layout_width="44dp"
             android:layout_height="22dp"
             android:layout_centerInParent="true"
@@ -206,5 +197,12 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/dollar" />
+
+    <FrameLayout
+        android:id="@+id/help_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        />
 
 </RelativeLayout>

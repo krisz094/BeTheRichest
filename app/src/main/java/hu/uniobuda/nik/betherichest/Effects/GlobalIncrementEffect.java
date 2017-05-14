@@ -35,7 +35,7 @@ public class GlobalIncrementEffect implements IEffectable {
 
         //return String.valueOf((this.moneyForEach >= 1) ? (int) this.moneyForEach : this.moneyForEach);
         if (this.moneyForEach >= 1) {
-            return String.valueOf(this.moneyForEach < 10000 ? (int) this.moneyForEach : (int)(this.moneyForEach / 1000) + "K");
+            return "+" + String.valueOf(this.moneyForEach < 10000 ? (int) this.moneyForEach : (int) (this.moneyForEach / 1000) + "K");
         }
         return String.valueOf(this.moneyForEach);
     }
