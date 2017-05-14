@@ -64,6 +64,9 @@ class LeaderAdapter extends BaseAdapter {
         nameTextView.setText(leader.getName());
         moneyTextView.setText(NumberFormat.getNumberInstance(Locale.FRANCE).format(leader.getMoney()));
         personRankTextView.setText("#" + String.valueOf(getItemId(position + 1)));
+        if(personRankTextView.getText().equals("#101") && leader.isPlayer()){
+            personRankTextView.setText("???");
+        }
         return listItemView;
     }
 
