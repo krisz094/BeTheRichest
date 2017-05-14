@@ -24,7 +24,7 @@ public class GamblingFactory {
                 "Scratch off the paper, and see if Fortuna is by your side.",
                 200,
                 1000,
-                30,
+                60,
                 R.drawable.scratchoff,
                 currentGame
         ), map);
@@ -38,15 +38,15 @@ public class GamblingFactory {
                 currentGame
         ), map);
 
-        AddToMap(new Gambling(
-                "Play Poker",
-                "Just don't forget to use your Poker Face",
-                10000,
-                50000,
-                10,
-                R.drawable.slotmachine,
-                currentGame
-        ), map);
+//        AddToMap(new Gambling(
+//                "Play Poker",
+//                "Just don't forget to use your Poker Face",
+//                10000,
+//                50000,
+//                10,
+//                R.drawable.slotmachine,
+//                currentGame
+//        ), map);
 
 
         AddToMap(new Gambling(

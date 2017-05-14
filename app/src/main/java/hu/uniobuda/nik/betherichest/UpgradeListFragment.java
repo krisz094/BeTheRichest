@@ -63,8 +63,7 @@ public class UpgradeListFragment extends android.support.v4.app.Fragment {
         game = Game.Get();
 
         items = game.getDisplayableUpgrades();
-        final UpgradeAdapter adapter = new UpgradeAdapter(items);
-        //itt nem találja meg a upgrade Listviewt és ezért null lesz a Listview
+        final UpgradeAdapter adapter = new UpgradeAdapter(items, getContext());
         final GridView listView = (GridView) rootView.findViewById(R.id.upgrade_listview);
         listView.setAdapter(adapter);
 

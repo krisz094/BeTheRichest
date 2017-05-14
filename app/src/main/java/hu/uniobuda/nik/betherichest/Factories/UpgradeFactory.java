@@ -55,8 +55,8 @@ public class UpgradeFactory {
         long[] clickDoublerPrices = new long[]{100, 500, 5000};
 
         //Click global incrementer config
-        final long[] globalIncrementPrices = new long[]{10000, Million(0.1), Million(0.5), Million(5), Million(50), Million(500), Million(5000), Million(50000)};
-        final double[] moneyForEachGlobalIncrement = new double[]{0.1, 0.5, 5, 50, 500, 5000, 50000, 500000};
+        final long[] globalIncrementPrices = new long[]{10000, Million(0.1), Million(0.5), Million(5), Million(25), Million(200), Million(500),Million(5000)};
+        final double[] moneyForEachGlobalIncrement = new double[]{0.1, 0.5, 5, 50, 200, 1000, 2500, 5000};
 
         //Total money per sec upgrades
         //final long[] MPSUpgradePrices = new long[]{Million(0.5), Million(1), Million(2.5), Million(5), Million(10)};
@@ -66,8 +66,8 @@ public class UpgradeFactory {
         final long[] GamblingRewardDoublerPrices = new long[]{Million(0.5), Million(1), Million(10), Million(50), Million(100), Million(200), Million(500), Million(1000)};
 
         //Gambling chance increment prices + values
-        final long[] GamblingChanceDoublerPrices = new long[]{Million(0.5), Million(1), Million(10), Million(50), Million(100), Million(200), Million(500), Million(1000)};
-        final double[] GamblingChanceIncrements = new double[]{5, 5, 5, 5, 5, 5, 5, 5}; // In percents
+        final long[] GamblingChanceDoublerPrices = new long[]{Million(0.75), Million(2), Million(15), Million(75), Million(120), Million(250), Million(750), Million(3000)};
+        final double[] GamblingChanceIncrements = new double[]{5, 5, 5, 5, 5, 5, 5, 10}; // In percents
         /* End config */
 
         if (

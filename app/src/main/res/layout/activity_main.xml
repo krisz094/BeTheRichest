@@ -9,12 +9,23 @@
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     tools:context="hu.uniobuda.nik.betherichest.MainActivity">
 
+    <!--CHEAT BUTTON-->
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:onClick="CheatClick"
+        android:text="CH"
+        android:backgroundTint="#55fcde54"
+        android:textSize="5sp"
+        />
+
     <RelativeLayout
         android:id="@+id/currMoneyLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp">
+
 
         <TextView
             android:id="@+id/currMoneyText"
@@ -71,17 +82,6 @@
         android:layout_marginTop="50dp"
         android:adjustViewBounds="true"
         app:srcCompat="@drawable/dollar" />
-
-    <!--CHEAT BUTTON-->
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dollar"
-        android:onClick="CheatClick"
-        android:text="CHEAT"
-        android:visibility="visible"
-        android:enabled="true"
-        />
 
     <LinearLayout
         android:id="@+id/icons"

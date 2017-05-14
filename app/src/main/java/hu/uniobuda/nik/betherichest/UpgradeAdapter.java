@@ -1,8 +1,12 @@
 package hu.uniobuda.nik.betherichest;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -26,17 +30,16 @@ import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
 public class UpgradeAdapter extends BaseAdapter {
 
     private List<Upgrade> items;
-    //TextView nameTextView;
-    TextView dpsPerRankTextView;
-    TextView descriptionTextView;
     TextView priceTextView;
     ImageView imageView;
     TextView labelTextView;
     RelativeLayout relativeLayout;
     NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
+    Context context;
 
-    public UpgradeAdapter(List<Upgrade> items) {
+    public UpgradeAdapter(List<Upgrade> items, Context context) {
         this.items = items;
+        this.context = context;
     }
 
     public void setItems(List<Upgrade> items) {
@@ -86,10 +89,8 @@ public class UpgradeAdapter extends BaseAdapter {
         // sets text color based on availability
         if (upgrade.isBuyable()) {
             priceTextView.setTextColor(Color.parseColor("#90EE90"));
-            //labelTextView.setTextColor(Color.parseColor("#DDffffff"));
         } else {
             priceTextView.setTextColor(Color.parseColor("#F2003C"));
-            //labelTextView.setTextColor(Color.parseColor("#DDffffff"));
         }
 
         labelTextView.setTextColor(upgrade.getColor());
@@ -111,18 +112,21 @@ public class UpgradeAdapter extends BaseAdapter {
 
         // makes a dynamic border around the relativlayout which contains the image and the effect text
         GradientDrawable gd = new GradientDrawable();
-        gd.setStroke(2, upgrade.getColor());
-        gd.setCornerRadius(8);
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = 5 / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        gd.setStroke((int) dp, upgrade.getColor());
+        gd.setCornerRadius(15);
         relativeLayout.setBackground(gd);
         long price = upgrade.getPrice();
         if (price < 10000) {
             priceTextView.setText(nf.format(upgrade.getPrice()));
         } else if (price >= 10000 && price < 1000000) {
-            priceTextView.setText(String.format("%.1f", (double)price/1000) + "K");
+            priceTextView.setText(String.format("%.1f", (double) price / 1000) + "K");
         } else if (price >= 1000000 && price < 1000000000) {
-            priceTextView.setText(String.format("%.1f", (double)price/1000000) + "M");
+            priceTextView.setText(String.format("%.1f", (double) price / 1000000) + "M");
         } else if (price >= 1000000000) {
-            priceTextView.setText(String.format("%.1f", (double)price/1000000000) + "B");
+            priceTextView.setText(String.format("%.1f", (double) price / 1000000000) + "B");
         }
 
         return listItemView;

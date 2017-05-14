@@ -91,9 +91,6 @@ public class LeaderFactory {
                     return Long.valueOf(o2.getMoney()).compareTo(o1.getMoney());
                 }
             });
-            if (leaders.size()==101 && leaders.get(101).getName()=="Player"){
-                //leaders.get(101).setMoney();
-            }
         }
 
 

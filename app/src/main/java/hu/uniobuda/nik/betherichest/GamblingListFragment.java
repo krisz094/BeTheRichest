@@ -40,7 +40,7 @@ public class GamblingListFragment extends Fragment {
     Animation grow;
     Animation fade;
 
-    static final int TIME_BETWEEN_TWO_GAMBLING = 6; //6ra vissza
+    static final int TIME_BETWEEN_TWO_GAMBLING = 1; //6ra vissza
     Timer T;
 
     public static GamblingListFragment newInstance() {
@@ -136,7 +136,6 @@ public class GamblingListFragment extends Fragment {
                             text = "You won " + wonMoney + "$";
                             game.earnMoney(wonMoney);
                             wonMoneyText.setTextColor(getResources().getColor(R.color.orange));
-
                         }
                         wonMoneyText.setVisibility(View.VISIBLE);
                         wonMoneyText.setText(text);
@@ -255,7 +254,7 @@ public class GamblingListFragment extends Fragment {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         //game.gameState.setLastGamblingDate(cal);
-        cal.add(Calendar.HOUR_OF_DAY, TIME_BETWEEN_TWO_GAMBLING);
+        cal.add(Calendar.MINUTE, TIME_BETWEEN_TWO_GAMBLING);
         game.gameState.setNextAllowedGamblingDate(cal);
 
     }
