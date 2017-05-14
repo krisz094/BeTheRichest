@@ -1,6 +1,7 @@
 package hu.uniobuda.nik.betherichest;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -214,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         mainRelativeLayout = (RelativeLayout) findViewById(R.id.mainRelativeLayout);
     }
 
-    private void InitializeActionBar() {
+    /*private void InitializeActionBar() {
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);
@@ -224,6 +226,45 @@ public class MainActivity extends AppCompatActivity {
         Resources resources = getResources();
         Drawable drawable = resources.getDrawable(R.drawable.bluewood);
         actionBar.setBackgroundDrawable(drawable);
+    }*/
+    private void InitializeActionBar() {
+
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+
+        actionBar.setIcon(R.mipmap.actionbar_icon);
+        Resources resources = getResources();
+        Drawable drawable = resources.getDrawable(R.drawable.bluewood);
+        actionBar.setBackgroundDrawable(drawable);
+
+
+        actionBar.setDisplayOptions(actionBar.getDisplayOptions()
+                | ActionBar.DISPLAY_SHOW_CUSTOM);
+        ImageView imageView = new ImageView(actionBar.getThemedContext());
+        imageView.setScaleType(ImageView.ScaleType.CENTER);
+        imageView.setImageResource(R.mipmap.help_mipmap);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+                ft.addToBackStack(InvestmentListFragment.class.getName());
+                ft.replace(R.id.investment_list_container, new InvestmentListFragment());
+                ft.commit();
+            }
+        };
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams( ActionBar.LayoutParams.WRAP_CONTENT,
+                ActionBar.LayoutParams.WRAP_CONTENT, Gravity.RIGHT
+                | Gravity.CENTER_VERTICAL
+        );
+
+        imageView.setLayoutParams(layoutParams);
+        actionBar.setCustomView(imageView);
+        imageView.setOnClickListener(listener);
     }
 
     private void refreshView() {
