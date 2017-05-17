@@ -12,30 +12,32 @@
 
     <RelativeLayout
         android:id="@+id/layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+
         android:layout_centerHorizontal="true"
+
         >
 
         <ImageView
             android:id="@+id/invIcon"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             />
 
         <TextView
             android:id="@+id/multiplier"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:gravity="center"
             android:textAlignment="center"
             android:text="X2"
-            android:textSize="25dp"
+            android:textSize="30dp"
             android:textStyle="bold"
             android:alpha="0.9"
             android:shadowColor="#000000"
@@ -43,6 +45,7 @@
             android:shadowDx="2"
             android:shadowDy="2"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             />
     </RelativeLayout>
 
