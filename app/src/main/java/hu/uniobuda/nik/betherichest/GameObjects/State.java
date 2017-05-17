@@ -24,15 +24,15 @@ public class State {
     SQLiteDatabase dbWriteable;
     SQLiteDatabase dbReadable;
 
-    public List<Integer> getDisplayableUpgradeId() {
-        return DisplayableUpgradeId;
+    public List<Integer> getDisplayableUpgradeIds() {
+        return DisplayableUpgradeIds;
     }
 
-    public void setDisplayableUpgradeId(Integer id) {
-        DisplayableUpgradeId.add(id);
+    public void setDisplayableUpgradeIds(Integer id) {
+        DisplayableUpgradeIds.add(id);
     }
 
-    private List<Integer> DisplayableUpgradeId;
+    private List<Integer> DisplayableUpgradeIds;
     private Calendar lastGamblingDate;
     private Calendar nextAllowedGamblingDate;
     private boolean isGamblingTimerRunning = false;
@@ -81,13 +81,13 @@ public class State {
 
 
     public void saveState(DatabaseHandler Handler) {
-        dbWriteable = Handler.createWriteableDatabase();
-        dbWriteable = Handler.deleteInvestments(dbWriteable);
-        dbWriteable = Handler.saveMoney(currentMoney, dbWriteable);
+        dbWriteable = Handler.createWritableDatabase();
+        Handler.deleteInvestments(dbWriteable);
+        Handler.saveMoney(currentMoney, dbWriteable);
         for (Map.Entry<Integer, Integer> entry : InvestmentIdRank.entrySet()) {
-            dbWriteable = Handler.saveInvestment(entry.getKey(), entry.getValue(), dbWriteable);
+            Handler.saveInvestment(entry.getKey(), entry.getValue(), dbWriteable);
         }
-        dbWriteable = Handler.deleteUpgrade(dbWriteable);
+        Handler.deleteUpgrade(dbWriteable);
         Integer a;
         for (Map.Entry<Integer, Boolean> entry : UpgradeIdUnlocked.entrySet()) {
             if (entry.getValue()) {
@@ -95,14 +95,14 @@ public class State {
             } else {
                 a = 0;
             }
-            dbWriteable = Handler.saveUpgrade(entry.getKey(), a, dbWriteable);
+            Handler.saveUpgrade(entry.getKey(), a, dbWriteable);
         }
-        dbWriteable = Handler.deleteDisplayedUpgrades(dbWriteable);
+        Handler.deleteDisplayedUpgrades(dbWriteable);
         for (Upgrade upgrade : Game.Get().getDisplayableUpgrades()) {
-            DisplayableUpgradeId.add(upgrade.getId());
-            dbWriteable = Handler.saveDisplayedUpgrade(upgrade.getId(), dbWriteable);
+            DisplayableUpgradeIds.add(upgrade.getId());
+            Handler.saveDisplayedUpgrade(upgrade.getId(), dbWriteable);
         }
-        dbWriteable = Handler.saveNextAllowedGamblingDate(nextAllowedGamblingDate.getTimeInMillis(), dbWriteable);
+        Handler.saveNextAllowedGamblingDate(nextAllowedGamblingDate.getTimeInMillis(), dbWriteable);
         Handler.closeDatabase(dbWriteable);
     }
 
@@ -116,9 +116,9 @@ public class State {
         if (nextAllowedGamblingDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis() > 0) {
             isGamblingTimerRunning = true;
         }
-        DisplayableUpgradeId = new ArrayList<>();
-        Handler.loadDisplayedUpgades(DisplayableUpgradeId);
-        for (Integer id : DisplayableUpgradeId) {
+        DisplayableUpgradeIds = new ArrayList<>();
+        Handler.loadDisplayedUpgrades(DisplayableUpgradeIds);
+        for (Integer id : DisplayableUpgradeIds) {
             Game.Get().setUpgrades(id);
         }
         Handler.closeDatabase(dbReadable);

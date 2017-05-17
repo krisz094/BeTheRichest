@@ -9,10 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import hu.uniobuda.nik.betherichest.GameObjects.State;
-import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
 
 
 /**
@@ -31,56 +27,48 @@ public class DatabaseHandler {
 
     public DBHelper dbHelper;
     SQLiteDatabase dbReadable;
-    SQLiteDatabase dbWriteable;
+    SQLiteDatabase dbWritable;
 
     public DatabaseHandler(Context context) {
         dbHelper = new DBHelper(context);
         dbReadable = dbHelper.getReadableDatabase();
-        dbWriteable = dbHelper.getWritableDatabase();
+        dbWritable = dbHelper.getWritableDatabase();
     }
 
-    public SQLiteDatabase saveDisplayedUpgrade(Integer _id, SQLiteDatabase db) {
+    public void saveDisplayedUpgrade(Integer _id, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("displayedId", _id);
         db.insert(TABLE_DISPLAYEDINVESTMENTS, null, values);
-        return db;
     }
 
-    public SQLiteDatabase deleteDisplayedUpgrades(SQLiteDatabase db) {
-
+    public void deleteDisplayedUpgrades(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISPLAYEDINVESTMENTS);
         db.execSQL("CREATE TABLE " + TABLE_DISPLAYEDINVESTMENTS + "(" +
-                "displayedId INTEGER PRIMARY KEY" +
-                ")");
-        return db;
+                "displayedId INTEGER PRIMARY KEY" + ")");
     }
 
-    public SQLiteDatabase saveNextAllowedGamblingDate(long nextAllowedGamblingDate, SQLiteDatabase db) {
+    public void saveNextAllowedGamblingDate(long nextAllowedGamblingDate, SQLiteDatabase db) {
+        deleteNextAllowedGamblingDate(db);
         ContentValues values = new ContentValues();
         values.put("nextAllowedDate", nextAllowedGamblingDate);
         db.insert(TABLE_NEXTALLOWEDGAMBLINGDATE, null, values);
-        return db;
     }
 
-    private SQLiteDatabase deleteNextAllowedGamblingDate() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    private void deleteNextAllowedGamblingDate(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEXTALLOWEDGAMBLINGDATE);
         db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
                 "nextAllowedDate REAL" +
                 ")");
-        return db;
     }
 
-    public SQLiteDatabase saveMoney(double currentMoney, SQLiteDatabase db) {
-        db = deleteMoney();
+    public void saveMoney(double currentMoney, SQLiteDatabase db) {
+        deleteMoney(db);
         ContentValues values = new ContentValues();
         values.put("currentMoney", currentMoney);
         db.insert(TABLE_MONEY, null, values);
-        return db;
     }
 
-    private SQLiteDatabase deleteMoney() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    private SQLiteDatabase deleteMoney(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MONEY);
         db.execSQL("CREATE TABLE " + TABLE_MONEY + "(" +
                 "currentMoney REAL" +
@@ -88,44 +76,38 @@ public class DatabaseHandler {
         return db;
     }
 
-    public SQLiteDatabase saveInvestment(int _id, int rank, SQLiteDatabase db) {
+    public void saveInvestment(int _id, int rank, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("_id", _id);
         values.put("rank", rank);
         db.insert(TABLE_INVESTMENTS, null, values);
-        return db;
     }
 
-    public SQLiteDatabase deleteInvestments(SQLiteDatabase db) {
+    public void deleteInvestments(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INVESTMENTS);
         db.execSQL(
                 "CREATE TABLE " + TABLE_INVESTMENTS + "(" +
                         "_id   INTEGER PRIMARY KEY," +
                         "rank  INTEGER" +
                         ")");
-        return db;
     }
 
-
-    public SQLiteDatabase saveUpgrade(int _id, int rank, SQLiteDatabase db) {
+    public void saveUpgrade(int _id, int rank, SQLiteDatabase db) {
         if (rank == 1) {
             ContentValues values = new ContentValues();
             values.put("_id", _id);
             values.put("rank", rank);
             db.insert(TABLE_UPGRADES, null, values);
         }
-        return db;
     }
 
-    public SQLiteDatabase deleteUpgrade(SQLiteDatabase db) {
+    public void deleteUpgrade(SQLiteDatabase db) {
         db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPGRADES);
         db.execSQL("CREATE TABLE " + TABLE_UPGRADES + "(" +
                 "_id   INTEGER PRIMARY KEY," +
                 "rank  INTEGER" +
                 ")");
-        //db.close();
-        return db;
     }
 
 
@@ -136,7 +118,7 @@ public class DatabaseHandler {
 
     //LOAD
 
-    public Cursor loadDisplayedUpgades(List<Integer> list) {
+    public Cursor loadDisplayedUpgrades(List<Integer> list) {
 
         Cursor result = dbReadable.query(TABLE_DISPLAYEDINVESTMENTS, null, null, null, null, null, null);
         result.moveToFirst();
@@ -198,7 +180,7 @@ public class DatabaseHandler {
         }
     }
 
-    public SQLiteDatabase createWriteableDatabase() {
+    public SQLiteDatabase createWritableDatabase() {
         return dbHelper.getWritableDatabase();
     }
 
@@ -221,7 +203,7 @@ public class DatabaseHandler {
                             "rank  INTEGER" + ")");
             db.execSQL("CREATE TABLE " + TABLE_UPGRADES + "(" +
                     "_id   INTEGER PRIMARY KEY," +
-                    "rank  INTEGER" +")");
+                    "rank  INTEGER" + ")");
             db.execSQL("CREATE TABLE " + TABLE_MONEY + "(" +
                     "currentMoney REAL" + ")");
             db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +

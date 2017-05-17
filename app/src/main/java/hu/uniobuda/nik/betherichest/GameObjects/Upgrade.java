@@ -40,10 +40,6 @@ public class Upgrade {
         return id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public long getPrice() {
         return price;
     }

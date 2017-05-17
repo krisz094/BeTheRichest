@@ -20,7 +20,6 @@
         android:id="@+id/gambling_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:listSelector="#668fff90"
         android:layout_below="@+id/timer"
         android:dividerHeight="8dp" />
 
