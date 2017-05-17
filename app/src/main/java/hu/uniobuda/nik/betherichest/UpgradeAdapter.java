@@ -105,7 +105,11 @@ public class UpgradeAdapter extends BaseAdapter {
 
         labelTextView.setTextColor(upgrade.getColor());
         labelTextView.setText(upgrade.getEffectExtraInfo());
-
+        if (labelTextView.getText().length() > 3) {
+            labelTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,23);
+        } else {
+            labelTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,25);
+        }
         SetTextColorByAvailability(upgrade);
 
         CreateColorfulBorder(upgrade);
