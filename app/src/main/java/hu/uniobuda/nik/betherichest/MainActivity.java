@@ -1,9 +1,7 @@
 package hu.uniobuda.nik.betherichest;
 
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,8 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Display;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -27,14 +23,16 @@ import android.widget.Toast;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import hu.uniobuda.nik.betherichest.Fragments.GamblingListFragment;
+import hu.uniobuda.nik.betherichest.Fragments.InvestmentListFragment;
+import hu.uniobuda.nik.betherichest.Fragments.LeaderboardListFragment;
+import hu.uniobuda.nik.betherichest.Fragments.UpgradeListFragment;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
-import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
 
 
 public class MainActivity extends AppCompatActivity {

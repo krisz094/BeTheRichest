@@ -1,4 +1,4 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import hu.uniobuda.nik.betherichest.R;
 
 /**
  * Created by Szabi on 2017.05.14..

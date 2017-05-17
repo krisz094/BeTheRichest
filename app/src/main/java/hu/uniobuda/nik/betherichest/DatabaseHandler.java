@@ -1,4 +1,4 @@
-package hu.uniobuda.nik.betherichest.Interfaces;
+package hu.uniobuda.nik.betherichest;
 
 import android.content.ContentValues;
 import android.content.Context;

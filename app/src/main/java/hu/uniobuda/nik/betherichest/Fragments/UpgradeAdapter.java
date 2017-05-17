@@ -1,4 +1,4 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Fragments;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
+import hu.uniobuda.nik.betherichest.R;
 
 /**
  * Created by Márk on 2017. 05. 06..

@@ -1,4 +1,4 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +12,7 @@ import java.util.List;
 import hu.uniobuda.nik.betherichest.Factories.LeaderFactory;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Leader;
+import hu.uniobuda.nik.betherichest.R;
 
 /**
  * Created by Kristof on 2017. 04. 18..

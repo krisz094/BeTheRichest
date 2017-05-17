@@ -20,7 +20,7 @@ import hu.uniobuda.nik.betherichest.Factories.GamblingFactory;
 import hu.uniobuda.nik.betherichest.Factories.InvestmentFactory;
 import hu.uniobuda.nik.betherichest.Factories.LeaderFactory;
 import hu.uniobuda.nik.betherichest.Factories.UpgradeFactory;
-import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
+import hu.uniobuda.nik.betherichest.DatabaseHandler;
 
 public class Game {
 

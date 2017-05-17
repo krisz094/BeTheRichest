@@ -1,6 +1,6 @@
 package hu.uniobuda.nik.betherichest.GameObjects;
 
-import hu.uniobuda.nik.betherichest.Factories.ConditionalProvider;
+import hu.uniobuda.nik.betherichest.Interfaces.ConditionalProvider;
 import hu.uniobuda.nik.betherichest.Interfaces.IEffectable;
 
 public class Upgrade {
