@@ -1,6 +1,5 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.Timer;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
+import hu.uniobuda.nik.betherichest.R;
 
 /**
  * Created by Márk on 2017. 05. 06..

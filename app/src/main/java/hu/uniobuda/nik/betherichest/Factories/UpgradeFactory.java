@@ -2,19 +2,18 @@ package hu.uniobuda.nik.betherichest.Factories;
 
 import android.graphics.Color;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.IllegalFormatException;
 import java.util.List;
 
+import hu.uniobuda.nik.betherichest.Conditions.RankOfIDNeeded;
 import hu.uniobuda.nik.betherichest.Effects.AdderEffect;
 import hu.uniobuda.nik.betherichest.Effects.DoublerEffect;
 import hu.uniobuda.nik.betherichest.Effects.GlobalIncrementEffect;
-import hu.uniobuda.nik.betherichest.Effects.MultiplierEffect;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 import hu.uniobuda.nik.betherichest.GameObjects.Upgrade;
+import hu.uniobuda.nik.betherichest.Interfaces.ConditionalProvider;
 import hu.uniobuda.nik.betherichest.R;
 
 /**

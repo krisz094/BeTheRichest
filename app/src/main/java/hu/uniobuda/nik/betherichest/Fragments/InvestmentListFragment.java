@@ -1,4 +1,4 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +10,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.Timer;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Investment;
+import hu.uniobuda.nik.betherichest.R;
 
 /**
  * Created by Szabi on 2017.04.15..

@@ -1,6 +1,5 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +23,7 @@ import java.util.TimerTask;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Gambling;
 import hu.uniobuda.nik.betherichest.GameObjects.Game;
+import hu.uniobuda.nik.betherichest.R;
 
 /**
  * Created by Szabi on 2017-04-27.

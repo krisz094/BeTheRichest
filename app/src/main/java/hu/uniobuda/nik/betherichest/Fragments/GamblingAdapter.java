@@ -1,4 +1,4 @@
-package hu.uniobuda.nik.betherichest;
+package hu.uniobuda.nik.betherichest.Fragments;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Gambling;
+import hu.uniobuda.nik.betherichest.R;
 
 
 /**

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
+import hu.uniobuda.nik.betherichest.DatabaseHandler;
 
 /**
  * Created by krisz on 2017. 04. 01..
