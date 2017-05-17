@@ -30,7 +30,7 @@ public class InvestmentAdapter extends BaseAdapter {
     TextView totalDPSTextView;
     ImageView imageView;
 
-    NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+    NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
 
 
     public InvestmentAdapter(List<Investment> items) {

@@ -14,9 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,8 +42,10 @@ public class GamblingListFragment extends Fragment {
     Animation grow;
     Animation fade;
 
-    static final int TIME_BETWEEN_TWO_GAMBLING = 6;
+    static final int TIME_BETWEEN_TWO_GAMBLING = 10;
     Timer T;
+
+    NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
 
     public static GamblingListFragment newInstance() {
 
@@ -133,7 +137,7 @@ public class GamblingListFragment extends Fragment {
                             text = getString(R.string.gambling_no_win);
                             wonMoneyText.setTextColor(getResources().getColor(R.color.darkRed));
                         } else {
-                            text = "You won " + wonMoney + "$";
+                            text = "You won " + nf.format(wonMoney) + "$";
                             game.earnMoney(wonMoney);
                             wonMoneyText.setTextColor(getResources().getColor(R.color.orange));
                         }
@@ -254,6 +258,8 @@ public class GamblingListFragment extends Fragment {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.MINUTE, TIME_BETWEEN_TWO_GAMBLING);
+        //cal.add(Calendar.SECOND, 15);
+
         game.gameState.setNextAllowedGamblingDate(cal);
 
     }

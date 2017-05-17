@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import hu.uniobuda.nik.betherichest.GameObjects.Gambling;
 import hu.uniobuda.nik.betherichest.R;
@@ -26,6 +28,8 @@ public class GamblingAdapter extends BaseAdapter {
     private TextView winAmountTextView;
     private TextView chanceTextView;
     private ImageView imageView;
+
+    NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
 
     public GamblingAdapter(List<Gambling> items) {
         this.items = items;
@@ -76,7 +80,7 @@ public class GamblingAdapter extends BaseAdapter {
         nameTextView.setText(gambling.getName());
 
         descriptionTextView.setText(String.valueOf(gambling.getDescription()));
-        winAmountTextView.setText("Win amount: " + String.valueOf(gambling.getMinWinAmount()) + " - " + gambling.getMaxWinAmount() + "$");
+        winAmountTextView.setText("Win amount: " + nf.format(gambling.getMinWinAmount()) + " - " + nf.format(gambling.getMaxWinAmount()) + "$");
         chanceTextView.setText("Chance: " + String.valueOf((int) gambling.getChance()) + "%");
         imageView.setBackgroundResource(gambling.getImageResource());
 
