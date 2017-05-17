@@ -253,7 +253,6 @@ public class GamblingListFragment extends Fragment {
     private void setGamblingDates() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        //game.gameState.setLastGamblingDate(cal);
         cal.add(Calendar.MINUTE, TIME_BETWEEN_TWO_GAMBLING);
         game.gameState.setNextAllowedGamblingDate(cal);
 
@@ -262,18 +261,12 @@ public class GamblingListFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(tooMuchToast != null){
-            tooMuchToast.cancel();
-        }
         T.purge();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if(tooMuchToast != null){
-            tooMuchToast.cancel();
-        }
         T.purge();
     }
 }

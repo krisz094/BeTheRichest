@@ -52,10 +52,10 @@ public class UpgradeFactory {
         int[] rankOfIdNeeded = new int[]{1, 5, 25, 50 };
 
         //Click doubler config
-        long[] clickDoublerPrices = new long[]{100, 500, 5000};
+        long[] clickDoublerPrices = new long[]{1000, 5000, 100000};
 
         //Click global incrementer config
-        final long[] globalIncrementPrices = new long[]{10000, Million(0.1), Million(0.5), Million(5), Million(25), Million(200), Million(500),Million(5000)};
+        final long[] globalIncrementPrices = new long[]{50000, Million(0.1), Million(0.5), Million(5), Million(25), Million(200), Million(500),Million(5000)};
         final double[] moneyForEachGlobalIncrement = new double[]{0.1, 0.5, 2, 10, 25, 100, 200, 500};
 
         //Total money per sec upgrades
@@ -73,12 +73,10 @@ public class UpgradeFactory {
         if (
                 multipliers.length != rankOfIdNeeded.length ||
                         globalIncrementPrices.length != moneyForEachGlobalIncrement.length ||
-                        //MPSUpgradePrices.length != MPSUpgradePercent.length ||
                         GamblingChanceDoublerPrices.length != GamblingChanceIncrements.length ||
                         multipliers.length > colors.length ||
                         clickDoublerPrices.length > colors.length ||
                         globalIncrementPrices.length > colors.length ||
-                        //MPSUpgradePrices.length > colors.length ||
                         GamblingRewardDoublerPrices.length > colors.length ||
                         GamblingChanceDoublerPrices.length > colors.length
                 ) {
@@ -96,9 +94,6 @@ public class UpgradeFactory {
             for (int multiplier : multipliers) {
                 List<ConditionalProvider> conditions = new ArrayList<>();
                 conditions.add(new RankOfIDNeeded(investment.getId(), rankOfIdNeeded[multiplIdx]));
-//                if (prevId != null) {
-//                    conditions.add(new UpgradeWithIDUnlocked(prevId));
-//                }
                 ConditionalProvider[] conditionsArray = new ConditionalProvider[conditions.size()];
                 conditions.toArray(conditionsArray);
                 AddToMap(new Upgrade(
@@ -111,7 +106,6 @@ public class UpgradeFactory {
                         investment.getImageResource(),
                         colors[multiplIdx]
                 ), map);
-                prevId = currId;
                 investment.addRelevantUpgrade(currId);
                 multiplIdx++;
                 currId++;
@@ -125,9 +119,6 @@ public class UpgradeFactory {
         prevId = null;
         for (long price : clickDoublerPrices) {
             List<ConditionalProvider> conditions = new ArrayList<>();
-//            if (prevId != null) {
-//                conditions.add(new UpgradeWithIDUnlocked(prevId));
-//            }
             ConditionalProvider[] conditionsArray = new ConditionalProvider[conditions.size()];
             conditions.toArray(conditionsArray);
             AddToMap(new Upgrade(
@@ -141,7 +132,6 @@ public class UpgradeFactory {
                     colors[multiplIdx]
             ), map);
             currentGame.addClickRelevantUpgrade(currId);
-            prevId = currId;
             multiplIdx++;
             currId++;
         }
@@ -151,9 +141,6 @@ public class UpgradeFactory {
         prevId = null;
         for (long price : globalIncrementPrices) {
             List<ConditionalProvider> conditions = new ArrayList<>();
-//            if (prevId != null) {
-//                conditions.add(new UpgradeWithIDUnlocked(prevId));
-//            }
             ConditionalProvider[] conditionsArray = new ConditionalProvider[conditions.size()];
             conditions.toArray(conditionsArray);
             AddToMap(new Upgrade(
@@ -167,7 +154,6 @@ public class UpgradeFactory {
                     colors[multiplIdx]
             ), map);
             currentGame.addClickRelevantUpgrade(currId);
-            prevId = currId;
             multiplIdx++;
             currId++;
         }
@@ -202,7 +188,6 @@ public class UpgradeFactory {
 
         currId = 400000;
         multiplIdx = 0;
-        //prevId = null;
         for (long price : GamblingRewardDoublerPrices) {
             AddToMap(new Upgrade(
                     currId,
@@ -215,7 +200,6 @@ public class UpgradeFactory {
                     colors[multiplIdx]
             ), map);
             currentGame.addGamblingRewardRelevantUpgrade(currId);
-            //prevId = currId;
             multiplIdx++;
             currId++;
         }
@@ -234,7 +218,6 @@ public class UpgradeFactory {
                     colors[multiplIdx]
             ), map);
             currentGame.addGamblingChanceRelevantUpgrade(currId);
-            //prevId = currId;
             multiplIdx++;
             currId++;
         }

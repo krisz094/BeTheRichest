@@ -1,17 +1,12 @@
 package hu.uniobuda.nik.betherichest.GameObjects;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Handler;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import hu.uniobuda.nik.betherichest.Interfaces.DatabaseHandler;
@@ -26,6 +21,8 @@ public class State {
     private HashMap<Integer, Boolean> UpgradeIdUnlocked;
     //InvestmentRankById
     private HashMap<Integer, Integer> InvestmentIdRank; //ezt vissza majd privátra
+    SQLiteDatabase dbWriteable;
+    SQLiteDatabase dbReadable;
 
     public List<Integer> getDisplayableUpgradeId() {
         return DisplayableUpgradeId;
@@ -55,6 +52,7 @@ public class State {
     public void setNextAllowedGamblingDate(Calendar nextAllowedGamblingDate) {
         this.nextAllowedGamblingDate = nextAllowedGamblingDate;
     }
+
     public State() {
         currentMoney = 0d;
         UpgradeIdUnlocked = new HashMap<>();
@@ -83,13 +81,13 @@ public class State {
 
 
     public void saveState(DatabaseHandler Handler) {
-        Handler.saveMoney(currentMoney);
-        SQLiteDatabase db = Handler.deleteInvestments();
+        dbWriteable = Handler.createWriteableDatabase();
+        dbWriteable = Handler.deleteInvestments(dbWriteable);
+        dbWriteable = Handler.saveMoney(currentMoney, dbWriteable);
         for (Map.Entry<Integer, Integer> entry : InvestmentIdRank.entrySet()) {
-            Handler.saveInvestment(entry.getKey(), entry.getValue(), db);
+            dbWriteable = Handler.saveInvestment(entry.getKey(), entry.getValue(), dbWriteable);
         }
-        Handler.closeDatabase(db);
-        db = Handler.deleteUpgrade();
+        dbWriteable = Handler.deleteUpgrade(dbWriteable);
         Integer a;
         for (Map.Entry<Integer, Boolean> entry : UpgradeIdUnlocked.entrySet()) {
             if (entry.getValue()) {
@@ -97,19 +95,20 @@ public class State {
             } else {
                 a = 0;
             }
-            Handler.saveUpgrade(entry.getKey(), a, db);
+            dbWriteable = Handler.saveUpgrade(entry.getKey(), a, dbWriteable);
         }
-        //Handler.saveLastGamblingDate(ConvertCalendarToString(lastGamblingDate));
-        db = Handler.deleteDisplayedUpgrades();
-        for (Upgrade upgrade :Game.Get().getDisplayableUpgrades()) {
+        dbWriteable = Handler.deleteDisplayedUpgrades(dbWriteable);
+        for (Upgrade upgrade : Game.Get().getDisplayableUpgrades()) {
             DisplayableUpgradeId.add(upgrade.getId());
-            Handler.saveDisplayedUpgrade(upgrade.getId(),db);
+            dbWriteable = Handler.saveDisplayedUpgrade(upgrade.getId(), dbWriteable);
         }
-        Handler.saveNextAllowedGamblingDate(nextAllowedGamblingDate.getTimeInMillis());
-        Handler.closeDatabase(db);
+        dbWriteable = Handler.saveNextAllowedGamblingDate(nextAllowedGamblingDate.getTimeInMillis(), dbWriteable);
+        Handler.closeDatabase(dbWriteable);
     }
 
+
     public void loadState(DatabaseHandler Handler) throws ParseException {
+        dbReadable = Handler.createReadableDatabase();
         currentMoney = Handler.loadMoney();
         Handler.loadInvestments(InvestmentIdRank);
         Handler.loadUpGrades(UpgradeIdUnlocked);
@@ -117,30 +116,12 @@ public class State {
         if (nextAllowedGamblingDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis() > 0) {
             isGamblingTimerRunning = true;
         }
-        DisplayableUpgradeId=new ArrayList<>();
+        DisplayableUpgradeId = new ArrayList<>();
         Handler.loadDisplayedUpgades(DisplayableUpgradeId);
-        for(Integer id :DisplayableUpgradeId)
-        {
+        for (Integer id : DisplayableUpgradeId) {
             Game.Get().setUpgrades(id);
         }
-
-    }
-
-    private String ConvertCalendarToString(Calendar cal) {
-        final String timeString = new SimpleDateFormat("HH:mm:ss:SSS").format(cal.getTime());
-        return timeString;
-    }
-
-    private Calendar ConvertStringToCalendar(String timeString) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss:SSS", Locale.ENGLISH);
-        Calendar cal = sdf.getCalendar();
-        if (timeString == null) {
-            cal.setTime(new Date());
-        } else {
-            Date date = sdf.parse(timeString);
-            cal.setTime(date);
-        }
-        return cal;
+        Handler.closeDatabase(dbReadable);
     }
 
     public boolean getIsGamblingTimerRunning() {

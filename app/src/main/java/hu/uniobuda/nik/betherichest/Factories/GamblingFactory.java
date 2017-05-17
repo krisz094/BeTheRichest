@@ -24,7 +24,7 @@ public class GamblingFactory {
                 "Scratch off the paper, and see if Fortuna is by your side.",
                 200,
                 1000,
-                60,
+                30,
                 R.drawable.scratchoff,
                 currentGame
         ), map);

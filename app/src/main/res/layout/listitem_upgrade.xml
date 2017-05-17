@@ -14,15 +14,13 @@
         android:id="@+id/layout"
         android:layout_width="80dp"
         android:layout_height="80dp"
-
         android:layout_centerHorizontal="true"
-
         >
 
         <ImageView
-            android:id="@+id/invIcon"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:id="@+id/upgradeIcon"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"

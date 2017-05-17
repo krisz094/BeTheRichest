@@ -7,4 +7,5 @@
     <string name="gambling_won_money">You won %1$d$</string>
     <string name="gambling_no_win">You won nothing</string>
     <string name="investment_dps">DPS: %1$d</string>
+    <string name="not_enough_money">You don\'t have enough money</string>
 </resources>

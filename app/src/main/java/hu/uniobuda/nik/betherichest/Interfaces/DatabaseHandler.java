@@ -26,114 +26,99 @@ public class DatabaseHandler {
     private static final String TABLE_INVESTMENTS = "Investments";
     private static final String TABLE_MONEY = "Money";
     private static final String TABLE_UPGRADES = "Upgrades";
-    private static final String TABLE_LASTGAMBLINGDATE = "LastGamblingDate";
     private static final String TABLE_NEXTALLOWEDGAMBLINGDATE = "NextAllowedGamblingDate";
-    private static final String TABLE_DISPLAYEDINVESTMENTS="DisplayedInvestments";
+    private static final String TABLE_DISPLAYEDINVESTMENTS = "DisplayedInvestments";
 
     public DBHelper dbHelper;
+    SQLiteDatabase dbReadable;
+    SQLiteDatabase dbWriteable;
 
     public DatabaseHandler(Context context) {
         dbHelper = new DBHelper(context);
+        dbReadable = dbHelper.getReadableDatabase();
+        dbWriteable = dbHelper.getWritableDatabase();
     }
 
-    //Save nél elösször delete() utána bejárni a listát és insert
-
-    public long saveDisplayedUpgrade(Integer _id, SQLiteDatabase db) {
-        //SQLiteDatabase db = deleteDisplayedInvestments();
+    public SQLiteDatabase saveDisplayedUpgrade(Integer _id, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("displayedId", _id);
-        long id = db.insert(TABLE_DISPLAYEDINVESTMENTS, null, values);
-        return id;
+        db.insert(TABLE_DISPLAYEDINVESTMENTS, null, values);
+        return db;
     }
 
-    public SQLiteDatabase deleteDisplayedUpgrades() {
+    public SQLiteDatabase deleteDisplayedUpgrades(SQLiteDatabase db) {
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISPLAYEDINVESTMENTS);
         db.execSQL("CREATE TABLE " + TABLE_DISPLAYEDINVESTMENTS + "(" +
                 "displayedId INTEGER PRIMARY KEY" +
                 ")");
-        //db.close();
         return db;
     }
 
-    //ITT VANNAK A GAMBLINGES MÓKÁK
-    public long saveNextAllowedGamblingDate(long nextAllowedGamblingDate) {
-        SQLiteDatabase db = deleteNextAllowedGamblingDate();
+    public SQLiteDatabase saveNextAllowedGamblingDate(long nextAllowedGamblingDate, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("nextAllowedDate", nextAllowedGamblingDate);
-        long id = db.insert(TABLE_NEXTALLOWEDGAMBLINGDATE, null, values);
-        return id;
+        db.insert(TABLE_NEXTALLOWEDGAMBLINGDATE, null, values);
+        return db;
     }
 
     private SQLiteDatabase deleteNextAllowedGamblingDate() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEXTALLOWEDGAMBLINGDATE);
         db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
-                "nextAllowedDate REAL PRIMARY KEY" +
+                "nextAllowedDate REAL" +
                 ")");
         return db;
     }
 
-    public long saveMoney(double currentmoney) {
-        SQLiteDatabase db = deleteMoney();
-        //SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public SQLiteDatabase saveMoney(double currentMoney, SQLiteDatabase db) {
+        db = deleteMoney();
         ContentValues values = new ContentValues();
-        values.put("currentMoney", currentmoney);
-        long id = db.insert(TABLE_MONEY, null, values);
-        db.close();
-        return id;
+        values.put("currentMoney", currentMoney);
+        db.insert(TABLE_MONEY, null, values);
+        return db;
     }
 
     private SQLiteDatabase deleteMoney() {
-
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MONEY);
         db.execSQL("CREATE TABLE " + TABLE_MONEY + "(" +
-                "currentMoney REAL PRIMARY KEY" +
+                "currentMoney REAL" +
                 ")");
-        //db.close();
         return db;
     }
 
-    public long saveInvestment(int _id, int rank, SQLiteDatabase db) {
-        //SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public SQLiteDatabase saveInvestment(int _id, int rank, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("_id", _id);
         values.put("rank", rank);
-        long id = db.insert(TABLE_INVESTMENTS, null, values);
-        //db.close();
-        return id;
+        db.insert(TABLE_INVESTMENTS, null, values);
+        return db;
     }
 
-    public SQLiteDatabase deleteInvestments() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public SQLiteDatabase deleteInvestments(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INVESTMENTS);
         db.execSQL(
                 "CREATE TABLE " + TABLE_INVESTMENTS + "(" +
                         "_id   INTEGER PRIMARY KEY," +
                         "rank  INTEGER" +
                         ")");
-        //db.close();
         return db;
     }
 
 
-    public long saveUpgrade(int _id, int rank, SQLiteDatabase db) {
-        long id = 0;
+    public SQLiteDatabase saveUpgrade(int _id, int rank, SQLiteDatabase db) {
         if (rank == 1) {
-            //SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put("_id", _id);
             values.put("rank", rank);
-            id = db.insert(TABLE_UPGRADES, null, values);
-            //db.close();
+            db.insert(TABLE_UPGRADES, null, values);
         }
-        return id;
+        return db;
     }
 
-    public SQLiteDatabase deleteUpgrade() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public SQLiteDatabase deleteUpgrade(SQLiteDatabase db) {
+        db = dbHelper.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPGRADES);
         db.execSQL("CREATE TABLE " + TABLE_UPGRADES + "(" +
                 "_id   INTEGER PRIMARY KEY," +
@@ -148,18 +133,13 @@ public class DatabaseHandler {
         db.close();
     }
 
-    public void openDatabase(SQLiteDatabase db) {
-        db = dbHelper.getWritableDatabase();
-    }
 
     //LOAD
 
     public Cursor loadDisplayedUpgades(List<Integer> list) {
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.query(TABLE_DISPLAYEDINVESTMENTS, null, null, null, null, null, null);
-        result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
-        db.close();
+        Cursor result = dbReadable.query(TABLE_DISPLAYEDINVESTMENTS, null, null, null, null, null, null);
+        result.moveToFirst();
         while (!result.isAfterLast()) {
             Integer id = result.getInt(result.getColumnIndex("displayedId"));
             list.add(id);
@@ -167,12 +147,11 @@ public class DatabaseHandler {
         }
         return result;
     }
+
     public Cursor loadInvestments(HashMap<Integer, Integer> investmentIdRank) {
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.query(TABLE_INVESTMENTS, null, null, null, null, null, null);
-        result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
-        db.close();
+        Cursor result = dbReadable.query(TABLE_INVESTMENTS, null, null, null, null, null, null);
+        result.moveToFirst();
         while (!result.isAfterLast()) {
             Integer id = result.getInt(result.getColumnIndex("_id"));
             Integer rank = result.getInt(result.getColumnIndex("rank"));
@@ -181,11 +160,10 @@ public class DatabaseHandler {
         }
         return result;
     }
+
     public Cursor loadUpGrades(HashMap<Integer, Boolean> upgradeIdUnlocked) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.query(TABLE_UPGRADES, null, null, null, null, null, null);
-        result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
-        db.close();
+        Cursor result = dbReadable.query(TABLE_UPGRADES, null, null, null, null, null, null);
+        result.moveToFirst();
         while (!result.isAfterLast()) {
             Integer id = result.getInt(result.getColumnIndex("_id"));
             Boolean rank;
@@ -199,28 +177,34 @@ public class DatabaseHandler {
         }
         return result;
     }
+
     public Double loadMoney() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.query(TABLE_MONEY, null, null, null, null, null, null);
-        result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
-        db.close();
+        Cursor result = dbReadable.query(TABLE_MONEY, null, null, null, null, null, null);
+        result.moveToFirst();
         if (result.getCount() == 0) {
             return 0.0;
         } else {
             return result.getDouble(result.getColumnIndex("currentMoney"));
         }
     }
-    public long loadNextAllowedGamblingDate()
-    {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.query(TABLE_NEXTALLOWEDGAMBLINGDATE, null, null, null, null, null, null);
-        result.moveToFirst();  // kurzor előremozgatása, alapból a végén állt meg
-        db.close();
+
+    public long loadNextAllowedGamblingDate() {
+        Cursor result = dbReadable.query(TABLE_NEXTALLOWEDGAMBLINGDATE, null, null, null, null, null, null);
+        result.moveToFirst();
         if (result.getCount() == 0) {
             return 0;
         } else {
             return result.getLong(result.getColumnIndex("nextAllowedDate"));
         }
+    }
+
+    public SQLiteDatabase createWriteableDatabase() {
+        return dbHelper.getWritableDatabase();
+    }
+
+    public SQLiteDatabase createReadableDatabase() {
+        return dbHelper.getReadableDatabase();
+
     }
 
     public class DBHelper extends SQLiteOpenHelper {
@@ -229,31 +213,21 @@ public class DatabaseHandler {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
-        public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-            super(context, name, factory, version);
-        }
-
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(
                     "CREATE TABLE " + TABLE_INVESTMENTS + "(" +
                             "_id   INTEGER PRIMARY KEY," +
-                            "rank  INTEGER" +
-                            ")"
-            );
+                            "rank  INTEGER" + ")");
             db.execSQL("CREATE TABLE " + TABLE_UPGRADES + "(" +
                     "_id   INTEGER PRIMARY KEY," +
-                    "rank  INTEGER" +
-                    ")");
+                    "rank  INTEGER" +")");
             db.execSQL("CREATE TABLE " + TABLE_MONEY + "(" +
-                    "currentMoney REAL PRIMARY KEY" +
-                    ")");
+                    "currentMoney REAL" + ")");
             db.execSQL("CREATE TABLE " + TABLE_NEXTALLOWEDGAMBLINGDATE + "(" +
-                    "nextAllowedDate REAL PRIMARY KEY" +
-                    ")");
+                    "nextAllowedDate" + ")");
             db.execSQL("CREATE TABLE " + TABLE_DISPLAYEDINVESTMENTS + "(" +
-                    "displayedId INTEGER PRIMARY KEY" +
-                    ")");
+                    "displayedId INTEGER PRIMARY KEY" + ")");
         }
 
         @Override

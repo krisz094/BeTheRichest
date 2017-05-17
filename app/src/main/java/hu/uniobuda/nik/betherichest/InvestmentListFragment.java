@@ -46,9 +46,6 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (noMoneyToast != null) {
-            noMoneyToast.cancel();
-        }
     }
 
     Toast noMoneyToast = null;
@@ -88,7 +85,7 @@ public class InvestmentListFragment extends android.support.v4.app.Fragment {
                     noMoneyToast =
                     Toast.makeText(
                             getContext(),
-                            "You don't have enough money",
+                            R.string.not_enough_money,
                             Toast.LENGTH_SHORT
                     );
                     noMoneyToast.show();

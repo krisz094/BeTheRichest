@@ -1,14 +1,14 @@
 package hu.uniobuda.nik.betherichest;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -71,11 +70,23 @@ public class UpgradeAdapter extends BaseAdapter {
             listItemView = view;
         }
 
-
         priceTextView = (TextView) listItemView.findViewById(R.id.price);
-        imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
+        imageView = (ImageView) listItemView.findViewById(R.id.upgradeIcon);
         labelTextView = (TextView) listItemView.findViewById(R.id.multiplier);
         relativeLayout = (RelativeLayout) listItemView.findViewById(R.id.layout);
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+//
+//        android.view.ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
+//        layoutParams.width = (int) (size.x / 4 - size.x * 0.3);
+//        imageView.setLayoutParams(layoutParams);
+
+//        imageView.requestLayout();
+//        imageView.getLayoutParams().width = (int) (size.x / 4 - size.x * 0.3);
+
 
         Upgrade upgrade = items.get(position);
         Glide
@@ -86,35 +97,31 @@ public class UpgradeAdapter extends BaseAdapter {
                 .dontTransform()
                 .into(imageView);
 
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(size.x / 5, size.x / 5);
+        relativeLayout.setLayoutParams(layoutParams);
+//        layoutParams = new RelativeLayout.LayoutParams((int) (size.x / 4 * 0.7), (int) (size.x / 4 * 0.7));
+//        imageView.setLayoutParams(layoutParams);
+
+
+        labelTextView.setTextColor(upgrade.getColor());
+        labelTextView.setText(upgrade.getEffectExtraInfo());
+
+        SetTextColorByAvailability(upgrade);
+
+        CreateColorfulBorder(upgrade);
+
+        ConvertThousandsToSIUnit(upgrade);
+
+        return listItemView;
+    }
+
+    private void SetTextColorByAvailability(Upgrade upgrade) {
         // sets text color based on availability
         if (upgrade.isBuyable()) {
             priceTextView.setTextColor(Color.parseColor("#90EE90"));
         } else {
             priceTextView.setTextColor(Color.parseColor("#F2003C"));
         }
-
-        labelTextView.setTextColor(upgrade.getColor());
-        /*switch (upgrade.getEffect()) {
-
-            case "DoublerEffect":
-                labelTextView.setText("X2");
-                break;
-            case "GlobalIncrementEffect":
-                labelTextView.setText(upgrade.getEffectExtraInfo()); // TODO TO CHANGE
-                break;
-            case "MultiplierEffect":
-                labelTextView.setText("ME"); // TODO TO CHANGE
-                break;
-
-        }*/
-
-        labelTextView.setText(upgrade.getEffectExtraInfo());
-        CreateColorfulBorder(upgrade);
-
-
-        ConvertThousandsToSIUnit(upgrade);
-
-        return listItemView;
     }
 
     private void CreateColorfulBorder(Upgrade upgrade) {
@@ -122,20 +129,21 @@ public class UpgradeAdapter extends BaseAdapter {
         GradientDrawable gd = new GradientDrawable();
         // different borderSize in pixels for different density displays
         gd.setStroke((int) getPixelFromDP(3), upgrade.getColor());
-        gd.setCornerRadius(getPixelFromDP(15));
+        gd.setCornerRadius(getPixelFromDP(13));
         relativeLayout.setBackground(gd);
     }
 
     private void ConvertThousandsToSIUnit(Upgrade upgrade) {
+
         long price = upgrade.getPrice();
         if (price < 10000) {
-            priceTextView.setText(nf.format(upgrade.getPrice()));
+            priceTextView.setText(nf.format(price));
         } else if (price >= 10000 && price < 1000000) {
-            priceTextView.setText(nf.format(price / 1000) + "K");
+            priceTextView.setText(nf.format(price / 1000d) + "K");
         } else if (price >= 1000000 && price < 1000000000) {
-            priceTextView.setText(nf.format(price / 1000000) + "M");
+            priceTextView.setText(nf.format(price / 1000000d) + "M");
         } else if (price >= 1000000000) {
-            priceTextView.setText(nf.format(price / 1000000000) + "B");
+            priceTextView.setText(nf.format(price / 1000000000d) + "B");
         }
     }
 

@@ -27,7 +27,7 @@ public class GamblingAdapter extends BaseAdapter {
     private ImageView imageView;
 
     public GamblingAdapter(List<Gambling> items) {
-        this.items=items;
+        this.items = items;
     }
 
     @Override
@@ -75,8 +75,8 @@ public class GamblingAdapter extends BaseAdapter {
         nameTextView.setText(gambling.getName());
 
         descriptionTextView.setText(String.valueOf(gambling.getDescription()));
-        winAmountTextView.setText("Win amount: " + String.valueOf(gambling.getMinWinAmount())+" - "+gambling.getMaxWinAmount()+"$");
-        chanceTextView.setText("Chance: " + String.valueOf(gambling.getChance())+"%");
+        winAmountTextView.setText("Win amount: " + String.valueOf(gambling.getMinWinAmount()) + " - " + gambling.getMaxWinAmount() + "$");
+        chanceTextView.setText("Chance: " + String.valueOf((int) gambling.getChance()) + "%");
         imageView.setBackgroundResource(gambling.getImageResource());
 
         return listItemView;

@@ -1,10 +1,6 @@
 package hu.uniobuda.nik.betherichest;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.nfc.Tag;
-import android.provider.CalendarContract;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,14 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.data.StreamAssetPathFetcher;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-import hu.uniobuda.nik.betherichest.GameObjects.Game;
 import hu.uniobuda.nik.betherichest.GameObjects.Investment;
 
 /**
@@ -73,7 +66,7 @@ public class InvestmentAdapter extends BaseAdapter {
         dpsPerRankTextView = (TextView) listItemView.findViewById(R.id.dpsPerRank);
         rankTextView = (TextView) listItemView.findViewById(R.id.rank);
         totalDPSTextView = (TextView) listItemView.findViewById(R.id.total);
-        imageView = (ImageView) listItemView.findViewById(R.id.invIcon);
+        imageView = (ImageView) listItemView.findViewById(R.id.upgradeIcon);
 
         Investment investment = items.get(position);
         Glide
