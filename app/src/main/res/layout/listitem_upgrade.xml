@@ -4,13 +4,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="7dp">
+    android:padding="7dp"
+    android:layout_columnWeight="1"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    >
 
     <RelativeLayout
         android:id="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="2dp"
+        android:layout_centerHorizontal="true"
         >
 
         <ImageView
@@ -19,7 +24,9 @@
             android:layout_height="55dp"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:layout_centerHorizontal="true"
+            />
 
         <TextView
             android:id="@+id/multiplier"
@@ -35,14 +42,18 @@
             android:shadowRadius="10"
             android:shadowDx="2"
             android:shadowDy="2"
+            android:layout_centerHorizontal="true"
             />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/pricelayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        >
 
         <TextView
             android:id="@+id/price"
@@ -62,6 +73,7 @@
             android:layout_marginTop="2dp"
             android:layout_toEndOf="@+id/price"
             android:adjustViewBounds="true"
+
             app:srcCompat="@drawable/dollarsmall" />
         />
 

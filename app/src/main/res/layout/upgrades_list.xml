@@ -14,6 +14,9 @@
         android:background="@drawable/blackwood"
         android:dividerHeight="3dp"
         android:numColumns="4"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+
+        />
 
 </RelativeLayout>
